@@ -41,37 +41,62 @@ const StyledFormBody = styled.div`
 `;
 
 const StyledDescriptionTable = styled.div``;
+
 const StyledDescriptionHeaders = styled.div`
     display: grid;
-    grid-template-columns: 0.5fr repeat(7, 1fr);
     grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
     grid-template-rows: repeat(1, 1fr);
     grid-column-gap: auto;
     margin-bottom: 2.75rem;
-    background-color: #00b7ff;
 `;
 
 const StyledDescriptionRow = styled.div`
     display: grid;
-    grid-template-columns: 0.5fr repeat(7, 1fr);
     grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
     grid-template-rows: repeat(1, 1fr);
     grid-column-gap: auto;
     grid-row-gap: 60px;
     margin-bottom: 3.75rem;
-    background-color: orange;
     & .qty,
     .tax,
     .discount {
         width: 3rem;
     }
     & .price {
-        width: 7rem;
+        width: 5rem;
     }
     & .prodServDescription {
         margin-top: 10px;
+        resize: none;
     }
 `;
+
+const StyledDeleteButton = styled.button`
+    height: 1.5rem;
+    width: 1.5rem;
+    background: none;
+    border: none;
+    &:hover {
+        cursor: pointer;
+    }
+    & img:active {
+        opacity: 0.7;
+    }
+`;
+
+const StyledAddButton = styled.button`
+    background: none;
+    border: none;
+    color: #3dadaf;
+    font-weight: 500;
+    &:hover {
+        cursor: pointer;
+    }
+    &:active {
+        opacity: 0.7;
+    }
+`;
+
 // Main funcition
 function Form() {
     /*=========== HOOKS===========*/
@@ -184,7 +209,6 @@ function Form() {
                         <div>TAX</div>
                         <div>Discount</div>
                         <div>Total</div>
-                        {/* <div></div> */}
                     </StyledDescriptionHeaders>
 
                     <StyledDescriptionRow>
@@ -235,14 +259,15 @@ function Form() {
                             </label>
                         </StyledInput>
                         <div>usd 40,000</div>
-                        <button>
+                        <StyledDeleteButton>
                             <img
                                 src="./src/assets/mdi-light_delete.svg"
                                 alt="delete button"
                             />
-                        </button>
+                        </StyledDeleteButton>
                     </StyledDescriptionRow>
                 </StyledDescriptionTable>
+                <StyledAddButton>+ Add a new item</StyledAddButton>
             </StyledFormBody>
         </form>
     );
