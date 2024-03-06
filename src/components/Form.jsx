@@ -58,8 +58,8 @@ const StyledDescriptionRow = styled.div`
     grid-row-gap: 60px;
     margin-bottom: 3.75rem;
     & .qty,
-    .tax,
-    .discount {
+    .taxPercentage,
+    .discountPercentage {
         width: 3rem;
     }
     & .price {
@@ -94,6 +94,47 @@ const StyledAddButton = styled.button`
     }
     &:active {
         opacity: 0.7;
+    }
+`;
+
+const StyledFormFooter = styled.div`
+    & .costSummaries {
+        display: flex;
+    }
+    & div:first-child {
+        margin-right: 30px;
+    }
+    & .costSummaries div {
+        display: flex;
+        flex-direction: column;
+    }
+    & span {
+        font-size: 0.7rem;
+    }
+`;
+
+const StyledFormActionButtons = styled.div`
+    display: flex;
+    justify-content: end;
+    gap: 32px;
+    & .cancelButton {
+        border-radius: 8px;
+        border: 1px solid #e4e0dd;
+        background: #f8f9fa;
+        padding: 8px 32px;
+    }
+    & .cancelButton:active {
+        background: #f0f2f3;
+    }
+    & .createInvoiceButton {
+        border: none;
+        border-radius: 8px;
+        background: #3dadaf;
+        padding: 8px 32px;
+        color: white;
+    }
+    & .createInvoiceButton:active {
+        opacity: 0.8;
     }
 `;
 
@@ -241,19 +282,19 @@ function Form() {
                             </label>
                         </StyledInput>
                         <StyledInput>
-                            <label htmlFor="tax">
+                            <label htmlFor="taxPercentage">
                                 <input
-                                    name="tax"
-                                    className="tax"
+                                    name="taxPercentage"
+                                    className="taxPercentage"
                                     type="number"
                                 />
                             </label>
                         </StyledInput>
                         <StyledInput>
-                            <label htmlFor="discount">
+                            <label htmlFor="discountPercentage">
                                 <input
-                                    name="discount"
-                                    className="discount"
+                                    name="discountPercentage"
+                                    className="discountPercentage"
                                     type="number"
                                 />
                             </label>
@@ -269,6 +310,50 @@ function Form() {
                 </StyledDescriptionTable>
                 <StyledAddButton>+ Add a new item</StyledAddButton>
             </StyledFormBody>
+
+            <hr />
+            <StyledFormFooter>
+                <div className="costSummaries">
+                    <div>
+                        <p>
+                            Subtotal <span>(USD)</span>
+                        </p>
+                        <p>
+                            Total <span>(USD)</span>
+                        </p>
+                        <p>
+                            Discount <span>(USD)</span>
+                        </p>
+                        <p>
+                            {" "}
+                            <b>Total</b>
+                        </p>
+                    </div>
+                    <div>
+                        <p className="subtotalAmount">500.00</p>
+                        <p className="vatAmount">+75.00</p>
+                        <p className="discountAmount">-25.00</p>
+                        <p className="totalAmount">
+                            <b>
+                                <span>USD</span> 550.00
+                            </b>
+                        </p>
+                    </div>
+                </div>
+                <hr />
+
+                <StyledFormActionButtons>
+                    <button id={id + "cancelButton"} className="cancelButton">
+                        Cancel
+                    </button>
+                    <button
+                        id="createInvoiceButton"
+                        className="createInvoiceButton"
+                    >
+                        Create invoice
+                    </button>
+                </StyledFormActionButtons>
+            </StyledFormFooter>
         </form>
     );
 }
