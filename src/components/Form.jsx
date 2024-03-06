@@ -8,6 +8,7 @@ const StyledCompanyDetails = styled.div`
     flex-direction: column;
     align-items: start;
     gap: 0.5rem;
+   
 `;
 const StyledInput = styled.div`
     display: flex;
@@ -34,13 +35,17 @@ const StyledFormHeader = styled.div`
         display: flex;
         gap: 2rem;
     }
+
+
+
+    & input,
+    select {
+        width: 250px;
+        height: 40px;
+        padding: 10px;
+    }
 `;
 
-const StyledFormBody = styled.div`
-    /*  */
-`;
-
-const StyledDescriptionTable = styled.div``;
 
 const StyledDescriptionHeaders = styled.div`
     display: grid;
@@ -65,9 +70,13 @@ const StyledDescriptionRow = styled.div`
     & .price {
         width: 5rem;
     }
+    & .productService {
+        width: 200px;
+    }
     & .prodServDescription {
         margin-top: 10px;
         resize: none;
+        width: 200px;
     }
 `;
 
@@ -240,8 +249,8 @@ function Form() {
             <hr />
 
             <h4>Items</h4>
-            <StyledFormBody>
-                <StyledDescriptionTable>
+            <div>
+                <div>
                     <StyledDescriptionHeaders>
                         <div>Item</div>
                         <div>Product / Service</div>
@@ -256,7 +265,11 @@ function Form() {
                         <div>1</div>
                         <StyledInput>
                             <label htmlFor="productService">
-                                <input name="productService" type="text" />
+                                <input
+                                    name="productService"
+                                    type="text"
+                                    className="productService"
+                                />
                             </label>
                             <textarea
                                 name="prodServDescription"
@@ -307,9 +320,9 @@ function Form() {
                             />
                         </StyledDeleteButton>
                     </StyledDescriptionRow>
-                </StyledDescriptionTable>
+                </div>
                 <StyledAddButton>+ Add a new item</StyledAddButton>
-            </StyledFormBody>
+            </div>
 
             <hr />
             <StyledFormFooter>
