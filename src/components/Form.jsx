@@ -1,6 +1,21 @@
 import styled from "styled-components";
 import { useId, useState } from "react";
 
+/*
+Notes:
+- Made it one big form and didn't split into separate file components so the submit needs to handle everything
+
+TO DO:
+- add hooks to capture and store data inputs
+- create new blank row when add new item button is clicked
+- remove a row item when delete button is clicked
+- calculation for total amount
+- calculaction for cost summaries
+- modify input properties/rules 
+- Research on suitable PDF generators
+
+*/ 
+
 /*=========== STYLED COMPONENTS ===========*/
 
 const StyledCompanyDetails = styled.div`
