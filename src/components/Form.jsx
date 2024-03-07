@@ -345,15 +345,16 @@ function Form() {
                                 </label>
                             </StyledInput>
                             <div>usd 40,000</div>
-                            <StyledDeleteButton>
-                                <img
-                                    src="./src/assets/mdi-light_delete.svg"
-                                    alt="delete button"
-                                />
-                            </StyledDeleteButton>
+                            {index > 0 && (
+                                <StyledDeleteButton>
+                                    <img
+                                        src="./src/assets/mdi-light_delete.svg"
+                                        alt="delete button"
+                                    />
+                                </StyledDeleteButton>
+                            )}
                         </StyledDescriptionRow>
                     ))}
-                    {/* New entries get added here when add button below is clicked */}
                 </div>
                 <StyledAddButton onClick={handleAddNewItem}>
                     + Add a new item
