@@ -170,9 +170,9 @@ function Form() {
         setSelectedCustomer(event.target.value);
     };
 
-    // Function to add a new row 
+    // Function to add a new row
     const handleAddNewItem = (event) => {
-        event.preventDefault(); 
+        event.preventDefault();
         const newItemId = items.length + 1;
         setItems([...items, { id: newItemId }]);
     };
@@ -281,53 +281,64 @@ function Form() {
                     </StyledDescriptionHeaders>
 
                     {items.map((item, index) => (
-                  
                         <StyledDescriptionRow key={item.id}>
                             <div>{index + 1}</div>
                             <StyledInput>
-                                <label htmlFor="productService">
+                                <label htmlFor={`productService-${item.id}`}>
                                     <input
-                                        name="productService"
+                                        id={`productService-${item.id}`}
+                                        name={`productService-${item.id}`}
                                         type="text"
                                         className="productService"
                                     />
                                 </label>
-                                <textarea
-                                    name="prodServDescription"
-                                    className="prodServDescription"
-                                ></textarea>
+                                <label
+                                    htmlFor={`prodServDescription-${item.id}`}
+                                >
+                                    <textarea
+                                        id={`prodServDescription-${item.id}`}
+                                        name={`prodServDescription-${item.id}`}
+                                        className="prodServDescription"
+                                    ></textarea>
+                                </label>
                             </StyledInput>
                             <StyledInput>
-                                <label htmlFor="qty">
+                                <label htmlFor={`qty-${item.id}`}>
                                     <input
-                                        name="qty"
+                                        id={`qty-${item.id}`}
+                                        name={`qty-${item.id}`}
                                         className="qty"
                                         type="number"
                                     />
                                 </label>
                             </StyledInput>
                             <StyledInput>
-                                <label htmlFor="price">
+                                <label htmlFor={`price-${item.id}`}>
                                     <input
-                                        name="price"
+                                        id={`price-${item.id}`}
+                                        name={`price-${item.id}`}
                                         className="price"
                                         type="number"
                                     />
                                 </label>
                             </StyledInput>
                             <StyledInput>
-                                <label htmlFor="taxPercentage">
+                                <label htmlFor={`taxPercentage-${item.id}`}>
                                     <input
-                                        name="taxPercentage"
+                                        id={`taxPercentage-${item.id}`}
+                                        name={`taxPercentage-${item.id}`}
                                         className="taxPercentage"
                                         type="number"
                                     />
                                 </label>
                             </StyledInput>
                             <StyledInput>
-                                <label htmlFor="discountPercentage">
+                                <label
+                                    htmlFor={`discountPercentage-${item.id}`}
+                                >
                                     <input
-                                        name="discountPercentage"
+                                        id={`discountPercentage-${item.id}`}
+                                        name={`discountPercentage-${item.id}`}
                                         className="discountPercentage"
                                         type="number"
                                     />
