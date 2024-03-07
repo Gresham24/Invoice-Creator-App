@@ -14,7 +14,7 @@ TO DO:
 - modify input properties/rules 
 - Research on suitable PDF generators
 
-*/ 
+*/
 
 /*=========== STYLED COMPONENTS ===========*/
 
@@ -23,7 +23,6 @@ const StyledCompanyDetails = styled.div`
     flex-direction: column;
     align-items: start;
     gap: 0.5rem;
-   
 `;
 const StyledInput = styled.div`
     display: flex;
@@ -51,8 +50,6 @@ const StyledFormHeader = styled.div`
         gap: 2rem;
     }
 
-
-
     & input,
     select {
         width: 250px;
@@ -60,7 +57,6 @@ const StyledFormHeader = styled.div`
         padding: 10px;
     }
 `;
-
 
 const StyledDescriptionHeaders = styled.div`
     display: grid;
@@ -165,12 +161,20 @@ const StyledFormActionButtons = styled.div`
 // Main funcition
 function Form() {
     /*=========== HOOKS===========*/
-    const [selectedCustomer, setSelectedCustomer] = useState("");
     const id = useId();
+    const [selectedCustomer, setSelectedCustomer] = useState("");
+    const [items, setItems] = useState([{ id: 1 }]);
 
     // Function to handle selection change
     const handleSelectionChange = (event) => {
         setSelectedCustomer(event.target.value);
+    };
+
+    // Function to add a new row 
+    const handleAddNewItem = (event) => {
+        event.preventDefault(); 
+        const newItemId = items.length + 1;
+        setItems([...items, { id: newItemId }]);
     };
 
     // Object storing customer details
@@ -276,67 +280,73 @@ function Form() {
                         <div>Total</div>
                     </StyledDescriptionHeaders>
 
-                    <StyledDescriptionRow>
-                        <div>1</div>
-                        <StyledInput>
-                            <label htmlFor="productService">
-                                <input
-                                    name="productService"
-                                    type="text"
-                                    className="productService"
+                    {items.map((item, index) => (
+                  
+                        <StyledDescriptionRow key={item.id}>
+                            <div>{index + 1}</div>
+                            <StyledInput>
+                                <label htmlFor="productService">
+                                    <input
+                                        name="productService"
+                                        type="text"
+                                        className="productService"
+                                    />
+                                </label>
+                                <textarea
+                                    name="prodServDescription"
+                                    className="prodServDescription"
+                                ></textarea>
+                            </StyledInput>
+                            <StyledInput>
+                                <label htmlFor="qty">
+                                    <input
+                                        name="qty"
+                                        className="qty"
+                                        type="number"
+                                    />
+                                </label>
+                            </StyledInput>
+                            <StyledInput>
+                                <label htmlFor="price">
+                                    <input
+                                        name="price"
+                                        className="price"
+                                        type="number"
+                                    />
+                                </label>
+                            </StyledInput>
+                            <StyledInput>
+                                <label htmlFor="taxPercentage">
+                                    <input
+                                        name="taxPercentage"
+                                        className="taxPercentage"
+                                        type="number"
+                                    />
+                                </label>
+                            </StyledInput>
+                            <StyledInput>
+                                <label htmlFor="discountPercentage">
+                                    <input
+                                        name="discountPercentage"
+                                        className="discountPercentage"
+                                        type="number"
+                                    />
+                                </label>
+                            </StyledInput>
+                            <div>usd 40,000</div>
+                            <StyledDeleteButton>
+                                <img
+                                    src="./src/assets/mdi-light_delete.svg"
+                                    alt="delete button"
                                 />
-                            </label>
-                            <textarea
-                                name="prodServDescription"
-                                className="prodServDescription"
-                            ></textarea>
-                        </StyledInput>
-                        <StyledInput>
-                            <label htmlFor="qty">
-                                <input
-                                    name="qty"
-                                    className="qty"
-                                    type="number"
-                                />
-                            </label>
-                        </StyledInput>
-                        <StyledInput>
-                            <label htmlFor="price">
-                                <input
-                                    name="price"
-                                    className="price"
-                                    type="number"
-                                />
-                            </label>
-                        </StyledInput>
-                        <StyledInput>
-                            <label htmlFor="taxPercentage">
-                                <input
-                                    name="taxPercentage"
-                                    className="taxPercentage"
-                                    type="number"
-                                />
-                            </label>
-                        </StyledInput>
-                        <StyledInput>
-                            <label htmlFor="discountPercentage">
-                                <input
-                                    name="discountPercentage"
-                                    className="discountPercentage"
-                                    type="number"
-                                />
-                            </label>
-                        </StyledInput>
-                        <div>usd 40,000</div>
-                        <StyledDeleteButton>
-                            <img
-                                src="./src/assets/mdi-light_delete.svg"
-                                alt="delete button"
-                            />
-                        </StyledDeleteButton>
-                    </StyledDescriptionRow>
+                            </StyledDeleteButton>
+                        </StyledDescriptionRow>
+                    ))}
+                    {/* New entries get added here when add button below is clicked */}
                 </div>
-                <StyledAddButton>+ Add a new item</StyledAddButton>
+                <StyledAddButton onClick={handleAddNewItem}>
+                    + Add a new item
+                </StyledAddButton>
             </div>
 
             <hr />
