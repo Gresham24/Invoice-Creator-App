@@ -7,7 +7,6 @@ Notes:
 
 TO DO:
 - add hooks to capture and store data inputs
-- create new blank row when add new item button is clicked
 - remove a row item when delete button is clicked
 - calculation for total amount
 - calculaction for cost summaries
@@ -164,6 +163,7 @@ function Form() {
     const id = useId();
     const [selectedCustomer, setSelectedCustomer] = useState("");
     const [items, setItems] = useState([{ id: 1 }]);
+    const [nextItemId, setNextItemId] = useState(2);
 
     // Function to handle selection change
     const handleSelectionChange = (event) => {
@@ -173,8 +173,15 @@ function Form() {
     // Function to add a new row
     const handleAddNewItem = (event) => {
         event.preventDefault();
-        const newItemId = items.length + 1;
-        setItems([...items, { id: newItemId }]);
+        setItems((prevItems) => [...prevItems, { id: nextItemId }]);
+        setNextItemId((prevId) => prevId + 1);
+    };
+
+    // Function to delete a row item
+    const handleDeleteItem = (event, itemId) => {
+        event.stopPropagation();
+        event.preventDefault();
+        setItems((oldItems) => oldItems.filter((item) => item.id !== itemId));
     };
 
     // Object storing customer details
@@ -346,7 +353,11 @@ function Form() {
                             </StyledInput>
                             <div>usd 40,000</div>
                             {index > 0 && (
-                                <StyledDeleteButton>
+                                <StyledDeleteButton
+                                    onClick={(event) =>
+                                        handleDeleteItem(event, item.id)
+                                    }
+                                >
                                     <img
                                         src="./src/assets/mdi-light_delete.svg"
                                         alt="delete button"
