@@ -159,62 +159,168 @@ const StyledFormActionButtons = styled.div`
     }
 `;
 
+//**========== COMPONENTS=========== **/
+
+const LineItem = ({ item, onUpdate, onDelete, index }) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        onUpdate(item.id, name, value);
+    };
+
+    return (
+        <StyledDescriptionRow>
+            <div>{index}</div>
+            <StyledInput>
+                <label htmlFor="productService">
+                    <input
+                        name="productService"
+                        type="text"
+                        className="productService"
+                        value={item.productService || ""}
+                        onChange={handleChange}
+                    />
+                </label>
+            </StyledInput>
+
+            <StyledInput>
+                <label htmlFor="description">
+                    <textarea
+                        name="description"
+                        type="text"
+                        className="description"
+                        value={item.description || ""}
+                        onChange={handleChange}
+                    />
+                </label>
+            </StyledInput>
+
+            <StyledInput>
+                <label htmlFor="qty">
+                    <input
+                        name="qty"
+                        type="number"
+                        className="qty"
+                        value={item.qty || ""}
+                        onChange={handleChange}
+                    />
+                </label>
+            </StyledInput>
+            <StyledInput>
+                <label htmlFor="price">
+                    <input
+                        name="price"
+                        type="number"
+                        value={item.price || ""}
+                        className="price"
+                        onChange={handleChange}
+                    />
+                </label>
+            </StyledInput>
+            <StyledInput>
+                <label htmlFor="taxPercentage">
+                    <input
+                        name="taxPercentage"
+                        type="number"
+                        value={item.taxPercentage || ""}
+                        className="taxPercentage"
+                        onChange={handleChange}
+                    />
+                </label>
+            </StyledInput>
+            <StyledInput>
+                <label htmlFor="discountPercentage">
+                    <input
+                        name="discountPercentage"
+                        type="number"
+                        value={item.discountPercentage || ""}
+                        className="discountPercentage"
+                        onChange={handleChange}
+                    />
+                </label>
+            </StyledInput>
+            <div>usd 40,000</div>
+            {index > 0 && (
+                <StyledDeleteButton onClick={() => onDelete(item.id)}>
+                    <img
+                        src="./src/assets/mdi-light_delete.svg"
+                        alt="delete button"
+                    />
+                </StyledDeleteButton>
+            )}
+        </StyledDescriptionRow>
+    );
+};
+
+
 // Main funcition
 function Form() {
     /*=========== HOOKS===========*/
 
-    const [selectedCustomer, setSelectedCustomer] = useState("");
-    const [items, setItems] = useState([{ id: 1 }]);
+    // form line items
+    const [items, setItems] = useState([
+        {
+            id: 1,
+            productService: "",
+            description: "",
+            qty: "",
+            price: "",
+            tax: "",
+            discountPercentage: "",
+        },
+    ]);
     const [nextItemId, setNextItemId] = useState(2);
-    // All form details
+    // form header details
     const [details, setDetails] = useState({
         invoiceNumber: "",
         purchaseOrder: "",
         customer: "",
         issueDate: "",
         dueDate: "",
-        productService: "",
-        description: "",
-        qty: "",
-        price: "",
-        tax: "",
-        discount: "",
     });
-    // name={`description-${item.id}`}
-    // name={`qty-${item.id}`}
-    // name={`price-${item.id}`}
-    // name={`taxPercentage-${item.id}`}
-    // name={`discountPercentage-${item.id}`}
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setDetails(prev => {
+        setDetails((prev) => {
             return { ...prev, [name]: value };
         });
-    };
-        console.log(details);
 
+    };
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(details);
+        console.log(details);
+        console.log(items);
     };
 
-    // Function to handle selection change
-    const handleSelectionChange = (event) => {
-        setSelectedCustomer(event.target.value);
-    };
-
-    // Function to add a new row
+    // Function to add a new line item
     const handleAddNewItem = (event) => {
         event.preventDefault();
-        setItems((prevItems) => [...prevItems, { id: nextItemId }]);
+        setItems((prevItems) => [
+            ...prevItems,
+            {
+                id: nextItemId,
+                productService: "",
+                description: "",
+                qty: 0,
+                price: 0,
+                tax: 0,
+                discountPercentage: 0,
+            },
+        ]);
         setNextItemId((prevId) => prevId + 1);
     };
 
-    // Function to delete a row item
-    const handleDeleteItem = (event, itemId) => {
-        event.stopPropagation();
-        event.preventDefault();
+    // Function to handle updates to line item
+    const handleUpdateItem = (id, name, value) => {
+        setItems((prevItems) =>
+            prevItems.map((item) =>
+                item.id === id ? { ...item, [name]: value } : item
+            )
+        );
+    };
+
+    // Function to delete a line item
+    const handleDeleteItem = (itemId) => {
         setItems((oldItems) => oldItems.filter((item) => item.id !== itemId));
     };
 
@@ -338,87 +444,94 @@ function Form() {
                     </StyledDescriptionHeaders>
 
                     {items.map((item, index) => (
-                        <StyledDescriptionRow key={item.id}>
-                            <div>{index + 1}</div>
-                            <StyledInput>
-                                <label htmlFor={`productService-${item.id}`}>
-                                    <input
-                                        onChange={handleChange}
-                                        id={`productService-${item.id}`}
-                                        name={`productService-${item.id}`}
-                                        type="text"
-                                        className="productService"
-                                    />
-                                </label>
-                                <label htmlFor={`description-${item.id}`}>
-                                    <textarea
-                                        onChange={handleChange}
-                                        id={`description-${item.id}`}
-                                        name={`description-${item.id}`}
-                                        className="description"
-                                    ></textarea>
-                                </label>
-                            </StyledInput>
-                            <StyledInput>
-                                <label htmlFor={`qty-${item.id}`}>
-                                    <input
-                                        onChange={handleChange}
-                                        id={`qty-${item.id}`}
-                                        name={`qty-${item.id}`}
-                                        className="qty"
-                                        type="number"
-                                    />
-                                </label>
-                            </StyledInput>
-                            <StyledInput>
-                                <label htmlFor={`price-${item.id}`}>
-                                    <input
-                                        onChange={handleChange}
-                                        id={`price-${item.id}`}
-                                        name={`price-${item.id}`}
-                                        className="price"
-                                        type="number"
-                                    />
-                                </label>
-                            </StyledInput>
-                            <StyledInput>
-                                <label htmlFor={`taxPercentage-${item.id}`}>
-                                    <input
-                                        onChange={handleChange}
-                                        id={`taxPercentage-${item.id}`}
-                                        name={`taxPercentage-${item.id}`}
-                                        className="taxPercentage"
-                                        type="number"
-                                    />
-                                </label>
-                            </StyledInput>
-                            <StyledInput>
-                                <label
-                                    htmlFor={`discountPercentage-${item.id}`}
-                                >
-                                    <input
-                                        onChange={handleChange}
-                                        id={`discountPercentage-${item.id}`}
-                                        name={`discountPercentage-${item.id}`}
-                                        className="discountPercentage"
-                                        type="number"
-                                    />
-                                </label>
-                            </StyledInput>
-                            <div>usd 40,000</div>
-                            {index > 0 && (
-                                <StyledDeleteButton
-                                    onClick={(event) =>
-                                        handleDeleteItem(event, item.id)
-                                    }
-                                >
-                                    <img
-                                        src="./src/assets/mdi-light_delete.svg"
-                                        alt="delete button"
-                                    />
-                                </StyledDeleteButton>
-                            )}
-                        </StyledDescriptionRow>
+                        <LineItem
+                            index={index + 1}
+                            key={item.id}
+                            item={item}
+                            onUpdate={handleUpdateItem}
+                            onDelete={handleDeleteItem}
+                        />
+                        // <StyledDescriptionRow key={item.id}>
+                        //     <div>{index + 1}</div>
+                        //     <StyledInput>
+                        //         <label htmlFor={`productService-${item.id}`}>
+                        //             <input
+                        //                 onChange={handleChange}
+                        //                 id={`productService-${item.id}`}
+                        //                 name={`productService-${item.id}`}
+                        //                 type="text"
+                        //                 className="productService"
+                        //             />
+                        //         </label>
+                        //         <label htmlFor={`description-${item.id}`}>
+                        //             <textarea
+                        //                 onChange={handleChange}
+                        //                 id={`description-${item.id}`}
+                        //                 name={`description-${item.id}`}
+                        //                 className="description"
+                        //             ></textarea>
+                        //         </label>
+                        //     </StyledInput>
+                        //     <StyledInput>
+                        //         <label htmlFor={`qty-${item.id}`}>
+                        //             <input
+                        //                 onChange={handleChange}
+                        //                 id={`qty-${item.id}`}
+                        //                 name={`qty-${item.id}`}
+                        //                 className="qty"
+                        //                 type="number"
+                        //             />
+                        //         </label>
+                        //     </StyledInput>
+                        //     <StyledInput>
+                        //         <label htmlFor={`price-${item.id}`}>
+                        //             <input
+                        //                 onChange={handleChange}
+                        //                 id={`price-${item.id}`}
+                        //                 name={`price-${item.id}`}
+                        //                 className="price"
+                        //                 type="number"
+                        //             />
+                        //         </label>
+                        //     </StyledInput>
+                        //     <StyledInput>
+                        //         <label htmlFor={`taxPercentage-${item.id}`}>
+                        //             <input
+                        //                 onChange={handleChange}
+                        //                 id={`taxPercentage-${item.id}`}
+                        //                 name={`taxPercentage-${item.id}`}
+                        //                 className="taxPercentage"
+                        //                 type="number"
+                        //             />
+                        //         </label>
+                        //     </StyledInput>
+                        //     <StyledInput>
+                        //         <label
+                        //             htmlFor={`discountPercentage-${item.id}`}
+                        //         >
+                        //             <input
+                        //                 onChange={handleChange}
+                        //                 id={`discountPercentage-${item.id}`}
+                        //                 name={`discountPercentage-${item.id}`}
+                        //                 className="discountPercentage"
+                        //                 type="number"
+                        //             />
+                        //         </label>
+                        //     </StyledInput>
+                        //     <div>usd 40,000</div>
+                        //     {index > 0 && (
+                        //         <StyledDeleteButton
+                        //             onClick={(event) =>
+                        //                 handleDeleteItem(event, item.id)
+                        //             }
+                        //         >
+                        //             <img
+                        //                 src="./src/assets/mdi-light_delete.svg"
+                        //                 alt="delete button"
+                        //             />
+                        //         </StyledDeleteButton>
+                        //     )}
+                        // </StyledDescriptionRow>
                     ))}
                 </div>
                 <StyledAddButton onClick={handleAddNewItem}>
