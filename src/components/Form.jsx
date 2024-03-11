@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useId, useState } from "react";
+import { useState } from "react";
 
 /*
 Notes:
@@ -7,11 +7,13 @@ Notes:
 
 TO DO:
 - add hooks to capture and store data inputs
-- remove a row item when delete button is clicked
 - calculation for total amount
 - calculaction for cost summaries
 - modify input properties/rules 
 - Research on suitable PDF generators
+
+
+- add error handling of the invoice
 
 */
 
@@ -159,11 +161,36 @@ const StyledFormActionButtons = styled.div`
 
 // Main funcition
 function Form() {
+
     /*=========== HOOKS===========*/
-    const id = useId();
+
     const [selectedCustomer, setSelectedCustomer] = useState("");
     const [items, setItems] = useState([{ id: 1 }]);
     const [nextItemId, setNextItemId] = useState(2);
+    // All form details
+    const [details, setDetails] = useState({
+        invoiceNumber: "",
+        purchaseOrder: "",
+        Customer: "",
+        issueDate: "",
+        dueDate: "",
+        productService: "",
+        description: "",
+        qty: "",
+        price: "",
+        tax: "",
+        discount: "",
+    });
+
+                                       
+                                        // name={`prodServDescription-${item.id}`}
+                                        // name={`qty-${item.id}`}
+                                        // name={`price-${item.id}`}
+                                        // name={`taxPercentage-${item.id}`}
+                                        // name={`discountPercentage-${item.id}`}
+
+
+    const handleChange = (e) => {};
 
     // Function to handle selection change
     const handleSelectionChange = (event) => {
@@ -222,24 +249,31 @@ function Form() {
 
                 <div className="inputsWrapper">
                     <StyledInput>
-                        <label htmlFor={id + "-invoiceNumber"}>
-                            Invoice number
-                        </label>
-                        <input type="text" id={id + "-invoiceNumber"} />
+                        <label htmlFor="invoiceNumber">Invoice number</label>
+                        <input
+                            onChange={handleChange}
+                            name="invoiceNumber"
+                            type="text"
+                            id="invoiceNumber"
+                        />
                     </StyledInput>
                     <StyledInput>
-                        <label htmlFor={id + "-purchaseOrder"}>
-                            Purchase order
-                        </label>
-                        <input type="text" id={id + "-purchaseOrder"} />
+                        <label htmlFor="purchaseOrder">Purchase order</label>
+                        <input
+                            onChange={handleChange}
+                            name="purchaseOrder"
+                            type="text"
+                            id="purchaseOrder"
+                        />
                     </StyledInput>
                 </div>
 
                 <StyledDropdown>
-                    <label htmlFor={id + "-customer"}>Customer</label>
+                    <label htmlFor="customerName">Customer</label>
                     <select
                         name="customer"
-                        id={id + "-customer"}
+                        id="customerName"
+                        // Modify customer dropdown to be added to handleChange() function
                         onChange={handleSelectionChange}
                     >
                         <option></option>
@@ -257,12 +291,21 @@ function Form() {
 
                 <div className="invoiceDates">
                     <StyledInput>
-                        <label htmlFor={id + "-issueDate"}>Issue date</label>
-                        <input type="date" id={id + "-issueDate"} />
+                        <label htmlFor="issueDate">Issue date</label>
+                        <input
+                            onChange={handleChange}
+                            name="issueDate"
+                            type="date"
+                            id="issueDate"
+                        />
                     </StyledInput>
                     <StyledDropdown>
-                        <label htmlFor={id + "-dueDate"}>Due date</label>
-                        <select name="dueDate" id={id + "-dueDate"}>
+                        <label htmlFor="dueDate">Due date</label>
+                        <select
+                            onChange={handleChange}
+                            name="dueDate"
+                            id="dueDate"
+                        >
                             <option></option>
                             <option value="30days">Next 30 Days</option>
                             <option value="60days">Next 60 Days</option>
@@ -293,6 +336,7 @@ function Form() {
                             <StyledInput>
                                 <label htmlFor={`productService-${item.id}`}>
                                     <input
+                                        onChange={handleChange}
                                         id={`productService-${item.id}`}
                                         name={`productService-${item.id}`}
                                         type="text"
@@ -303,6 +347,7 @@ function Form() {
                                     htmlFor={`prodServDescription-${item.id}`}
                                 >
                                     <textarea
+                                        onChange={handleChange}
                                         id={`prodServDescription-${item.id}`}
                                         name={`prodServDescription-${item.id}`}
                                         className="prodServDescription"
@@ -312,6 +357,7 @@ function Form() {
                             <StyledInput>
                                 <label htmlFor={`qty-${item.id}`}>
                                     <input
+                                        onChange={handleChange}
                                         id={`qty-${item.id}`}
                                         name={`qty-${item.id}`}
                                         className="qty"
@@ -322,6 +368,7 @@ function Form() {
                             <StyledInput>
                                 <label htmlFor={`price-${item.id}`}>
                                     <input
+                                        onChange={handleChange}
                                         id={`price-${item.id}`}
                                         name={`price-${item.id}`}
                                         className="price"
@@ -332,6 +379,7 @@ function Form() {
                             <StyledInput>
                                 <label htmlFor={`taxPercentage-${item.id}`}>
                                     <input
+                                        onChange={handleChange}
                                         id={`taxPercentage-${item.id}`}
                                         name={`taxPercentage-${item.id}`}
                                         className="taxPercentage"
@@ -344,6 +392,7 @@ function Form() {
                                     htmlFor={`discountPercentage-${item.id}`}
                                 >
                                     <input
+                                        onChange={handleChange}
                                         id={`discountPercentage-${item.id}`}
                                         name={`discountPercentage-${item.id}`}
                                         className="discountPercentage"
@@ -404,7 +453,7 @@ function Form() {
                 <hr />
 
                 <StyledFormActionButtons>
-                    <button id={id + "cancelButton"} className="cancelButton">
+                    <button id="cancelButton" className="cancelButton">
                         Cancel
                     </button>
                     <button
