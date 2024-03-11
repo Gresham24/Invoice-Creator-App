@@ -7,14 +7,14 @@ Notes:
 
 TO DO:
 
-- calculation for total amount
+1. add banking details and notes section
+2. Research on suitable PDF generators
+3. Link to PDF reader
+
+Nice to haves:
 - calculaction for cost summaries
 - modify input properties/rules 
-- Research on suitable PDF generators
-
-
 - add error handling of the invoice
-
 */
 
 /*=========== STYLED COMPONENTS ===========*/
@@ -161,7 +161,7 @@ const StyledFormActionButtons = styled.div`
 
 //**========== COMPONENTS=========== **/
 
-const LineItem = ({ item, onUpdate, onDelete, index }) => {
+const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         onUpdate(item.id, name, value);
@@ -170,10 +170,8 @@ const LineItem = ({ item, onUpdate, onDelete, index }) => {
     const subtotal = item.qty * item.price;
     const subTotalWithTax = subtotal * (1 + item.taxPercentage / 100);
     const discountAmount = subTotalWithTax * (item.discountPercentage / 100);
-    const lineItemTotal = parseFloat((subTotalWithTax - discountAmount).toFixed(
-        2)
-    );
-
+    // Round to 2 decimal places and convert back to a number
+    lineItemTotal = parseFloat((subTotalWithTax - discountAmount).toFixed(2));
 
     return (
         <StyledDescriptionRow>
