@@ -85,7 +85,7 @@ const StyledDescriptionRow = styled.div`
     & .productService {
         width: 200px;
     }
-    & .prodServDescription {
+    & .description {
         margin-top: 10px;
         resize: none;
         width: 200px;
@@ -161,7 +161,6 @@ const StyledFormActionButtons = styled.div`
 
 // Main funcition
 function Form() {
-
     /*=========== HOOKS===========*/
 
     const [selectedCustomer, setSelectedCustomer] = useState("");
@@ -171,7 +170,7 @@ function Form() {
     const [details, setDetails] = useState({
         invoiceNumber: "",
         purchaseOrder: "",
-        Customer: "",
+        customer: "",
         issueDate: "",
         dueDate: "",
         productService: "",
@@ -181,16 +180,24 @@ function Form() {
         tax: "",
         discount: "",
     });
+    // name={`description-${item.id}`}
+    // name={`qty-${item.id}`}
+    // name={`price-${item.id}`}
+    // name={`taxPercentage-${item.id}`}
+    // name={`discountPercentage-${item.id}`}
 
-                                       
-                                        // name={`prodServDescription-${item.id}`}
-                                        // name={`qty-${item.id}`}
-                                        // name={`price-${item.id}`}
-                                        // name={`taxPercentage-${item.id}`}
-                                        // name={`discountPercentage-${item.id}`}
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setDetails(prev => {
+            return { ...prev, [name]: value };
+        });
+    };
+        console.log(details);
 
-
-    const handleChange = (e) => {};
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // console.log(details);
+    };
 
     // Function to handle selection change
     const handleSelectionChange = (event) => {
@@ -229,7 +236,7 @@ function Form() {
 
     // Form display
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <StyledFormHeader>
                 <StyledCompanyDetails>
                     <div>
@@ -274,17 +281,17 @@ function Form() {
                         name="customer"
                         id="customerName"
                         // Modify customer dropdown to be added to handleChange() function
-                        onChange={handleSelectionChange}
+                        onChange={handleChange}
                     >
                         <option></option>
                         <option value="Emirates">Emirates Airlines</option>
                         <option value="Mandu">Mandu</option>
                         <option value="Amasuku">Amasuku</option>
                     </select>
-                    {selectedCustomer && (
+                    {details.customer && (
                         <div className="customerDetails">
-                            <p>{customerDetails[selectedCustomer]?.address}</p>
-                            <p>{customerDetails[selectedCustomer]?.phone}</p>
+                            <p>{customerDetails[details.customer]?.address}</p>
+                            <p>{customerDetails[details.customer]?.phone}</p>
                         </div>
                     )}
                 </StyledDropdown>
@@ -343,14 +350,12 @@ function Form() {
                                         className="productService"
                                     />
                                 </label>
-                                <label
-                                    htmlFor={`prodServDescription-${item.id}`}
-                                >
+                                <label htmlFor={`description-${item.id}`}>
                                     <textarea
                                         onChange={handleChange}
-                                        id={`prodServDescription-${item.id}`}
-                                        name={`prodServDescription-${item.id}`}
-                                        className="prodServDescription"
+                                        id={`description-${item.id}`}
+                                        name={`description-${item.id}`}
+                                        className="description"
                                     ></textarea>
                                 </label>
                             </StyledInput>
@@ -457,6 +462,7 @@ function Form() {
                         Cancel
                     </button>
                     <button
+                        type="submit"
                         id="createInvoiceButton"
                         className="createInvoiceButton"
                     >
