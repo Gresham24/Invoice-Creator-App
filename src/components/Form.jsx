@@ -167,6 +167,14 @@ const LineItem = ({ item, onUpdate, onDelete, index }) => {
         onUpdate(item.id, name, value);
     };
 
+    const subtotal = item.qty * item.price;
+    const subTotalWithTax = subtotal * (1 + item.taxPercentage / 100);
+    const discountAmount = subTotalWithTax * (item.discountPercentage / 100);
+    const lineItemTotal = parseFloat((subTotalWithTax - discountAmount).toFixed(
+        2)
+    );
+
+
     return (
         <StyledDescriptionRow>
             <div>{index + 1}</div>
@@ -190,7 +198,6 @@ const LineItem = ({ item, onUpdate, onDelete, index }) => {
                     />
                 </label>
             </StyledInput>
-
             <StyledInput>
                 <label htmlFor="qty">
                     <input
@@ -235,13 +242,7 @@ const LineItem = ({ item, onUpdate, onDelete, index }) => {
                     />
                 </label>
             </StyledInput>
-            <div>
-                {item.qty * item.price * (1 + item.taxPercentage / 100) -
-                    item.qty *
-                        item.price *
-                        (1 + item.taxPercentage / 100) *
-                        (item.discountPercentage / 100)}
-            </div>
+            <div id={"itemTotal" + index}>{lineItemTotal}</div>
             {index > 0 && (
                 <StyledDeleteButton onClick={() => onDelete(item.id)}>
                     <img
@@ -467,7 +468,7 @@ function Form() {
                             Subtotal <span>(USD)</span>
                         </p>
                         <p>
-                            Total <span>(USD)</span>
+                            Total VAT<span>(USD)</span>
                         </p>
                         <p>
                             Discount <span>(USD)</span>
