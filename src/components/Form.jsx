@@ -6,7 +6,7 @@ Notes:
 - Made it one big form and didn't split into separate file components so the submit needs to handle everything
 
 TO DO:
-- add hooks to capture and store data inputs
+
 - calculation for total amount
 - calculaction for cost summaries
 - modify input properties/rules 
@@ -169,7 +169,7 @@ const LineItem = ({ item, onUpdate, onDelete, index }) => {
 
     return (
         <StyledDescriptionRow>
-            <div>{index}</div>
+            <div>{index + 1}</div>
             <StyledInput>
                 <label htmlFor="productService">
                     <input
@@ -445,7 +445,7 @@ function Form() {
 
                     {items.map((item, index) => (
                         <LineItem
-                            index={index + 1}
+                            index={index}
                             key={item.id}
                             item={item}
                             onUpdate={handleUpdateItem}
