@@ -184,6 +184,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         className="productService"
                         value={item.productService || ""}
                         onChange={handleChange}
+                        placeholder="Enter a product"
                     />
                 </label>
                 <label htmlFor="description">
@@ -193,6 +194,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         className="description"
                         value={item.description || ""}
                         onChange={handleChange}
+                        placeholder="Enter a description... (Optional)"
                     />
                 </label>
             </StyledInput>
@@ -204,6 +206,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         className="qty"
                         value={item.qty || ""}
                         onChange={handleChange}
+                        placeholder="0"
                     />
                 </label>
             </StyledInput>
@@ -215,6 +218,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         value={item.price || ""}
                         className="price"
                         onChange={handleChange}
+                        placeholder="0.00"
                     />
                 </label>
             </StyledInput>
@@ -226,6 +230,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         value={item.taxPercentage || ""}
                         className="taxPercentage"
                         onChange={handleChange}
+                        placeholder="% 0"
                     />
                 </label>
             </StyledInput>
@@ -237,6 +242,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         value={item.discountPercentage || ""}
                         className="discountPercentage"
                         onChange={handleChange}
+                        placeholder="%  0"
                     />
                 </label>
             </StyledInput>
@@ -368,6 +374,7 @@ function Form() {
                             name="invoiceNumber"
                             type="text"
                             id="invoiceNumber"
+                            placeholder="Enter invoice number..."
                         />
                     </StyledInput>
                     <StyledInput>
@@ -377,6 +384,7 @@ function Form() {
                             name="purchaseOrder"
                             type="text"
                             id="purchaseOrder"
+                            placeholder="Enter purchase order number..."
                         />
                     </StyledInput>
                 </div>
@@ -386,10 +394,11 @@ function Form() {
                     <select
                         name="customer"
                         id="customerName"
-                        // Modify customer dropdown to be added to handleChange() function
                         onChange={handleChange}
                     >
-                        <option></option>
+                        <option value="" disabled selected>
+                            Select a customer
+                        </option>
                         <option value="Emirates">Emirates Airlines</option>
                         <option value="Mandu">Mandu</option>
                         <option value="Amasuku">Amasuku</option>
@@ -419,7 +428,9 @@ function Form() {
                             name="dueDate"
                             id="dueDate"
                         >
-                            <option></option>
+                            <option value="" disabled selected>
+                                Select a date
+                            </option>
                             <option value="30days">Next 30 Days</option>
                             <option value="60days">Next 60 Days</option>
                             <option value="90days">Next 90 Days</option>
