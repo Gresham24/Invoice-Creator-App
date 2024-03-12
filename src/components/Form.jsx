@@ -132,6 +132,13 @@ const StyledFormFooter = styled.div`
     & span {
         font-size: 0.7rem;
     }
+    & .extraDetails {
+        display: flex;
+    }
+    & .extraDetails textarea {
+        margin-top: 5px;
+        resize: none;
+    }
 `;
 
 const StyledFormActionButtons = styled.div`
@@ -191,6 +198,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                     <textarea
                         name="description"
                         type="text"
+                        rows="3"
                         className="description"
                         value={item.description || ""}
                         onChange={handleChange}
@@ -471,6 +479,33 @@ function Form() {
 
             <hr />
             <StyledFormFooter>
+                <div className="extraDetails">
+                    <StyledInput>
+                        <label htmlFor="notes">Notes</label>
+                        <textarea
+                            name="notes"
+                            id="notes"
+                            cols="30"
+                            rows="5"
+                            placeholder="Enter a description... (Optional)"
+                        />
+                    </StyledInput>
+                    <StyledInput>
+                        <label htmlFor="bankDetails">
+                            Bank account details
+                        </label>
+                        <textarea
+                            name="bankDetails"
+                            id="notes"
+                            cols="30"
+                            rows="5"
+                            placeholder="Enter a description... (Optional)"
+                        />
+                    </StyledInput>
+                </div>
+
+                <hr />
+
                 <div className="costSummaries">
                     <div>
                         <p>
