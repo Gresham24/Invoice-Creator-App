@@ -2,12 +2,8 @@ import styled from "styled-components";
 import { useState } from "react";
 
 /*
-Notes:
-- Made it one big form and didn't split into separate file components so the submit needs to handle everything
 
 TO DO:
-
-1. add banking details and notes section
 2. Research on suitable PDF generators
 3. Link to PDF reader
 
