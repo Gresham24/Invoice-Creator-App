@@ -281,6 +281,8 @@ function Form() {
             price: "",
             taxPercentage: "",
             discountPercentage: "",
+            notes: "",
+            bankDetails: "",
         },
     ]);
     const [nextItemId, setNextItemId] = useState(2);
@@ -403,8 +405,9 @@ function Form() {
                         name="customer"
                         id="customerName"
                         onChange={handleChange}
+                        defaultValue=""
                     >
-                        <option value="" disabled selected>
+                        <option value="" disabled>
                             Select a customer
                         </option>
                         <option value="Emirates">Emirates Airlines</option>
@@ -435,8 +438,9 @@ function Form() {
                             onChange={handleChange}
                             name="dueDate"
                             id="dueDate"
+                            defaultValue=""
                         >
-                            <option value="" disabled selected>
+                            <option value="" disabled >
                                 Select a date
                             </option>
                             <option value="30days">Next 30 Days</option>
@@ -487,6 +491,7 @@ function Form() {
                             id="notes"
                             cols="30"
                             rows="5"
+                            onChange={handleChange}
                             placeholder="Enter a description... (Optional)"
                         />
                     </StyledInput>
@@ -499,6 +504,7 @@ function Form() {
                             id="notes"
                             cols="30"
                             rows="5"
+                            onChange={handleChange}
                             placeholder="Enter a description... (Optional)"
                         />
                     </StyledInput>
