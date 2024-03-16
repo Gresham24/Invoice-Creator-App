@@ -7,11 +7,11 @@ function InvoiceApp() {
         details: {},
         items: [],
     });
-
+ 
     return (
         <FormDataContext.Provider value={{ formValues, setFormValues }}>
             <Form />
-            {/* <FormPrint /> */}
+            <FormPrint />
         </FormDataContext.Provider>
     );
 }

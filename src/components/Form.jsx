@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
-export const FormDataContext = createContext()
+export const FormDataContext = createContext();
 
 /*
 
@@ -300,12 +300,6 @@ function Form() {
         });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(details);
-        console.log(items);
-    };
-
     // Function to add a new line item
     const handleAddNewItem = (event) => {
         event.preventDefault();
@@ -354,213 +348,213 @@ function Form() {
         },
     };
 
+    // Use context to access setFormValues
+    const { setFormValues } = useContext(FormDataContext);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setFormValues({ details, items });
+    };
+
     // Form display
     return (
-            <form onSubmit={handleSubmit}>
-                <StyledFormHeader>
-                    <StyledCompanyDetails>
-                        <div>
-                            <h3 id="name">Masharty Tembo</h3>
-                            <p id="companyName">Web Masters Limited</p>
-                        </div>
-                        <img
-                            src="src/assets/webcoin_web logo.png"
-                            id="companyLogo"
-                            alt="logo"
-                        />
-                        <p id="companyAddress">
-                            1234, Al Malqa <br /> Riyadh 12345, Saudi arabia
-                        </p>
-                        <p id="companyEmail">mohamed.f.ghulam@gmail.com</p>
-                    </StyledCompanyDetails>
-
-                    <div className="inputsWrapper">
-                        <StyledInput>
-                            <label htmlFor="invoiceNumber">
-                                Invoice number
-                            </label>
-                            <input
-                                onChange={handleChange}
-                                name="invoiceNumber"
-                                type="text"
-                                id="invoiceNumber"
-                                placeholder="Enter invoice number..."
-                            />
-                        </StyledInput>
-                        <StyledInput>
-                            <label htmlFor="purchaseOrder">
-                                Purchase order
-                            </label>
-                            <input
-                                onChange={handleChange}
-                                name="purchaseOrder"
-                                type="text"
-                                id="purchaseOrder"
-                                placeholder="Enter purchase order number..."
-                            />
-                        </StyledInput>
+        <form onSubmit={handleSubmit}>
+            <StyledFormHeader>
+                <StyledCompanyDetails>
+                    <div>
+                        <h3 id="name">Masharty Tembo</h3>
+                        <p id="companyName">Web Masters Limited</p>
                     </div>
+                    <img
+                        src="src/assets/webcoin_web logo.png"
+                        id="companyLogo"
+                        alt="logo"
+                    />
+                    <p id="companyAddress">
+                        1234, Al Malqa <br /> Riyadh 12345, Saudi arabia
+                    </p>
+                    <p id="companyEmail">mohamed.f.ghulam@gmail.com</p>
+                </StyledCompanyDetails>
 
-                    <StyledDropdown>
-                        <label htmlFor="customerName">Customer</label>
-                        <select
-                            name="customer"
-                            id="customerName"
+                <div className="inputsWrapper">
+                    <StyledInput>
+                        <label htmlFor="invoiceNumber">Invoice number</label>
+                        <input
                             onChange={handleChange}
+                            name="invoiceNumber"
+                            type="text"
+                            id="invoiceNumber"
+                            placeholder="Enter invoice number..."
+                        />
+                    </StyledInput>
+                    <StyledInput>
+                        <label htmlFor="purchaseOrder">Purchase order</label>
+                        <input
+                            onChange={handleChange}
+                            name="purchaseOrder"
+                            type="text"
+                            id="purchaseOrder"
+                            placeholder="Enter purchase order number..."
+                        />
+                    </StyledInput>
+                </div>
+
+                <StyledDropdown>
+                    <label htmlFor="customerName">Customer</label>
+                    <select
+                        name="customer"
+                        id="customerName"
+                        onChange={handleChange}
+                        defaultValue=""
+                    >
+                        <option value="" disabled>
+                            Select a customer
+                        </option>
+                        <option value="Emirates">Emirates Airlines</option>
+                        <option value="Mandu">Mandu</option>
+                        <option value="Amasuku">Amasuku</option>
+                    </select>
+                    {details.customer && (
+                        <div className="customerDetails">
+                            <p>{customerDetails[details.customer]?.address}</p>
+                            <p>{customerDetails[details.customer]?.phone}</p>
+                        </div>
+                    )}
+                </StyledDropdown>
+
+                <div className="invoiceDates">
+                    <StyledInput>
+                        <label htmlFor="issueDate">Issue date</label>
+                        <input
+                            onChange={handleChange}
+                            name="issueDate"
+                            type="date"
+                            id="issueDate"
+                        />
+                    </StyledInput>
+                    <StyledDropdown>
+                        <label htmlFor="dueDate">Due date</label>
+                        <select
+                            onChange={handleChange}
+                            name="dueDate"
+                            id="dueDate"
                             defaultValue=""
                         >
                             <option value="" disabled>
-                                Select a customer
+                                Select a date
                             </option>
-                            <option value="Emirates">Emirates Airlines</option>
-                            <option value="Mandu">Mandu</option>
-                            <option value="Amasuku">Amasuku</option>
+                            <option value="30days">Next 30 Days</option>
+                            <option value="60days">Next 60 Days</option>
+                            <option value="90days">Next 90 Days</option>
                         </select>
-                        {details.customer && (
-                            <div className="customerDetails">
-                                <p>
-                                    {customerDetails[details.customer]?.address}
-                                </p>
-                                <p>
-                                    {customerDetails[details.customer]?.phone}
-                                </p>
-                            </div>
-                        )}
                     </StyledDropdown>
+                </div>
+            </StyledFormHeader>
 
-                    <div className="invoiceDates">
-                        <StyledInput>
-                            <label htmlFor="issueDate">Issue date</label>
-                            <input
-                                onChange={handleChange}
-                                name="issueDate"
-                                type="date"
-                                id="issueDate"
-                            />
-                        </StyledInput>
-                        <StyledDropdown>
-                            <label htmlFor="dueDate">Due date</label>
-                            <select
-                                onChange={handleChange}
-                                name="dueDate"
-                                id="dueDate"
-                                defaultValue=""
-                            >
-                                <option value="" disabled>
-                                    Select a date
-                                </option>
-                                <option value="30days">Next 30 Days</option>
-                                <option value="60days">Next 60 Days</option>
-                                <option value="90days">Next 90 Days</option>
-                            </select>
-                        </StyledDropdown>
-                    </div>
-                </StyledFormHeader>
+            <hr />
 
-                <hr />
-
-                <h4>Items</h4>
+            <h4>Items</h4>
+            <div>
                 <div>
-                    <div>
-                        <StyledDescriptionHeaders>
-                            <div>Item</div>
-                            <div>Product / Service</div>
-                            <div>QTY</div>
-                            <div>Price</div>
-                            <div>TAX</div>
-                            <div>Discount</div>
-                            <div>Total</div>
-                        </StyledDescriptionHeaders>
+                    <StyledDescriptionHeaders>
+                        <div>Item</div>
+                        <div>Product / Service</div>
+                        <div>QTY</div>
+                        <div>Price</div>
+                        <div>TAX</div>
+                        <div>Discount</div>
+                        <div>Total</div>
+                    </StyledDescriptionHeaders>
 
-                        {items.map((item, index) => (
-                            <LineItem
-                                index={index}
-                                key={item.id}
-                                item={item}
-                                onUpdate={handleUpdateItem}
-                                onDelete={handleDeleteItem}
-                            />
-                        ))}
-                    </div>
-                    <StyledAddButton onClick={handleAddNewItem}>
-                        + Add a new item
-                    </StyledAddButton>
+                    {items.map((item, index) => (
+                        <LineItem
+                            index={index}
+                            key={item.id}
+                            item={item}
+                            onUpdate={handleUpdateItem}
+                            onDelete={handleDeleteItem}
+                        />
+                    ))}
+                </div>
+                <StyledAddButton onClick={handleAddNewItem}>
+                    + Add a new item
+                </StyledAddButton>
+            </div>
+
+            <hr />
+            <StyledFormFooter>
+                <div className="extraDetails">
+                    <StyledInput>
+                        <label htmlFor="notes">Notes</label>
+                        <textarea
+                            name="notes"
+                            id="notes"
+                            cols="30"
+                            rows="5"
+                            onChange={handleChange}
+                            placeholder="Enter a description... (Optional)"
+                        />
+                    </StyledInput>
+                    <StyledInput>
+                        <label htmlFor="bankDetails">
+                            Bank account details
+                        </label>
+                        <textarea
+                            name="bankDetails"
+                            id="notes"
+                            cols="30"
+                            rows="5"
+                            onChange={handleChange}
+                            placeholder="Enter a description... (Optional)"
+                        />
+                    </StyledInput>
                 </div>
 
                 <hr />
-                <StyledFormFooter>
-                    <div className="extraDetails">
-                        <StyledInput>
-                            <label htmlFor="notes">Notes</label>
-                            <textarea
-                                name="notes"
-                                id="notes"
-                                cols="30"
-                                rows="5"
-                                onChange={handleChange}
-                                placeholder="Enter a description... (Optional)"
-                            />
-                        </StyledInput>
-                        <StyledInput>
-                            <label htmlFor="bankDetails">
-                                Bank account details
-                            </label>
-                            <textarea
-                                name="bankDetails"
-                                id="notes"
-                                cols="30"
-                                rows="5"
-                                onChange={handleChange}
-                                placeholder="Enter a description... (Optional)"
-                            />
-                        </StyledInput>
+
+                <div className="costSummaries">
+                    <div>
+                        <p>
+                            Subtotal <span>(USD)</span>
+                        </p>
+                        <p>
+                            Total VAT<span>(USD)</span>
+                        </p>
+                        <p>
+                            Discount <span>(USD)</span>
+                        </p>
+                        <p>
+                            {" "}
+                            <b>Total</b>
+                        </p>
                     </div>
-
-                    <hr />
-
-                    <div className="costSummaries">
-                        <div>
-                            <p>
-                                Subtotal <span>(USD)</span>
-                            </p>
-                            <p>
-                                Total VAT<span>(USD)</span>
-                            </p>
-                            <p>
-                                Discount <span>(USD)</span>
-                            </p>
-                            <p>
-                                {" "}
-                                <b>Total</b>
-                            </p>
-                        </div>
-                        <div>
-                            <p className="subtotalAmount">500.00</p>
-                            <p className="vatAmount">+75.00</p>
-                            <p className="discountAmount">-25.00</p>
-                            <p className="totalAmount">
-                                <b>
-                                    <span>USD</span> 550.00
-                                </b>
-                            </p>
-                        </div>
+                    <div>
+                        <p className="subtotalAmount">500.00</p>
+                        <p className="vatAmount">+75.00</p>
+                        <p className="discountAmount">-25.00</p>
+                        <p className="totalAmount">
+                            <b>
+                                <span>USD</span> 550.00
+                            </b>
+                        </p>
                     </div>
-                    <hr />
+                </div>
+                <hr />
 
-                    <StyledFormActionButtons>
-                        <button id="cancelButton" className="cancelButton">
-                            Cancel
-                        </button>
-                        <button
-                            type="submit"
-                            id="createInvoiceButton"
-                            className="createInvoiceButton"
-                        >
-                            Create invoice
-                        </button>
-                    </StyledFormActionButtons>
-                </StyledFormFooter>
-            </form>
+                <StyledFormActionButtons>
+                    <button id="cancelButton" className="cancelButton">
+                        Cancel
+                    </button>
+                    <button
+                        type="submit"
+                        id="createInvoiceButton"
+                        className="createInvoiceButton"
+                    >
+                        Create invoice
+                    </button>
+                </StyledFormActionButtons>
+            </StyledFormFooter>
+        </form>
     );
 }
 
