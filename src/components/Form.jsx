@@ -279,8 +279,6 @@ function Form() {
             price: "",
             taxPercentage: "",
             discountPercentage: "",
-            notes: "",
-            bankDetails: "",
         },
     ]);
     const [nextItemId, setNextItemId] = useState(2);
@@ -291,6 +289,8 @@ function Form() {
         customer: "",
         issueDate: "",
         dueDate: "",
+        notes: "",
+        bankDetails: "",
     });
 
     const handleChange = (e) => {
@@ -304,7 +304,6 @@ function Form() {
         e.preventDefault();
         console.log(details);
         console.log(items);
-        // console.log(formValues);
     };
 
     // Function to add a new line item
@@ -354,12 +353,6 @@ function Form() {
             phone: "+27769998888",
         },
     };
-
-    // Fetcing state values to use in contenxt
-    // const formValues = {
-    //     details,
-    //     items,
-    // }
 
     // Form display
     return (
