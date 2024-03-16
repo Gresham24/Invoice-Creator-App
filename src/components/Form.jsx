@@ -302,8 +302,9 @@ function Form() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(details);
-        console.log(formValues);
+        console.log(details);
+        console.log(items);
+        // console.log(formValues);
     };
 
     // Function to add a new line item
@@ -355,14 +356,13 @@ function Form() {
     };
 
     // Fetcing state values to use in contenxt
-    const formValues = {
-        details,
-        items,
-    }
+    // const formValues = {
+    //     details,
+    //     items,
+    // }
 
     // Form display
     return (
-        <FormDataContext.Provider value={{ formValues }}>
             <form onSubmit={handleSubmit}>
                 <StyledFormHeader>
                     <StyledCompanyDetails>
@@ -568,7 +568,6 @@ function Form() {
                     </StyledFormActionButtons>
                 </StyledFormFooter>
             </form>
-        </FormDataContext.Provider>
     );
 }
 

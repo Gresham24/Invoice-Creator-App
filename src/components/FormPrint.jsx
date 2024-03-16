@@ -1,7 +1,10 @@
 import { useContext } from 'react'
-import Form from './Form';
+import {FormDataContext} from './Form';
 
-function FormPrint() {
+export default function FormPrint() {
+// console.log(FormDataContext);
+
+  // const {formValues} = useContext(FormDataContext)
 
   return (
       <>
@@ -10,4 +13,4 @@ function FormPrint() {
   );
 }
 
-export default FormPrint
+
