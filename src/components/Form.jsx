@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { createContext, useContext, useState } from "react";
+import {companyDetails, customerDetails} from "./FormData";
 
 export const FormDataContext = createContext();
 
@@ -332,22 +333,6 @@ function Form() {
         setItems((oldItems) => oldItems.filter((item) => item.id !== itemId));
     };
 
-    // Object storing customer details
-    const customerDetails = {
-        Emirates: {
-            address: "Garhoud Area, Dubai - United Arab Emirates",
-            phone: "+971600555555",
-        },
-        Mandu: {
-            address: "Lunkuswe, Lusaka - Zambia",
-            phone: "+26601114444",
-        },
-        Amasuku: {
-            address: "Tryall Road, Milnerton Rural - South Africa  ",
-            phone: "+27769998888",
-        },
-    };
-
     // Use context to access setFormValues
     const { setFormValues } = useContext(FormDataContext);
 
@@ -362,18 +347,12 @@ function Form() {
             <StyledFormHeader>
                 <StyledCompanyDetails>
                     <div>
-                        <h3 id="name">Masharty Tembo</h3>
-                        <p id="companyName">Web Masters Limited</p>
+                        <h3>{companyDetails.name}</h3>
+                        <p>{companyDetails.companyName}</p>
                     </div>
-                    <img
-                        src="src/assets/webcoin_web logo.png"
-                        id="companyLogo"
-                        alt="logo"
-                    />
-                    <p id="companyAddress">
-                        1234, Al Malqa <br /> Riyadh 12345, Saudi arabia
-                    </p>
-                    <p id="companyEmail">mohamed.f.ghulam@gmail.com</p>
+                    <img src={companyDetails.companyLogo} alt="logo" />
+                    <p>{companyDetails.companyAddress}</p>
+                    <p>{companyDetails.companyEmail}</p>
                 </StyledCompanyDetails>
 
                 <div className="inputsWrapper">
