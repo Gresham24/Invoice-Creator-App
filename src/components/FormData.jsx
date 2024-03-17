@@ -3,7 +3,8 @@ const companyDetails = {
     name: "Masharty Tembo",
     companyName: "Web Masters Limited",
     companyLogo: "src/assets/webcoin_web logo.png",
-    companyAddress: "1234, Al Malqa \n Riyadh 12345, Saudi Arabia",
+    companyAddress1: "1234, Al Malqa",
+    companyAddress2: "Riyadh 12345, Saudi Arabia",
     companyEmail: "mohamed.f.ghulam@gmail.com",
 };
 

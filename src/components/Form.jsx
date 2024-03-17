@@ -351,7 +351,8 @@ function Form() {
                         <p>{companyDetails.companyName}</p>
                     </div>
                     <img src={companyDetails.companyLogo} alt="logo" />
-                    <p>{companyDetails.companyAddress}</p>
+                    <p>{companyDetails.companyAddress1}</p>
+                    <p>{companyDetails.companyAddress2}</p>
                     <p>{companyDetails.companyEmail}</p>
                 </StyledCompanyDetails>
 
