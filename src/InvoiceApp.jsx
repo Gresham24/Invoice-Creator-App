@@ -10,8 +10,8 @@ function InvoiceApp() {
 
     return (
         <FormDataContext.Provider value={{ formValues, setFormValues }}>
-            <Form />
             <FormPrint />
+            <Form />
         </FormDataContext.Provider>
     );
 }
