@@ -48,6 +48,20 @@ const StyledInvoiceDetails = styled.div`
     }
 `;
 
+const StyldDescriptionHeaders = styled.div`
+    background-color: #f6f6f6;
+
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    & .flex-right {
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+    }
+`;
+
 export default function FormPrint() {
     const { formValues } = useContext(FormDataContext);
 
@@ -119,6 +133,15 @@ export default function FormPrint() {
                         </div>
                     </div>
                 </StyledInvoiceDetails>
+                <StyldDescriptionHeaders>
+                    <div>Item</div>
+                    <div className="flex-right">
+
+                    <div>Qty</div>
+                    <div>Price</div>
+                    <div>Total</div>
+                    </div>
+                </StyldDescriptionHeaders>
                 {/* <p>Details: {JSON.stringify(formValues.details)}</p> */}
                 {/* <p>Items: {JSON.stringify(formValues.items)}</p> */}
             </StyledPage>
