@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 import styled from "styled-components";
 import { FormDataContext } from "./Form";
 import { companyDetails, customerDetails } from "./FormData";
@@ -8,7 +8,7 @@ const StyledContainer = styled.div`
     margin-bottom: 50px;
     padding: 20px 32px;
     border-radius: 15px;
-    background: #f8f9fa;
+    background: #f1e2ea;
     box-shadow: 0px 15px 48px 0px rgba(46, 47, 58, 0.08);
 `;
 
@@ -50,7 +50,6 @@ const StyledInvoiceDetails = styled.div`
 
 const StyldDescriptionHeaders = styled.div`
     background-color: #f6f6f6;
-
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;
@@ -59,6 +58,36 @@ const StyldDescriptionHeaders = styled.div`
         width: 50%;
         display: flex;
         justify-content: space-between;
+    }
+    & .flex-right div {
+        width: 33.33%;
+        text-align: right;
+    }
+`;
+
+const StyledLineItem = styled.div`
+    color: #5e6470;
+    background-color: white;
+    & .lineItemContainer {
+        background-color: white;
+        padding: 10px 0;
+        margin: 0px 40px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 0.5px solid #d7dae0;
+        & .flex-right {
+            width: 50%;
+            display: flex;
+            text-align: right;
+            justify-content: space-between;
+        }
+        .flex-right p {
+            width: 33.33%;
+            margin: 0; 
+        }
+        & .flex-left p:first-child {
+            color: #333;
+        }
     }
 `;
 
@@ -76,9 +105,7 @@ export default function FormPrint() {
         bankDetails: formValues.details.bankDetails,
     };
 
-    // Storing saved invoice line items
-    const formLineItems = {};
-    console.log(formValues);
+    console.log(formValues.items);
 
     return (
         <StyledContainer>
@@ -134,16 +161,31 @@ export default function FormPrint() {
                     </div>
                 </StyledInvoiceDetails>
                 <StyldDescriptionHeaders>
-                    <div>Item</div>
+                    <div className="flex-left">
+                        <div>Item</div>
+                    </div>
                     <div className="flex-right">
-
-                    <div>Qty</div>
-                    <div>Price</div>
-                    <div>Total</div>
+                        <div>Qty</div>
+                        <div>Price</div>
+                        <div>Total</div>
                     </div>
                 </StyldDescriptionHeaders>
-                {/* <p>Details: {JSON.stringify(formValues.details)}</p> */}
-                {/* <p>Items: {JSON.stringify(formValues.items)}</p> */}
+                {formValues.items.map((lineItem) => (
+                    <StyledLineItem key={lineItem.id}>
+                        <div className="lineItemContainer">
+                            <div className="flex-left">
+                                <p>{lineItem.productService}</p>
+                                <p>{lineItem.description}</p>
+                            </div>
+                            <div className="flex-right">
+                                <p>{lineItem.qty}</p>
+                                <p>{lineItem.price}</p>
+                                <p>#eevfdrgre#</p>
+                            </div>
+                        </div>
+                        {/* <p>{lineItem.lineItemTotal}</p> */}
+                    </StyledLineItem>
+                ))}
             </StyledPage>
         </StyledContainer>
     );
