@@ -112,6 +112,23 @@ const StyledTotalSummaries = styled.div`
     }
 `;
 
+const StyledExtraInfo = styled.div`
+    background-color: white;
+    padding: 110px 0px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    & p {
+        color: #858585;
+    }
+`;
+
+const StyledFooter = styled.div`
+    padding: 40px 0px 40px 40px;
+    background-color: #f6f6f6;
+    font-weight: 500;
+`;
+
 export default function FormPrint() {
     const { formValues } = useContext(FormDataContext);
 
@@ -122,7 +139,7 @@ export default function FormPrint() {
         customer: formValues.details.customer,
         issueDate: formValues.details.issueDate,
         dueDate: formValues.details.dueDate,
-        note: formValues.details.note,
+        notes: formValues.details.notes,
         bankDetails: formValues.details.bankDetails,
     };
 
@@ -216,7 +233,7 @@ export default function FormPrint() {
                             <div className="flex-right">
                                 <p>{lineItem.qty}</p>
                                 <p>{lineItem.price}</p>
-                                <p>#total to calc#</p>
+                                {/* <p>#total to calc#</p> */}
                             </div>
                         </div>
                         {/* <p>{lineItem.lineItemTotal}</p> */}
@@ -240,6 +257,23 @@ export default function FormPrint() {
                         <p>$$$$</p>
                     </div>
                 </StyledTotalSummaries>
+                <StyledExtraInfo>
+                    {formEntryDetails.bankDetails && (
+                        <div className="paymentInfoContainer">
+                            <h4>Payment Infomration:</h4>
+                            <p>{formEntryDetails.bankDetails}</p>
+                        </div>
+                    )}
+                    {formEntryDetails.notes && (
+                        <div className="notesContainer">
+                            <h4>Notes:</h4>
+                            <p>{formEntryDetails.notes}</p>
+                        </div>
+                    )}
+                </StyledExtraInfo>
+                <StyledFooter>
+                    <p>Thank you for your purchase!</p>
+                </StyledFooter>
             </StyledPage>
         </StyledContainer>
     );
