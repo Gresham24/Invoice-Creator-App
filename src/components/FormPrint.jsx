@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { FormDataContext } from "./Form";
 import { companyDetails, customerDetails } from "./FormData";
@@ -8,11 +8,10 @@ const StyledContainer = styled.div`
     margin-bottom: 50px;
     padding: 20px 32px;
     border-radius: 15px;
-    background: #f1e2ea;
     box-shadow: 0px 15px 48px 0px rgba(46, 47, 58, 0.08);
+    background-color: #f8f9fa;
 `;
 
-const StyledPage = styled.div``;
 
 const StyledHeader = styled.div`
     padding: 24px 40px;
@@ -147,7 +146,7 @@ export default function FormPrint() {
 
     return (
         <StyledContainer>
-            <StyledPage>
+            <div>
                 <StyledHeader>
                     <img src={companyDetails.companyLogo} alt="logo" />
                     <div className="title">
@@ -221,7 +220,6 @@ export default function FormPrint() {
                             <p>1500</p>
                         </div>
                     </div>
-                    {/* <p>{lineItem.lineItemTotal}</p> */}
                 </StyledLineItem>
                 {formValues.items.map((lineItem) => (
                     <StyledLineItem key={lineItem.id}>
@@ -233,7 +231,7 @@ export default function FormPrint() {
                             <div className="flex-right">
                                 <p>{lineItem.qty}</p>
                                 <p>{lineItem.price}</p>
-                                {/* <p>#total to calc#</p> */}
+                                <p>#total to calc#</p>
                             </div>
                         </div>
                         {/* <p>{lineItem.lineItemTotal}</p> */}
@@ -274,7 +272,7 @@ export default function FormPrint() {
                 <StyledFooter>
                     <p>Thank you for your purchase!</p>
                 </StyledFooter>
-            </StyledPage>
+            </div>
         </StyledContainer>
     );
 }
