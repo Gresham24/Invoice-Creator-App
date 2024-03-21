@@ -83,13 +83,15 @@ const StyledLineItem = styled.div`
         }
         .flex-right p {
             width: 33.33%;
-            margin: 0; 
+            margin: 0;
         }
         & .flex-left p:first-child {
             color: #333;
         }
     }
 `;
+
+const StyledTotalSummaries = styled.div``;
 
 export default function FormPrint() {
     const { formValues } = useContext(FormDataContext);
@@ -170,6 +172,21 @@ export default function FormPrint() {
                         <div>Total</div>
                     </div>
                 </StyldDescriptionHeaders>
+                {/* Dummy entry to maintain display style */}
+                <StyledLineItem>
+                    <div className="lineItemContainer">
+                        <div className="flex-left">
+                            <p>Design</p>
+                            <p>Mobile and desktop designs</p>
+                        </div>
+                        <div className="flex-right">
+                            <p>1</p>
+                            <p>850</p>
+                            <p>1500</p>
+                        </div>
+                    </div>
+                    {/* <p>{lineItem.lineItemTotal}</p> */}
+                </StyledLineItem>
                 {formValues.items.map((lineItem) => (
                     <StyledLineItem key={lineItem.id}>
                         <div className="lineItemContainer">
@@ -180,12 +197,30 @@ export default function FormPrint() {
                             <div className="flex-right">
                                 <p>{lineItem.qty}</p>
                                 <p>{lineItem.price}</p>
-                                <p>#eevfdrgre#</p>
+                                <p>#total to calc#</p>
                             </div>
                         </div>
                         {/* <p>{lineItem.lineItemTotal}</p> */}
                     </StyledLineItem>
                 ))}
+                <StyledTotalSummaries>
+                    <div className="subtotal">
+                        <p>Subtotal</p>
+                        <p>$</p>
+                    </div>
+                    <div className="taxAmount">
+                        <p>Tax (xx%)</p>
+                        <p>$</p>
+                    </div>
+                    <div className="discountTotal">
+                        <p>Discount (x%)</p>
+                        <p>$</p>
+                    </div>
+                    <div className="totalAmount">
+                        <p>Amount Due</p>
+                        <p>$$$$</p>
+                    </div>
+                </StyledTotalSummaries>
             </StyledPage>
         </StyledContainer>
     );
