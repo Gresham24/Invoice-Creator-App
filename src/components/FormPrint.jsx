@@ -4,12 +4,14 @@ import { FormDataContext } from "./Form";
 import { companyDetails, customerDetails } from "./FormData";
 
 const StyledContainer = styled.div`
+margin: 50px auto;
     margin-top: 50px;
     margin-bottom: 50px;
     padding: 20px 32px;
     border-radius: 15px;
     box-shadow: 0px 15px 48px 0px rgba(46, 47, 58, 0.08);
     background-color: #f8f9fa;
+    max-width: 980px;
 `;
 
 
@@ -146,7 +148,7 @@ export default function FormPrint() {
 
     return (
         <StyledContainer>
-            <div>
+            <div className="page">
                 <StyledHeader>
                     <img src={companyDetails.companyLogo} alt="logo" />
                     <div className="title">
