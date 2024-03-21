@@ -91,7 +91,26 @@ const StyledLineItem = styled.div`
     }
 `;
 
-const StyledTotalSummaries = styled.div``;
+const StyledTotalSummaries = styled.div`
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    & .subtotal,
+    .taxAmount,
+    .discountTotal,
+    .totalAmount {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 40px 10px 0px;
+        width: 33.33%;
+    }
+    & .totalAmount {
+        padding: 10px 0px 10px 0px;
+        border-bottom: #d7dae0 3px solid;
+        border-top: #d7dae0 3px solid;
+    }
+`;
 
 export default function FormPrint() {
     const { formValues } = useContext(FormDataContext);
