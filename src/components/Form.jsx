@@ -481,7 +481,7 @@ function Form() {
                         </label>
                         <textarea
                             name="bankDetails"
-                            id="notes"
+                            id="bankDetails"
                             cols="30"
                             rows="5"
                             onChange={handleChange}
