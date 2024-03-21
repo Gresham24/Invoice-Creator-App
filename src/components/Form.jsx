@@ -163,6 +163,17 @@ const StyledFormActionButtons = styled.div`
     & .createInvoiceButton:active {
         opacity: 0.8;
     }
+    & .previewButton {
+        border: none;
+        border-radius: 8px;
+        background: rgba(61, 173, 175);
+        padding: 8px 32px;
+        color: white;
+        opacity: 0.7;
+    }
+    & .previewButton:active {
+        opacity: 0.5;
+    }
 `;
 
 //**========== COMPONENTS=========== **/
@@ -522,12 +533,13 @@ function Form() {
                 <hr />
 
                 <StyledFormActionButtons>
-                    <button id="cancelButton" className="cancelButton">
+                    <button className="previewButton" >Preview</button>
+                    <button className="cancelButton">
                         Cancel
                     </button>
                     <button
                         type="submit"
-                        id="createInvoiceButton"
+          
                         className="createInvoiceButton"
                     >
                         Create invoice
