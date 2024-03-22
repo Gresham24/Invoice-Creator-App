@@ -4,18 +4,6 @@ import {companyDetails, customerDetails} from "./FormData";
 
 export const FormDataContext = createContext();
 
-/*
-
-TO DO:
-2. Research on suitable PDF generators
-3. Link to PDF reader
-
-Nice to haves:
-- calculaction for cost summaries
-- modify input properties/rules 
-- add error handling of the invoice
-*/
-
 /*=========== STYLED COMPONENTS ===========*/
 
 const StyledCompanyDetails = styled.div`
