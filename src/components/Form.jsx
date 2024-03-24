@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {companyDetails, customerDetails} from "./FormData";
 
 export const FormDataContext = createContext();
@@ -281,7 +281,18 @@ function Form() {
             discountPercentage: "",
         },
     ]);
+
+    // Cost summaries
+    const [totals, setTotals] = useState({
+        subtotal: 0,
+        tax: 0,
+        discount: 0,
+        total: 0,
+    });
+
+    // Line item IDs
     const [nextItemId, setNextItemId] = useState(2);
+
     // form header details
     const [details, setDetails] = useState({
         invoiceNumber: "",
@@ -292,6 +303,34 @@ function Form() {
         notes: "",
         bankDetails: "",
     });
+
+    /*=========== FUNCTIONS ===========*/
+
+    useEffect(() => {
+        calculateTotals();
+    }, [items]);
+
+    const calculateTotals = () => {
+        let subtotal = 0;
+        let taxAmount = 0;
+        let discountAmount = 0;
+
+        items.forEach((item) => {
+            const itemSubtotal = item.qty * item.price;
+            subtotal += itemSubtotal;
+            taxAmount += itemSubtotal * (item.taxPercentage / 100);
+            discountAmount += itemSubtotal * (item.discountPercentage / 100);
+        });
+
+        const total = subtotal + taxAmount - discountAmount;
+
+        setTotals({
+            subtotal: parseFloat(subtotal.toFixed(2)),
+            tax: parseFloat(taxAmount.toFixed(2)),
+            discount: parseFloat(discountAmount.toFixed(2)),
+            total: parseFloat(total.toFixed(2)),
+        });
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -508,12 +547,16 @@ function Form() {
                         </p>
                     </div>
                     <div>
-                        <p className="subtotalAmount">500.00</p>
-                        <p className="vatAmount">+75.00</p>
-                        <p className="discountAmount">-25.00</p>
+                        <p className="subtotalAmount">
+                            {totals.subtotal.toFixed(2)}
+                        </p>
+                        <p className="vatAmount">+{totals.tax.toFixed(2)}</p>
+                        <p className="discountAmount">
+                            -{totals.discount.toFixed(2)}
+                        </p>
                         <p className="totalAmount">
                             <b>
-                                <span>USD</span> 550.00
+                                <span>USD</span> {totals.total.toFixed(2)}
                             </b>
                         </p>
                     </div>
@@ -521,15 +564,9 @@ function Form() {
                 <hr />
 
                 <StyledFormActionButtons>
-                    <button className="previewButton" >Preview</button>
-                    <button className="cancelButton">
-                        Cancel
-                    </button>
-                    <button
-                        type="submit"
-          
-                        className="createInvoiceButton"
-                    >
+                    <button className="previewButton">Preview</button>
+                    <button className="cancelButton">Cancel</button>
+                    <button type="submit" className="createInvoiceButton">
                         Create invoice
                     </button>
                 </StyledFormActionButtons>

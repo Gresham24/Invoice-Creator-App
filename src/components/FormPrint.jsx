@@ -144,7 +144,9 @@ export default function FormPrint() {
         bankDetails: formValues.details.bankDetails,
     };
 
-    console.log(formValues.items);
+
+
+    // console.log(subtotal);
 
     return (
         <StyledContainer>
