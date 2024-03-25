@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { createContext, useContext, useEffect, useState } from "react";
 import {companyDetails, customerDetails} from "./FormData";
-
-export const FormDataContext = createContext();
+import { useFormData} from "./FormDataContext";
+import { useState, useEffect } from "react";
 
 /*=========== STYLED COMPONENTS ===========*/
 
@@ -372,11 +371,14 @@ function Form() {
     };
 
     // Use context to access setFormValues
-    const { setFormValues } = useContext(FormDataContext);
+    const { formValues, setFormValues } = useFormData();
+const { testFunction } = useFormData();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setFormValues({ details, items });
+        // To test if useFormData is working 
+        testFunction();
     };
 
     // Form display

@@ -1,7 +1,8 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import styled from "styled-components";
-import { FormDataContext } from "./Form";
+// import { FormDataContext } from "./Form";
 import { companyDetails, customerDetails } from "./FormData";
+import { useFormData } from "./FormDataContext";
 
 const StyledContainer = styled.div`
 margin: 50px auto;
@@ -131,7 +132,8 @@ const StyledFooter = styled.div`
 `;
 
 export default function FormPrint() {
-    const { formValues } = useContext(FormDataContext);
+    const { formValues } = useFormData;
+    console.log(formValues);
 
     // Storing saved invoice details
     const formEntryDetails = {

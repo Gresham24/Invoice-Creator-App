@@ -1,18 +1,9 @@
-import React, { useState } from "react";
-import Form, { FormDataContext } from "./components/Form";
-import FormPrint from "./components/FormPrint";
+import React from "react";
+import Form from "./components/Form";
 
 function InvoiceApp() {
-    const [formValues, setFormValues] = useState({
-        details: {},
-        items: [],
-    });
-
     return (
-        <FormDataContext.Provider value={{ formValues, setFormValues }}>
-            <FormPrint />
-            <Form />
-        </FormDataContext.Provider>
+        <Form/>
     );
 }
 
