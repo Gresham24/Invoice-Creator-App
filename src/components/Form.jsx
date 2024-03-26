@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import {companyDetails, customerDetails} from "./FormData";
-import { useFormData} from "./FormDataContext";
-import { useState, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { companyDetails, customerDetails } from "./FormData";
+
+const FormDataContext = createContext();
 
 /*=========== STYLED COMPONENTS ===========*/
 
@@ -149,17 +150,6 @@ const StyledFormActionButtons = styled.div`
     }
     & .createInvoiceButton:active {
         opacity: 0.8;
-    }
-    & .previewButton {
-        border: none;
-        border-radius: 8px;
-        background: rgba(61, 173, 175);
-        padding: 8px 32px;
-        color: white;
-        opacity: 0.7;
-    }
-    & .previewButton:active {
-        opacity: 0.5;
     }
 `;
 
@@ -371,14 +361,11 @@ function Form() {
     };
 
     // Use context to access setFormValues
-    const { formValues, setFormValues } = useFormData();
-const { testFunction } = useFormData();
+    const { setFormValues } = useContext(FormDataContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setFormValues({ details, items });
-        // To test if useFormData is working 
-        testFunction();
     };
 
     // Form display
@@ -566,7 +553,6 @@ const { testFunction } = useFormData();
                 <hr />
 
                 <StyledFormActionButtons>
-                    <button className="previewButton">Preview</button>
                     <button className="cancelButton">Cancel</button>
                     <button type="submit" className="createInvoiceButton">
                         Create invoice
@@ -577,4 +563,4 @@ const { testFunction } = useFormData();
     );
 }
 
-export default Form;
+export {Form, FormDataContext};

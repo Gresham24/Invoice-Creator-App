@@ -1,11 +1,10 @@
-// import { useContext } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
-// import { FormDataContext } from "./Form";
+import { FormDataContext } from "./Form";
 import { companyDetails, customerDetails } from "./FormData";
-import { useFormData } from "./FormDataContext";
 
 const StyledContainer = styled.div`
-margin: 50px auto;
+    margin: 50px auto;
     margin-top: 50px;
     margin-bottom: 50px;
     padding: 20px 32px;
@@ -14,7 +13,6 @@ margin: 50px auto;
     background-color: #f8f9fa;
     max-width: 980px;
 `;
-
 
 const StyledHeader = styled.div`
     padding: 24px 40px;
@@ -131,9 +129,8 @@ const StyledFooter = styled.div`
     font-weight: 500;
 `;
 
-export default function FormPrint() {
-    const { formValues } = useFormData;
-    console.log(formValues);
+function FormPrint() {
+    const { formValues } = useContext(FormDataContext);
 
     // Storing saved invoice details
     const formEntryDetails = {
@@ -145,8 +142,6 @@ export default function FormPrint() {
         notes: formValues.details.notes,
         bankDetails: formValues.details.bankDetails,
     };
-
-
 
     // console.log(subtotal);
 
@@ -282,3 +277,5 @@ export default function FormPrint() {
         </StyledContainer>
     );
 }
+
+export default FormPrint;
