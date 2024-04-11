@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { createContext, useContext, useEffect, useState } from "react";
 import { companyDetails, customerDetails } from "./FormData";
 
-const FormDataContext = createContext();
+export const FormDataContext = createContext();
 
 /*=========== STYLED COMPONENTS ===========*/
 
@@ -255,7 +255,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
 };
 
 // Main funcition
-function Form() {
+export default function Form() {
     /*=========== HOOKS===========*/
 
     // form line items
@@ -562,5 +562,3 @@ function Form() {
         </form>
     );
 }
-
-export {Form, FormDataContext};

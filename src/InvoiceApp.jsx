@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, FormDataContext } from "./components/Form";
+import Form, { FormDataContext } from "./components/Form";
 import FormPrint from "./components/FormPrint";
 
 function InvoiceApp() {

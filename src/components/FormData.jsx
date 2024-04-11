@@ -1,5 +1,5 @@
 // Object storing static company details
-const companyDetails = {
+export const companyDetails = {
     name: "Masharty Tembo",
     companyName: "Web Masters Limited",
     companyLogo: "src/assets/webcoin_web logo.png",
@@ -9,7 +9,7 @@ const companyDetails = {
 };
 
 // Object storing customer details
-const customerDetails = {
+export const customerDetails = {
     Emirates: {
         address: "Garhoud Area, Dubai - United Arab Emirates",
         phone: "+971600555555",
@@ -23,5 +23,3 @@ const customerDetails = {
         phone: "+27769998888",
     },
 };
-
-export { companyDetails, customerDetails };
