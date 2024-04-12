@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Form, { FormDataContext } from "./components/Form";
 import FormPrint from "./components/FormPrint";
+import {Route, Routes} from "react-router-dom"
 
 function InvoiceApp() {
     const [formValues, setFormValues] = useState({
@@ -10,8 +11,11 @@ function InvoiceApp() {
 
     return (
         <FormDataContext.Provider value={{ formValues, setFormValues }}>
-            <FormPrint />
-            <Form />
+            <Routes>
+                <Route path="preview" element={<FormPrint />} />
+
+                <Route path="/" element={<Form />} />
+            </Routes>
         </FormDataContext.Provider>
     );
 }

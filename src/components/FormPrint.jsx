@@ -2,6 +2,8 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { FormDataContext } from "./Form";
 import { companyDetails, customerDetails } from "./FormData";
+import {useNavigate} from "react-router-dom"
+import { useReactToPrint } from "react-to-print";
 
 const StyledContainer = styled.div`
     margin: 50px auto;
@@ -120,6 +122,7 @@ const StyledExtraInfo = styled.div`
     gap: 12px;
     & p {
         color: #858585;
+        width: 300px;
     }
 `;
 
@@ -128,6 +131,33 @@ const StyledFooter = styled.div`
     background-color: #f6f6f6;
     font-weight: 500;
 `;
+
+
+const StyledbuttonWrapper = styled.div`
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    & button {
+        border-radius: 8px;
+        border: 1px solid transparent;
+        background: #f8f9fa;
+        padding: 8px 48px;
+    }
+    & button:hover {
+        cursor: pointer;
+    }
+    & .backButton:active {
+        background: #f0f2f3;
+    }
+    & .printButton {
+        background: #3dadaf;
+        color: white;
+    }
+    & .printButton:active {
+        opacity: 0.8;
+    }
+`;
+
 
 function FormPrint() {
     const { formValues } = useContext(FormDataContext);
@@ -142,139 +172,140 @@ function FormPrint() {
         notes: formValues.details.notes,
         bankDetails: formValues.details.bankDetails,
     };
-
     // console.log(subtotal);
 
+    const navigate = useNavigate();
+
+    const handleBackButton = (e) => {
+        e.preventDefault()
+        navigate('/')
+    }
+
     return (
-        <StyledContainer>
-            <div className="page">
-                <StyledHeader>
-                    <img src={companyDetails.companyLogo} alt="logo" />
-                    <div className="title">
-                        <h1>INVOICE</h1>
-                        <p>{`NO. ${formEntryDetails.invoiceNumber}`}</p>
-                        {/* <p>{`NO. ${formEntryDetails.purchaseOrder}`}</p> */}
-                    </div>
-                </StyledHeader>
-                <StyledInvoiceDetails>
-                    <div className="companyDetails">
-                        <h3>From</h3>
-                        <p>{companyDetails.name}</p>
-                        <p>{companyDetails.companyName}</p>
-                        {/* <p>{companyDetails.companyAddress1}</p> */}
-                        <p>{companyDetails.companyAddress2}</p>
-                        <p>{companyDetails.companyEmail}</p>
-                    </div>
-                    <div className="customerDetails">
-                        <h3>From</h3>
-                        <p>{formEntryDetails.customer}</p>
-                        {formEntryDetails.customer && (
-                            <div className="customerDetails">
-                                <p>
-                                    {
-                                        customerDetails[
-                                            formEntryDetails.customer
-                                        ]?.address
-                                    }
-                                </p>
-                                <p>
-                                    {
-                                        customerDetails[
-                                            formEntryDetails.customer
-                                        ]?.phone
-                                    }
-                                </p>
+        <div>
+            <StyledbuttonWrapper >
+                <button 
+                className="backButton"
+                onClick={handleBackButton}
+                >Back</button>
+                <button className="printButton">Download</button>
+            </StyledbuttonWrapper>
+            <StyledContainer>
+                <div className="page">
+                    <StyledHeader>
+                        <img src={companyDetails.companyLogo} alt="logo" />
+                        <div className="title">
+                            <h1>INVOICE</h1>
+                            <p>{`NO. ${formEntryDetails.invoiceNumber}`}</p>
+                            {/* <p>{`NO. ${formEntryDetails.purchaseOrder}`}</p> */}
+                        </div>
+                    </StyledHeader>
+                    <StyledInvoiceDetails>
+                        <div className="companyDetails">
+                            <h3>From</h3>
+                            <p>{companyDetails.name}</p>
+                            <p>{companyDetails.companyName}</p>
+                            {/* <p>{companyDetails.companyAddress1}</p> */}
+                            <p>{companyDetails.companyAddress2}</p>
+                            <p>{companyDetails.companyEmail}</p>
+                        </div>
+                        <div className="customerDetails">
+                            <h3>From</h3>
+                            <p>{formEntryDetails.customer}</p>
+                            {formEntryDetails.customer && (
+                                <div className="customerDetails">
+                                    <p>
+                                        {
+                                            customerDetails[
+                                                formEntryDetails.customer
+                                            ]?.address
+                                        }
+                                    </p>
+                                    <p>
+                                        {
+                                            customerDetails[
+                                                formEntryDetails.customer
+                                            ]?.phone
+                                        }
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                        <div className="invoiceDates">
+                            <div className="issued">
+                                <h3>Issued</h3>
+                                <p>{formEntryDetails.issueDate} </p>
                             </div>
-                        )}
-                    </div>
-                    <div className="invoiceDates">
-                        <div className="issued">
-                            <h3>Issued</h3>
-                            <p>{formEntryDetails.issueDate} </p>
+                            <div className="due">
+                                <h3>Due</h3>
+                                <p>{formEntryDetails.dueDate} </p>
+                            </div>
                         </div>
-                        <div className="due">
-                            <h3>Due</h3>
-                            <p>{formEntryDetails.dueDate} </p>
-                        </div>
-                    </div>
-                </StyledInvoiceDetails>
-                <StyldDescriptionHeaders>
-                    <div className="flex-left">
-                        <div>Item</div>
-                    </div>
-                    <div className="flex-right">
-                        <div>Qty</div>
-                        <div>Price</div>
-                        <div>Total</div>
-                    </div>
-                </StyldDescriptionHeaders>
-                {/* Dummy entry to maintain display style */}
-                <StyledLineItem>
-                    <div className="lineItemContainer">
+                    </StyledInvoiceDetails>
+                    <StyldDescriptionHeaders>
                         <div className="flex-left">
-                            <p>Design</p>
-                            <p>Mobile and desktop designs</p>
+                            <div>Item</div>
                         </div>
                         <div className="flex-right">
-                            <p>1</p>
-                            <p>850</p>
-                            <p>1500</p>
+                            <div>Qty</div>
+                            <div>Price</div>
+                            <div>Total</div>
                         </div>
-                    </div>
-                </StyledLineItem>
-                {formValues.items.map((lineItem) => (
-                    <StyledLineItem key={lineItem.id}>
-                        <div className="lineItemContainer">
-                            <div className="flex-left">
-                                <p>{lineItem.productService}</p>
-                                <p>{lineItem.description}</p>
+                    </StyldDescriptionHeaders>
+                    {formValues.items.map((lineItem) => (
+                        <StyledLineItem key={lineItem.id}>
+                            <div className="lineItemContainer">
+                                <div className="flex-left">
+                                    <p>{lineItem.productService}</p>
+                                    <p>{lineItem.description}</p>
+                                </div>
+                                <div className="flex-right">
+                                    <p>{lineItem.qty}</p>
+                                    <p>{lineItem.price}</p>
+                                    <p>#total to calc#</p>
+                                </div>
                             </div>
-                            <div className="flex-right">
-                                <p>{lineItem.qty}</p>
-                                <p>{lineItem.price}</p>
-                                <p>#total to calc#</p>
+                            {/* <p>{lineItem.lineItemTotal}</p> */}
+                        </StyledLineItem>
+                    ))}
+                    <StyledTotalSummaries>
+                        <div className="subtotal">
+                            <p>Subtotal</p>
+                            <p>$</p>
+                        </div>
+                        <div className="taxAmount">
+                            <p>Tax (xx%)</p>
+                            <p>$</p>
+                        </div>
+                        <div className="discountTotal">
+                            <p>Discount (x%)</p>
+                            <p>$</p>
+                        </div>
+                        <div className="totalAmount">
+                            <p>Amount Due</p>
+                            <p>$$$$</p>
+                        </div>
+                    </StyledTotalSummaries>
+                    <StyledExtraInfo>
+                        {formEntryDetails.bankDetails && (
+                            <div className="paymentInfoContainer">
+                                <h4>Payment Infomration:</h4>
+                                <p>{formEntryDetails.bankDetails}</p>
                             </div>
-                        </div>
-                        {/* <p>{lineItem.lineItemTotal}</p> */}
-                    </StyledLineItem>
-                ))}
-                <StyledTotalSummaries>
-                    <div className="subtotal">
-                        <p>Subtotal</p>
-                        <p>$</p>
-                    </div>
-                    <div className="taxAmount">
-                        <p>Tax (xx%)</p>
-                        <p>$</p>
-                    </div>
-                    <div className="discountTotal">
-                        <p>Discount (x%)</p>
-                        <p>$</p>
-                    </div>
-                    <div className="totalAmount">
-                        <p>Amount Due</p>
-                        <p>$$$$</p>
-                    </div>
-                </StyledTotalSummaries>
-                <StyledExtraInfo>
-                    {formEntryDetails.bankDetails && (
-                        <div className="paymentInfoContainer">
-                            <h4>Payment Infomration:</h4>
-                            <p>{formEntryDetails.bankDetails}</p>
-                        </div>
-                    )}
-                    {formEntryDetails.notes && (
-                        <div className="notesContainer">
-                            <h4>Notes:</h4>
-                            <p>{formEntryDetails.notes}</p>
-                        </div>
-                    )}
-                </StyledExtraInfo>
-                <StyledFooter>
-                    <p>Thank you for your purchase!</p>
-                </StyledFooter>
-            </div>
-        </StyledContainer>
+                        )}
+                        {formEntryDetails.notes && (
+                            <div className="notesContainer">
+                                <h4>Notes:</h4>
+                                <p>{formEntryDetails.notes}</p>
+                            </div>
+                        )}
+                    </StyledExtraInfo>
+                    <StyledFooter>
+                        <p>Thank you for your purchase!</p>
+                    </StyledFooter>
+                </div>
+            </StyledContainer>
+        </div>
     );
 }
 

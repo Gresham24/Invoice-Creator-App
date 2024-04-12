@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { createContext, useContext, useEffect, useState } from "react";
 import { companyDetails, customerDetails } from "./FormData";
+import { useNavigate } from "react-router-dom";
 
 export const FormDataContext = createContext();
 
@@ -363,10 +364,17 @@ export default function Form() {
     // Use context to access setFormValues
     const { setFormValues } = useContext(FormDataContext);
 
+    // navigate to preview page
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setFormValues({ details, items });
+        navigate("/preview"); 
     };
+
+
+
 
     // Form display
     return (
@@ -554,7 +562,10 @@ export default function Form() {
 
                 <StyledFormActionButtons>
                     <button className="cancelButton">Cancel</button>
-                    <button type="submit" className="createInvoiceButton">
+                    <button
+                        type="submit"
+                        className="createInvoiceButton"
+                    >
                         Create invoice
                     </button>
                 </StyledFormActionButtons>
