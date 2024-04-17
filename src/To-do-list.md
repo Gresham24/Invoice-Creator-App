@@ -1,6 +1,8 @@
 # TO DO:
 
-1. Add input for discount % and tax % above extra information section
+1. Retain values on Routing when back button clicked
+
+Add input for discount % and tax % above extra information section
 
 2. Caclulations for the following for form input:
 

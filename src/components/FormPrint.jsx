@@ -7,13 +7,19 @@ import { useReactToPrint } from "react-to-print";
 
 const StyledContainer = styled.div`
     margin: 50px auto;
-    /* margin-top: 50px;
-    margin-bottom: 50px; */
     padding: 20px 32px;
     border-radius: 15px;
     box-shadow: 0px 15px 48px 0px rgba(46, 47, 58, 0.08);
     background-color: #f8f9fa;
     max-width: 980px;
+/* ADD MEDIA QUERY FOR PRINT */
+    @media print {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        max-width: none;
+        width: 100%;
+    }
 `;
 
 const ComponentToPrint = forwardRef((props, ref) => (
@@ -44,6 +50,7 @@ const StyledHeader = styled.div`
     & p {
         color: #858585;
     }
+
 `;
 
 const StyledInvoiceDetails = styled.div`
@@ -139,6 +146,14 @@ const StyledFooter = styled.div`
     padding: 40px 0px 40px 40px;
     background-color: #f6f6f6;
     font-weight: 500;
+
+    @media print {
+        /* background-color: red; */
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
 `;
 
 const StyledbuttonWrapper = styled.div`
