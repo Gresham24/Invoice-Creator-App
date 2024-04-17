@@ -7,8 +7,8 @@ import { useReactToPrint } from "react-to-print";
 
 const StyledContainer = styled.div`
     margin: 50px auto;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    /* margin-top: 50px;
+    margin-bottom: 50px; */
     padding: 20px 32px;
     border-radius: 15px;
     box-shadow: 0px 15px 48px 0px rgba(46, 47, 58, 0.08);
@@ -16,11 +16,14 @@ const StyledContainer = styled.div`
     max-width: 980px;
 `;
 
-const ForwardRefStyledContainer = forwardRef((props, ref) => (
-    <StyledContainer ref={ref} {...props}>
-        {props.children}
+const ComponentToPrint = forwardRef((props, ref) => (
+    <StyledContainer {...props}>
+        <div ref={ref} id="page">
+            {props.children}
+        </div>
     </StyledContainer>
 ));
+
 
 const StyledHeader = styled.div`
     padding: 24px 40px;
@@ -180,10 +183,12 @@ function FormPrint() {
     };
     // console.log(subtotal);
 
+    //************* Print functionality ***************//
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
     });
 
+    //************* Routing ***************//
     const handleBackButton = (e) => {
         e.preventDefault();
         navigate(-1);
@@ -199,8 +204,7 @@ function FormPrint() {
                     Download
                 </button>
             </StyledbuttonWrapper>
-            <ForwardRefStyledContainer ref={componentRef}>
-                <div className="page">
+            <ComponentToPrint ref={componentRef}>
                     <StyledHeader>
                         <img src={companyDetails.companyLogo} alt="logo" />
                         <div className="title">
@@ -270,7 +274,6 @@ function FormPrint() {
                                     <p>{lineItem.qty}</p>
                                     <p>{lineItem.price}</p>
                                     <p>#calcTotal#</p>
-                                    
                                 </div>
                             </div>
                             {/* <p> {lineItem.lineItemTotal}</p> */}
@@ -311,8 +314,7 @@ function FormPrint() {
                     <StyledFooter>
                         <p>Thank you for your purchase!</p>
                     </StyledFooter>
-                </div>
-            </ForwardRefStyledContainer>
+            </ComponentToPrint>
         </div>
     );
 }
