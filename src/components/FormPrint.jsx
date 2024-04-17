@@ -206,7 +206,6 @@ function FormPrint() {
                         <div className="title">
                             <h1>INVOICE</h1>
                             <p>{`NO. ${formEntryDetails.invoiceNumber}`}</p>
-                            {/* <p>{`NO. ${formEntryDetails.purchaseOrder}`}</p> */}
                         </div>
                     </StyledHeader>
                     <StyledInvoiceDetails>
@@ -214,8 +213,7 @@ function FormPrint() {
                             <h3>From</h3>
                             <p>{companyDetails.name}</p>
                             <p>{companyDetails.companyName}</p>
-                            {/* <p>{companyDetails.companyAddress1}</p> */}
-                            <p>{companyDetails.companyAddress2}</p>
+                            <p>{companyDetails.companyAddress}</p>
                             <p>{companyDetails.companyEmail}</p>
                         </div>
                         <div className="customerDetails">
@@ -271,10 +269,11 @@ function FormPrint() {
                                 <div className="flex-right">
                                     <p>{lineItem.qty}</p>
                                     <p>{lineItem.price}</p>
-                                    <p>#total to calc#</p>
+                                    <p>#calcTotal#</p>
+                                    
                                 </div>
                             </div>
-                            {/* <p>{lineItem.lineItemTotal}</p> */}
+                            {/* <p> {lineItem.lineItemTotal}</p> */}
                         </StyledLineItem>
                     ))}
                     <StyledTotalSummaries>
