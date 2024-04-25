@@ -1,9 +1,8 @@
-import { forwardRef, useContext, useRef } from "react";
+import { useContext, useRef } from "react";
 import styled from "styled-components";
 import { FormDataContext } from "./Form";
 import { companyDetails, customerDetails } from "./FormData";
 import { useNavigate } from "react-router-dom";
-import { useReactToPrint } from "react-to-print";
 
 const StyledContainer = styled.div`
     margin: 50px auto;
@@ -12,23 +11,7 @@ const StyledContainer = styled.div`
     box-shadow: 0px 15px 48px 0px rgba(46, 47, 58, 0.08);
     background-color: #f8f9fa;
     max-width: 980px;
-/* ADD MEDIA QUERY FOR PRINT */
-    @media print {
-        box-shadow: none;
-        margin: 0;
-        padding: 0;
-        max-width: none;
-        width: 100%;
-    }
 `;
-
-const ComponentToPrint = forwardRef((props, ref) => (
-    <StyledContainer {...props}>
-        <div ref={ref} id="page">
-            {props.children}
-        </div>
-    </StyledContainer>
-));
 
 
 const StyledHeader = styled.div`
@@ -146,14 +129,6 @@ const StyledFooter = styled.div`
     padding: 40px 0px 40px 40px;
     background-color: #f6f6f6;
     font-weight: 500;
-
-    @media print {
-        /* background-color: red; */
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
 `;
 
 const StyledbuttonWrapper = styled.div`
@@ -198,11 +173,6 @@ function FormPrint() {
     };
     // console.log(subtotal);
 
-    //************* Print functionality ***************//
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    });
-
     //************* Routing ***************//
     const handleBackButton = (e) => {
         e.preventDefault();
@@ -215,11 +185,11 @@ function FormPrint() {
                 <button className="backButton" onClick={handleBackButton}>
                     Back
                 </button>
-                <button className="printButton" onClick={handlePrint}>
+                <button className="printButton">
                     Download
                 </button>
             </StyledbuttonWrapper>
-            <ComponentToPrint ref={componentRef}>
+            <StyledContainer>
                     <StyledHeader>
                         <img src={companyDetails.companyLogo} alt="logo" />
                         <div className="title">
@@ -329,7 +299,7 @@ function FormPrint() {
                     <StyledFooter>
                         <p>Thank you for your purchase!</p>
                     </StyledFooter>
-            </ComponentToPrint>
+            </StyledContainer>
         </div>
     );
 }
