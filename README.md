@@ -12,7 +12,7 @@ Currently, the design is not a main concern as the purpose of this project is to
 
 ## Hosted Link:
 
-(coming soon...)
+https://invoiceappcreator.netlify.app/
 
 
 ## Commans
@@ -29,5 +29,5 @@ All commands are run from the root of the project, from a terminal:
 ## Features
 
 - styled-components
-- 
+- react-pdf
 
