@@ -1,8 +1,10 @@
-import { useContext, useRef } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { FormDataContext } from "./Form";
 import { companyDetails, customerDetails } from "./FormData";
 import { useNavigate } from "react-router-dom";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PDFDocument from "./PDFDocument";
 
 const StyledContainer = styled.div`
     margin: 50px auto;
@@ -20,7 +22,6 @@ const StyledHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     & .title {
         display: flex;
         flex-direction: column;
@@ -159,7 +160,7 @@ const StyledbuttonWrapper = styled.div`
 function FormPrint() {
     const { formValues } = useContext(FormDataContext);
     const navigate = useNavigate();
-    const componentRef = useRef();
+    // const componentRef = useRef();
 
     // Storing saved invoice details
     const formEntryDetails = {
@@ -185,120 +186,126 @@ function FormPrint() {
                 <button className="backButton" onClick={handleBackButton}>
                     Back
                 </button>
-                <button className="printButton">
-                    Download
-                </button>
+                <PDFDownloadLink
+                    document={<PDFDocument formValues={formValues} />}
+                    fileName={`INV${formEntryDetails.invoiceNumber}`}
+                    style={{ textDecoration: "none" }}
+                >
+                    {({ blob, url, loading, error }) =>
+                        loading ? "Loading document..." : "Download"
+                    }
+                </PDFDownloadLink>
             </StyledbuttonWrapper>
             <StyledContainer>
-                    <StyledHeader>
-                        <img src={companyDetails.companyLogo} alt="logo" />
-                        <div className="title">
-                            <h1>INVOICE</h1>
-                            <p>{`NO. ${formEntryDetails.invoiceNumber}`}</p>
-                        </div>
-                    </StyledHeader>
-                    <StyledInvoiceDetails>
-                        <div className="companyDetails">
-                            <h3>From</h3>
-                            <p>{companyDetails.name}</p>
-                            <p>{companyDetails.companyName}</p>
-                            <p>{companyDetails.companyAddress}</p>
-                            <p>{companyDetails.companyEmail}</p>
-                        </div>
-                        <div className="customerDetails">
-                            <h3>From</h3>
-                            <p>{formEntryDetails.customer}</p>
-                            {formEntryDetails.customer && (
-                                <div className="customerDetails">
-                                    <p>
-                                        {
-                                            customerDetails[
-                                                formEntryDetails.customer
-                                            ]?.address
-                                        }
-                                    </p>
-                                    <p>
-                                        {
-                                            customerDetails[
-                                                formEntryDetails.customer
-                                            ]?.phone
-                                        }
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-                        <div className="invoiceDates">
-                            <div className="issued">
-                                <h3>Issued</h3>
-                                <p>{formEntryDetails.issueDate} </p>
-                            </div>
-                            <div className="due">
-                                <h3>Due</h3>
-                                <p>{formEntryDetails.dueDate} </p>
-                            </div>
-                        </div>
-                    </StyledInvoiceDetails>
-                    <StyldDescriptionHeaders>
-                        <div className="flex-left">
-                            <div>Item</div>
-                        </div>
-                        <div className="flex-right">
-                            <div>Qty</div>
-                            <div>Price</div>
-                            <div>Total</div>
-                        </div>
-                    </StyldDescriptionHeaders>
-                    {formValues.items.map((lineItem) => (
-                        <StyledLineItem key={lineItem.id}>
-                            <div className="lineItemContainer">
-                                <div className="flex-left">
-                                    <p>{lineItem.productService}</p>
-                                    <p>{lineItem.description}</p>
-                                </div>
-                                <div className="flex-right">
-                                    <p>{lineItem.qty}</p>
-                                    <p>{lineItem.price}</p>
-                                    <p>#calcTotal#</p>
-                                </div>
-                            </div>
-                            {/* <p> {lineItem.lineItemTotal}</p> */}
-                        </StyledLineItem>
-                    ))}
-                    <StyledTotalSummaries>
-                        <div className="subtotal">
-                            <p>Subtotal</p>
-                            <p>$</p>
-                        </div>
-                        <div className="taxAmount">
-                            <p>Tax (xx%)</p>
-                            <p>$</p>
-                        </div>
-                        <div className="discountTotal">
-                            <p>Discount (x%)</p>
-                            <p>$</p>
-                        </div>
-                        <div className="totalAmount">
-                            <p>Amount Due</p>
-                            <p>$$$$</p>
-                        </div>
-                    </StyledTotalSummaries>
-                    <StyledExtraInfo>
-                        {formEntryDetails.bankDetails && (
-                            <div className="paymentInfoContainer">
-                                <h4>Payment Infomration:</h4>
-                                <p>{formEntryDetails.bankDetails}</p>
+                <StyledHeader>
+                    <img src={companyDetails.companyLogo} alt="logo" />
+                    <div className="title">
+                        <h1>INVOICE</h1>
+                        <p>{`NO. ${formEntryDetails.invoiceNumber}`}</p>
+                    </div>
+                </StyledHeader>
+                <StyledInvoiceDetails>
+                    <div className="companyDetails">
+                        <h3>From</h3>
+                        <p>{companyDetails.name}</p>
+                        <p>{companyDetails.companyName}</p>
+                        <p>{companyDetails.companyAddress}</p>
+                        <p>{companyDetails.companyEmail}</p>
+                    </div>
+                    <div className="customerDetails">
+                        <h3>Billed To</h3>
+                        <p>{formEntryDetails.customer}</p>
+                        {formEntryDetails.customer && (
+                            <div className="customerDetails">
+                                <p>
+                                    {
+                                        customerDetails[
+                                            formEntryDetails.customer
+                                        ]?.address
+                                    }
+                                </p>
+                                <p>
+                                    {
+                                        customerDetails[
+                                            formEntryDetails.customer
+                                        ]?.phone
+                                    }
+                                </p>
                             </div>
                         )}
-                        {formEntryDetails.notes && (
-                            <div className="notesContainer">
-                                <h4>Notes:</h4>
-                                <p>{formEntryDetails.notes}</p>
+                    </div>
+                    <div className="invoiceDates">
+                        <div className="issued">
+                            <h3>Issued</h3>
+                            <p>{formEntryDetails.issueDate} </p>
+                        </div>
+                        <div className="due">
+                            <h3>Due</h3>
+                            <p>{formEntryDetails.dueDate} </p>
+                        </div>
+                    </div>
+                </StyledInvoiceDetails>
+                <StyldDescriptionHeaders>
+                    <div className="flex-left">
+                        <div>Item</div>
+                    </div>
+                    <div className="flex-right">
+                        <div>Qty</div>
+                        <div>Price</div>
+                        <div>Total</div>
+                    </div>
+                </StyldDescriptionHeaders>
+                {formValues.items.map((lineItem) => (
+                    <StyledLineItem key={lineItem.id}>
+                        <div className="lineItemContainer">
+                            <div className="flex-left">
+                                <p>{lineItem.productService}</p>
+                                <p>{lineItem.description}</p>
                             </div>
-                        )}
-                    </StyledExtraInfo>
-                    <StyledFooter>
-                        <p>Thank you for your purchase!</p>
-                    </StyledFooter>
+                            <div className="flex-right">
+                                <p>{lineItem.qty}</p>
+                                <p>{lineItem.price}</p>
+                                <p>#calcTotal#</p>
+                            </div>
+                        </div>
+                        {/* <p> {lineItem.lineItemTotal}</p> */}
+                    </StyledLineItem>
+                ))}
+                <StyledTotalSummaries>
+                    <div className="subtotal">
+                        <p>Subtotal</p>
+                        <p>$</p>
+                    </div>
+                    <div className="taxAmount">
+                        <p>Tax (xx%)</p>
+                        <p>$</p>
+                    </div>
+                    <div className="discountTotal">
+                        <p>Discount (x%)</p>
+                        <p>$</p>
+                    </div>
+                    <div className="totalAmount">
+                        <p>Amount Due</p>
+                        <p>$$$$</p>
+                    </div>
+                </StyledTotalSummaries>
+                <StyledExtraInfo>
+                    {formEntryDetails.bankDetails && (
+                        <div className="paymentInfoContainer">
+                            <h4>Payment Infomration:</h4>
+                            <p>{formEntryDetails.bankDetails}</p>
+                        </div>
+                    )}
+                    {formEntryDetails.notes && (
+                        <div className="notesContainer">
+                            <h4>Notes:</h4>
+                            <p>{formEntryDetails.notes}</p>
+                        </div>
+                    )}
+                </StyledExtraInfo>
+                <StyledFooter>
+                    <p>Thank you for your purchase!</p>
+                </StyledFooter>
             </StyledContainer>
         </div>
     );
