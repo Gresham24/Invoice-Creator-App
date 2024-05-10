@@ -13,10 +13,14 @@ const styles = StyleSheet.create({
     page: {
         backgroundColor: "white",
         fontFamily: "Helvetica",
+        height: "100%",
+        position: "relative",
     },
     container: {
         display: "flex",
         flexDirection: "column",
+        flex: 1,
+        height: "100%",
     },
     header: {
         padding: "20px 40px",
@@ -150,6 +154,8 @@ const styles = StyleSheet.create({
     },
 });
 
+const itemsPerPage = 8;
+
 const PDFDocument = ({ formValues }) => {
     // Storing saved invoice details
     const formEntryDetails = {
@@ -161,171 +167,202 @@ const PDFDocument = ({ formValues }) => {
         notes: formValues.details.notes,
         bankDetails: formValues.details.bankDetails,
     };
+
+    // Split items into groups of 'itemsPerPage'
+    const pages = formValues.items.reduce((acc, item, idx) => {
+        const pageNo = Math.floor(idx / itemsPerPage);
+        if (!acc[pageNo]) {
+            acc[pageNo] = [];
+        }
+        acc[pageNo].push(item);
+        return acc;
+    }, []);
+
     return (
         <Document>
-            <Page wrap size="A4" style={styles.page}>
-                <View style={styles.container}>
-                    {/* Header Section */}
-                    {/* <View style={styles.topContentWrapper}> */}
-                    <View style={styles.header}>
-                        <Image
-                            src={companyDetails.companyLogo}
-                            style={styles.image}
-                        />
-                        <View style={styles.headerTitle}>
-                            <Text style={styles.headerH1}>INVOICE</Text>
-                            <Text
-                                style={styles.headerText}
-                            >{`NO. ${formEntryDetails.invoiceNumber}`}</Text>
+            {pages.map((items, index) => (
+                <Page key={index} wrap size="A4" style={styles.page}>
+                    <View style={styles.container}>
+                        {/* Header Section */}
+                        {/* <View style={styles.topContentWrapper}> */}
+                        <View style={styles.header}>
+                            <Image
+                                src={companyDetails.companyLogo}
+                                style={styles.image}
+                            />
+                            <View style={styles.headerTitle}>
+                                <Text style={styles.headerH1}>INVOICE</Text>
+                                <Text
+                                    style={styles.headerText}
+                                >{`NO. ${formEntryDetails.invoiceNumber}`}</Text>
+                            </View>
                         </View>
-                    </View>
 
-                    {/* Invoice Details */}
-                    <View style={styles.invoiceDetails}>
-                        <View>
-                            <Text style={styles.invoiceDetailsTextH1}>
-                                From
-                            </Text>
-                            <Text>{companyDetails.name}</Text>
-                            <Text>{companyDetails.companyName}</Text>
-                            <Text>{companyDetails.companyAddress}</Text>
-                            <Text>{companyDetails.companyEmail}</Text>
-                        </View>
-                        <View>
-                            <Text style={styles.invoiceDetailsTextH1}>
-                                Billed To
-                            </Text>
-                            <Text>{formEntryDetails.customer}</Text>
-                            {formEntryDetails.customer && (
-                                <View>
-                                    <Text>
-                                        {
-                                            customerDetails[
-                                                formEntryDetails.customer
-                                            ]?.address
-                                        }
-                                    </Text>
-                                    <Text>
-                                        {
-                                            customerDetails[
-                                                formEntryDetails.customer
-                                            ]?.phone
-                                        }
-                                    </Text>
-                                </View>
-                            )}
-                        </View>
-                        <View style={styles.invoiceDates}>
-                            <View style={styles.invoiceDateWrapper}>
-                                <Text style={styles.invoiceDetailsTextH1}>
-                                    Issued
-                                </Text>
-                                <Text>{formEntryDetails.issueDate}</Text>
-                            </View>
-                            <View style={styles.invoiceDateWrapper}>
-                                <Text style={styles.invoiceDetailsTextH1}>
-                                    Due
-                                </Text>
-                                <Text>{formEntryDetails.dueDate}</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View wrap style={styles.descriptionHeaders}>
-                        <View>
-                            <Text>Item</Text>
-                        </View>
-                        <View style={styles.descriptionHeadersRightSection}>
-                            <View style={styles.descriptionHeadersRightDiv}>
-                                <Text>Qty</Text>
-                            </View>
-                            <View style={styles.descriptionHeadersRightDiv}>
-                                <Text>Price</Text>
-                            </View>
-                            <View style={styles.descriptionHeadersRightDiv}>
-                                <Text>Total</Text>
-                            </View>
-                        </View>
-                    </View>
-
-                    {/* Line Items Section */}
-                    {formValues.items.map((lineItem) => (
-                        <View wrap key={lineItem.id} style={styles.lineItem}>
-                            {/* Line item details */}
-                            <View wrap style={styles.lineItemContainer}>
-                                <View>
-                                    <Text>{lineItem.productService}</Text>
-                                    <Text>{lineItem.description}</Text>
-                                </View>
-                                <View style={styles.lineItemRightSection}>
-                                    <Text
-                                        style={styles.lineItemRightSectionText}
-                                    >
-                                        {lineItem.qty}
-                                    </Text>
-                                    <Text
-                                        style={styles.lineItemRightSectionText}
-                                    >
-                                        {lineItem.price}
-                                    </Text>
-                                    <Text
-                                        style={styles.lineItemRightSectionText}
-                                    >
-                                        #calcTotal#
-                                    </Text>
-                                </View>
-                            </View>
-                        </View>
-                    ))}
-
-                    {/* Summary and Footer */}
-                    <View wrap style={styles.totalSummaries}>
-                        <View style={styles.amountWrappers}>
-                            <Text>Subtotal</Text>
-                            <Text>$</Text>
-                        </View>
-                        <View style={styles.amountWrappers}>
-                            <Text>Tax (xx%)</Text>
-                            <Text>$</Text>
-                        </View>
-                        <View style={styles.amountWrappers}>
-                            <Text>Discount (x%)</Text>
-                            <Text>$</Text>
-                        </View>
-                        <View
-                            style={[
-                                styles.amountWrappers,
-                                {
-                                    padding: "10px 0px 10px 0px",
-                                    borderBottom: "3px solid #d7dae0",
-                                    borderTop: "3px solid #d7dae0",
-                                },
-                            ]}
-                        >
-                            <Text>Amount Due</Text>
-                            <Text>$$$$</Text>
-                        </View>
-                    </View>
-                    <View style={styles.extraInfoSection}>
-                        {formEntryDetails.bankDetails && (
+                        {/* Invoice Details */}
+                        <View style={styles.invoiceDetails}>
                             <View>
-                                <Text>Payment Infomration:</Text>
-                                <Text>{formEntryDetails.bankDetails}</Text>
-                            </View>
-                        )}
-                        {formEntryDetails.notes && (
-                            <View>
-                                <Text>Notes:</Text>
-                                <Text style={styles.extraInfoText}>
-                                    {formEntryDetails.notes}
+                                <Text style={styles.invoiceDetailsTextH1}>
+                                    From
                                 </Text>
+                                <Text>{companyDetails.name}</Text>
+                                <Text>{companyDetails.companyName}</Text>
+                                <Text>{companyDetails.companyAddress}</Text>
+                                <Text>{companyDetails.companyEmail}</Text>
                             </View>
+                            <View>
+                                <Text style={styles.invoiceDetailsTextH1}>
+                                    Billed To
+                                </Text>
+                                <Text>{formEntryDetails.customer}</Text>
+                                {formEntryDetails.customer && (
+                                    <View>
+                                        <Text>
+                                            {
+                                                customerDetails[
+                                                    formEntryDetails.customer
+                                                ]?.address
+                                            }
+                                        </Text>
+                                        <Text>
+                                            {
+                                                customerDetails[
+                                                    formEntryDetails.customer
+                                                ]?.phone
+                                            }
+                                        </Text>
+                                    </View>
+                                )}
+                            </View>
+                            <View style={styles.invoiceDates}>
+                                <View style={styles.invoiceDateWrapper}>
+                                    <Text style={styles.invoiceDetailsTextH1}>
+                                        Issued
+                                    </Text>
+                                    <Text>{formEntryDetails.issueDate}</Text>
+                                </View>
+                                <View style={styles.invoiceDateWrapper}>
+                                    <Text style={styles.invoiceDetailsTextH1}>
+                                        Due
+                                    </Text>
+                                    <Text>{formEntryDetails.dueDate}</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View wrap style={styles.descriptionHeaders}>
+                            <View>
+                                <Text>Item</Text>
+                            </View>
+                            <View style={styles.descriptionHeadersRightSection}>
+                                <View style={styles.descriptionHeadersRightDiv}>
+                                    <Text>Qty</Text>
+                                </View>
+                                <View style={styles.descriptionHeadersRightDiv}>
+                                    <Text>Price</Text>
+                                </View>
+                                <View style={styles.descriptionHeadersRightDiv}>
+                                    <Text>Total</Text>
+                                </View>
+                            </View>
+                        </View>
+
+                        {/* Line Items Section */}
+                        {items.map((lineItem) => (
+                            <View
+                                wrap
+                                key={lineItem.id}
+                                style={styles.lineItem}
+                            >
+                                {/* Line item details */}
+                                <View wrap style={styles.lineItemContainer}>
+                                    <View>
+                                        <Text>{lineItem.productService}</Text>
+                                        <Text>{lineItem.description}</Text>
+                                    </View>
+                                    <View style={styles.lineItemRightSection}>
+                                        <Text
+                                            style={
+                                                styles.lineItemRightSectionText
+                                            }
+                                        >
+                                            {lineItem.qty}
+                                        </Text>
+                                        <Text
+                                            style={
+                                                styles.lineItemRightSectionText
+                                            }
+                                        >
+                                            {lineItem.price}
+                                        </Text>
+                                        <Text
+                                            style={
+                                                styles.lineItemRightSectionText
+                                            }
+                                        >
+                                            #calcTotal#
+                                        </Text>
+                                    </View>
+                                </View>
+                            </View>
+                        ))}
+
+                        {/* Summary and Footer */}
+                        {index === pages.length - 1 && (
+                            <>
+                                <View wrap style={styles.totalSummaries}>
+                                    <View style={styles.amountWrappers}>
+                                        <Text>Subtotal</Text>
+                                        <Text>$</Text>
+                                    </View>
+                                    <View style={styles.amountWrappers}>
+                                        <Text>Tax (xx%)</Text>
+                                        <Text>$</Text>
+                                    </View>
+                                    <View style={styles.amountWrappers}>
+                                        <Text>Discount (x%)</Text>
+                                        <Text>$</Text>
+                                    </View>
+                                    <View
+                                        style={[
+                                            styles.amountWrappers,
+                                            {
+                                                padding: "10px 0px 10px 0px",
+                                                borderBottom:
+                                                    "3px solid #d7dae0",
+                                                borderTop: "3px solid #d7dae0",
+                                            },
+                                        ]}
+                                    >
+                                        <Text>Amount Due</Text>
+                                        <Text>$$$$</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.extraInfoSection}>
+                                    {formEntryDetails.bankDetails && (
+                                        <View>
+                                            <Text>Payment Infomration:</Text>
+                                            <Text>
+                                                {formEntryDetails.bankDetails}
+                                            </Text>
+                                        </View>
+                                    )}
+                                    {formEntryDetails.notes && (
+                                        <View>
+                                            <Text>Notes:</Text>
+                                            <Text style={styles.extraInfoText}>
+                                                {formEntryDetails.notes}
+                                            </Text>
+                                        </View>
+                                    )}
+                                </View>
+
+                                <View style={styles.footer}>
+                                    <Text>Thank you for your purchase!</Text>
+                                </View>
+                            </>
                         )}
                     </View>
-                    <View style={styles.footer}>
-                        <Text>Thank you for your purchase!</Text>
-                    </View>
-                </View>
-            </Page>
+                </Page>
+            ))}
         </Document>
     );
 };
