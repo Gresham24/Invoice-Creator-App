@@ -11,6 +11,8 @@
 body {
     padding: 2rem;
     background-color: #c5d8fe;
+    width: 60%;
+    margin: 0 auto;
 }
 
 form {
