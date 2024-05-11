@@ -143,10 +143,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#f6f6f6",
         fontWeight: 700,
         fontSize: 10,
-
         width: "100%",
         bottom: 0,
         position: "absolute",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
     },
     image: {
         width: 40,
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const itemsPerPage = 4;
+const itemsPerPage = 2;
 
 const PDFDocument = ({ formValues }) => {
     // Storing saved invoice details
@@ -184,7 +186,6 @@ const PDFDocument = ({ formValues }) => {
                 <Page key={index} wrap size="A4" style={styles.page}>
                     <View style={styles.container}>
                         {/* Header Section */}
-                        {/* <View style={styles.topContentWrapper}> */}
                         <View style={styles.header}>
                             <Image
                                 src={companyDetails.companyLogo}
@@ -198,72 +199,101 @@ const PDFDocument = ({ formValues }) => {
                             </View>
                         </View>
 
-                        {/* Invoice Details */}
-                        <View style={styles.invoiceDetails}>
-                            <View>
-                                <Text style={styles.invoiceDetailsTextH1}>
-                                    From
-                                </Text>
-                                <Text>{companyDetails.name}</Text>
-                                <Text>{companyDetails.companyName}</Text>
-                                <Text>{companyDetails.companyAddress}</Text>
-                                <Text>{companyDetails.companyEmail}</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.invoiceDetailsTextH1}>
-                                    Billed To
-                                </Text>
-                                <Text>{formEntryDetails.customer}</Text>
-                                {formEntryDetails.customer && (
-                                    <View>
-                                        <Text>
-                                            {
-                                                customerDetails[
-                                                    formEntryDetails.customer
-                                                ]?.address
-                                            }
+                        {/* Conditional Rendering of Invoice Details */}
+                        {index === 0 && (
+                            <View style={styles.invoiceDetails}>
+                                <View>
+                                    <Text style={styles.invoiceDetailsTextH1}>
+                                        From
+                                    </Text>
+                                    <Text>{companyDetails.name}</Text>
+                                    <Text>{companyDetails.companyName}</Text>
+                                    <Text>{companyDetails.companyAddress}</Text>
+                                    <Text>{companyDetails.companyEmail}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.invoiceDetailsTextH1}>
+                                        Billed To
+                                    </Text>
+                                    <Text>{formEntryDetails.customer}</Text>
+                                    {formEntryDetails.customer && (
+                                        <View>
+                                            <Text>
+                                                {
+                                                    customerDetails[
+                                                        formEntryDetails
+                                                            .customer
+                                                    ]?.address
+                                                }
+                                            </Text>
+                                            <Text>
+                                                {
+                                                    customerDetails[
+                                                        formEntryDetails
+                                                            .customer
+                                                    ]?.phone
+                                                }
+                                            </Text>
+                                        </View>
+                                    )}
+                                </View>
+                                <View style={styles.invoiceDates}>
+                                    <View style={styles.invoiceDateWrapper}>
+                                        <Text
+                                            style={styles.invoiceDetailsTextH1}
+                                        >
+                                            Issued
                                         </Text>
                                         <Text>
-                                            {
-                                                customerDetails[
-                                                    formEntryDetails.customer
-                                                ]?.phone
-                                            }
+                                            {formEntryDetails.issueDate}
                                         </Text>
                                     </View>
-                                )}
-                            </View>
-                            <View style={styles.invoiceDates}>
-                                <View style={styles.invoiceDateWrapper}>
-                                    <Text style={styles.invoiceDetailsTextH1}>
-                                        Issued
-                                    </Text>
-                                    <Text>{formEntryDetails.issueDate}</Text>
-                                </View>
-                                <View style={styles.invoiceDateWrapper}>
-                                    <Text style={styles.invoiceDetailsTextH1}>
-                                        Due
-                                    </Text>
-                                    <Text>{formEntryDetails.dueDate}</Text>
+                                    <View style={styles.invoiceDateWrapper}>
+                                        <Text
+                                            style={styles.invoiceDetailsTextH1}
+                                        >
+                                            Due
+                                        </Text>
+                                        <Text>{formEntryDetails.dueDate}</Text>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                        <View wrap style={styles.descriptionHeaders}>
-                            <View>
-                                <Text>Item</Text>
+                        )}
+                        {/* Conditional Rendering of Description Headers */}
+                        {index === 0 && (
+                            <View wrap style={styles.descriptionHeaders}>
+                                <View>
+                                    <Text>Item</Text>
+                                </View>
+                                <View
+                                    style={
+                                        styles.descriptionHeadersRightSection
+                                    }
+                                >
+                                    <View
+                                        style={
+                                            styles.descriptionHeadersRightDiv
+                                        }
+                                    >
+                                        <Text>Qty</Text>
+                                    </View>
+                                    <View
+                                        style={
+                                            styles.descriptionHeadersRightDiv
+                                        }
+                                    >
+                                        <Text>Price</Text>
+                                    </View>
+                                    <View
+                                        style={
+                                            styles.descriptionHeadersRightDiv
+                                        }
+                                    >
+                                        <Text>Total</Text>
+                                    </View>
+                                </View>
                             </View>
-                            <View style={styles.descriptionHeadersRightSection}>
-                                <View style={styles.descriptionHeadersRightDiv}>
-                                    <Text>Qty</Text>
-                                </View>
-                                <View style={styles.descriptionHeadersRightDiv}>
-                                    <Text>Price</Text>
-                                </View>
-                                <View style={styles.descriptionHeadersRightDiv}>
-                                    <Text>Total</Text>
-                                </View>
-                            </View>
-                        </View>
+                        )}
 
                         {/* Line Items Section */}
                         {items.map((lineItem) => (
@@ -304,6 +334,17 @@ const PDFDocument = ({ formValues }) => {
                                 </View>
                             </View>
                         ))}
+                        {/* PAge Numbers */}
+                        <View style={styles.footer}>
+                            <View> </View>
+                            <Text
+                                style={styles.pageNumbers}
+                                render={({ pageNumber, totalPages }) =>
+                                    `${pageNumber} / ${totalPages}`
+                                }
+                                fixed
+                            />
+                        </View>
 
                         {/* Summary and Footer */}
                         {index === pages.length - 1 && (
@@ -357,6 +398,13 @@ const PDFDocument = ({ formValues }) => {
 
                                 <View style={styles.footer}>
                                     <Text>Thank you for your purchase!</Text>
+                                    <Text
+                                        style={styles.pageNumbers}
+                                        render={({ pageNumber, totalPages }) =>
+                                            `${pageNumber} / ${totalPages}`
+                                        }
+                                        fixed
+                                    />
                                 </View>
                             </>
                         )}
