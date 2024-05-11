@@ -337,13 +337,9 @@ const PDFDocument = ({ formValues, totals }) => {
                         {/* Page Numbers */}
                         <View style={styles.footer}>
                             <View></View>
-                            <Text
-                                style={styles.pageNumbers}
-                                render={({ pageNumber, totalPages }) =>
-                                    `${pageNumber} / ${totalPages}`
-                                }
-                                fixed
-                            />
+                            <Text style={styles.pageNumbers}>
+                                {index + 1} / {pages.length}{" "}
+                            </Text>
                         </View>
 
                         {/* Summary and Footer */}
