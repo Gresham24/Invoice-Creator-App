@@ -7,6 +7,7 @@ function InvoiceApp() {
     const [formValues, setFormValues] = useState({
         details: {},
         items: [],
+        totals: {},
     });
 
     return (

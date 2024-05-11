@@ -156,9 +156,9 @@ const styles = StyleSheet.create({
     },
 });
 
-const itemsPerPage = 2;
+const itemsPerPage = 4;
 
-const PDFDocument = ({ formValues }) => {
+const PDFDocument = ({ formValues, totals }) => {
     // Storing saved invoice details
     const formEntryDetails = {
         invoiceNumber: formValues.details.invoiceNumber,
@@ -328,15 +328,15 @@ const PDFDocument = ({ formValues }) => {
                                                 styles.lineItemRightSectionText
                                             }
                                         >
-                                            #calcTotal#
+                                            {lineItem.qty * lineItem.price}
                                         </Text>
                                     </View>
                                 </View>
                             </View>
                         ))}
-                        {/* PAge Numbers */}
+                        {/* Page Numbers */}
                         <View style={styles.footer}>
-                            <View> </View>
+                            <View></View>
                             <Text
                                 style={styles.pageNumbers}
                                 render={({ pageNumber, totalPages }) =>
@@ -352,15 +352,19 @@ const PDFDocument = ({ formValues }) => {
                                 <View wrap style={styles.totalSummaries}>
                                     <View style={styles.amountWrappers}>
                                         <Text>Subtotal</Text>
-                                        <Text>$</Text>
+                                        <Text>
+                                            ${totals.subtotal.toFixed(2)}
+                                        </Text>
                                     </View>
                                     <View style={styles.amountWrappers}>
-                                        <Text>Tax (xx%)</Text>
-                                        <Text>$</Text>
+                                        <Text>Tax</Text>
+                                        <Text>${totals.tax.toFixed(2)}</Text>
                                     </View>
                                     <View style={styles.amountWrappers}>
-                                        <Text>Discount (x%)</Text>
-                                        <Text>$</Text>
+                                        <Text>Discount</Text>
+                                        <Text>
+                                            ${totals.discount.toFixed(2)}
+                                        </Text>
                                     </View>
                                     <View
                                         style={[
@@ -374,7 +378,7 @@ const PDFDocument = ({ formValues }) => {
                                         ]}
                                     >
                                         <Text>Amount Due</Text>
-                                        <Text>$$$$</Text>
+                                        <Text>${totals.total.toFixed(2)}</Text>
                                     </View>
                                 </View>
                                 <View style={styles.extraInfoSection}>

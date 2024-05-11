@@ -110,6 +110,9 @@ const StyledFormFooter = styled.div`
     & .costSummaries {
         display: flex;
     }
+    & .costSummaryAmounts {
+        text-align: right;
+    }
     & div:first-child {
         margin-right: 30px;
     }
@@ -369,12 +372,9 @@ export default function Form() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setFormValues({ details, items });
-        navigate("/preview"); 
+        setFormValues({ details, items, totals });
+        navigate("/preview");
     };
-
-
-
 
     // Form display
     return (
@@ -543,7 +543,7 @@ export default function Form() {
                             <b>Total</b>
                         </p>
                     </div>
-                    <div>
+                    <div className="costSummaryAmounts">
                         <p className="subtotalAmount">
                             {totals.subtotal.toFixed(2)}
                         </p>
@@ -562,10 +562,7 @@ export default function Form() {
 
                 <StyledFormActionButtons>
                     <button className="cancelButton">Cancel</button>
-                    <button
-                        type="submit"
-                        className="createInvoiceButton"
-                    >
+                    <button type="submit" className="createInvoiceButton">
                         Create invoice
                     </button>
                 </StyledFormActionButtons>

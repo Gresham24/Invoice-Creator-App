@@ -162,6 +162,9 @@ function FormPrint() {
     const navigate = useNavigate();
     // const componentRef = useRef();
 
+    // Accessing the cost summaries
+    const { totals } = formValues;
+
     // Storing saved invoice details
     const formEntryDetails = {
         invoiceNumber: formValues.details.invoiceNumber,
@@ -187,7 +190,9 @@ function FormPrint() {
                     Back
                 </button>
                 <PDFDownloadLink
-                    document={<PDFDocument formValues={formValues} />}
+                    document={
+                        <PDFDocument formValues={formValues} totals={totals} />
+                    }
                     fileName={`INV${formEntryDetails.invoiceNumber}`}
                     style={{ textDecoration: "none" }}
                 >
@@ -196,7 +201,9 @@ function FormPrint() {
                     }
                 </PDFDownloadLink>
             </StyledbuttonWrapper>
+
             <StyledContainer>
+                {/************** Invoice header section ****************/}
                 <StyledHeader>
                     <img src={companyDetails.companyLogo} alt="logo" />
                     <div className="title">
@@ -204,6 +211,8 @@ function FormPrint() {
                         <p>{`NO. ${formEntryDetails.invoiceNumber}`}</p>
                     </div>
                 </StyledHeader>
+
+                {/************** Invoice details section ****************/}
                 <StyledInvoiceDetails>
                     <div className="companyDetails">
                         <h3>From</h3>
@@ -245,6 +254,8 @@ function FormPrint() {
                         </div>
                     </div>
                 </StyledInvoiceDetails>
+
+                {/************** Description headers section ****************/}
                 <StyldDescriptionHeaders>
                     <div className="flex-left">
                         <div>Item</div>
@@ -255,6 +266,8 @@ function FormPrint() {
                         <div>Total</div>
                     </div>
                 </StyldDescriptionHeaders>
+
+                {/************** Line items section ****************/}
                 {formValues.items.map((lineItem) => (
                     <StyledLineItem key={lineItem.id}>
                         <div className="lineItemContainer">
@@ -265,30 +278,33 @@ function FormPrint() {
                             <div className="flex-right">
                                 <p>{lineItem.qty}</p>
                                 <p>{lineItem.price}</p>
-                                <p>#calcTotal#</p>
+                                <p>{lineItem.qty * lineItem.price}</p>
                             </div>
                         </div>
-                        {/* <p> {lineItem.lineItemTotal}</p> */}
                     </StyledLineItem>
                 ))}
+
+                {/************** Cost summaries section ****************/}
                 <StyledTotalSummaries>
                     <div className="subtotal">
                         <p>Subtotal</p>
-                        <p>$</p>
+                        <p>${totals.subtotal.toFixed(2)}</p>
                     </div>
                     <div className="taxAmount">
-                        <p>Tax (xx%)</p>
-                        <p>$</p>
+                        <p>Tax</p>
+                        <p>${totals.tax.toFixed(2)}</p>
                     </div>
                     <div className="discountTotal">
-                        <p>Discount (x%)</p>
-                        <p>$</p>
+                        <p>Discount</p>
+                        <p>${totals.discount.toFixed(2)}</p>
                     </div>
                     <div className="totalAmount">
                         <p>Amount Due</p>
-                        <p>$$$$</p>
+                        <p>${totals.total.toFixed(2)}</p>
                     </div>
                 </StyledTotalSummaries>
+
+                {/************** Extra info section ****************/}
                 <StyledExtraInfo>
                     {formEntryDetails.bankDetails && (
                         <div className="paymentInfoContainer">
