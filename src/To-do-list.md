@@ -1,25 +1,22 @@
 # TO DO:
 
-1. Retain values on Routing when back button clicked
+1. Page numbers. ‘Page 1 of 1’ etc.
 
-Add input for discount % and tax % above extra information section
+2. The header can’t be the same in all the pages - the header should just have the grey part with the company logo and invoice number for the rest of the pages after the first one.
 
-2. Caclulations for the following for form input:
+2. Display subtotal, tax, discount and total on FormPrint
+
+3. Retain values on Routing when back button clicked
+
+4. Caclulations for the following for form input:
 
 -   subtotal
 -   total VAT
 -   discount
 -   total amount
 
-2. Display subtotal, tax, discount and total on FormPrint
+5. 
 
-3. Add FormPrint component to a new page
-
-4. Move Preview button to the top right of the Form page (find suitable button state )
-
-5. Create "Save invoice" and "Back" button on the preview page
-
-6. Save button should generate PDF of the document
 
 ## Questions:
 
