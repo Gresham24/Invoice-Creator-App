@@ -1,6 +1,6 @@
 # TO DO:
 
-1. The qty should automatically be 1 when I add an item.
+1. 
 
 2. You need to fix the images issue. Because the final invoice doesn’t even have the logo. So that’s a problem.
 

@@ -203,7 +203,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         name="qty"
                         type="number"
                         className="qty"
-                        value={item.qty || ""}
+                        value={item.qty || 1}
                         onChange={handleChange}
                         placeholder="0"
                     />
@@ -268,7 +268,7 @@ export default function Form() {
             id: 1,
             productService: "",
             description: "",
-            qty: "",
+            qty: 1,
             price: "",
             taxPercentage: "",
             discountPercentage: "",
