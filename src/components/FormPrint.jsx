@@ -175,7 +175,6 @@ function FormPrint() {
         notes: formValues.details.notes,
         bankDetails: formValues.details.bankDetails,
     };
-    // console.log(subtotal);
 
     //************* Routing ***************//
     const handleBackButton = (e) => {
