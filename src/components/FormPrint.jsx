@@ -160,7 +160,7 @@ const StyledbuttonWrapper = styled.div`
 function FormPrint() {
     const { formValues } = useContext(FormDataContext);
     const navigate = useNavigate();
-    // const componentRef = useRef();
+
 
     // Accessing the cost summaries
     const { totals } = formValues;
@@ -180,7 +180,7 @@ function FormPrint() {
     //************* Routing ***************//
     const handleBackButton = (e) => {
         e.preventDefault();
-        navigate(-1);
+        navigate("/");
     };
 
     return (

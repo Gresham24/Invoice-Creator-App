@@ -4,7 +4,7 @@
 
 2. You need to fix the images issue. Because the final invoice doesn’t even have the logo. So that’s a problem.
 
-3. Retain values on Routing when back button clicked
+3. 
 
 4. Validation of inputs - add rules
 

@@ -168,7 +168,6 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
     const subtotal = item.qty * item.price;
     const subTotalWithTax = subtotal * (1 + item.taxPercentage / 100);
     const discountAmount = subTotalWithTax * (item.discountPercentage / 100);
-    // Round to 2 decimal places and convert back to a number
     lineItemTotal = parseFloat((subTotalWithTax - discountAmount).toFixed(2));
 
     return (
@@ -203,7 +202,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         name="qty"
                         type="number"
                         className="qty"
-                        value={item.qty || 1}
+                        value={item.qty || ""}
                         onChange={handleChange}
                         placeholder="0"
                     />
@@ -260,42 +259,38 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
 
 // Main funcition
 export default function Form() {
+    /*=========== CONTEXT ===========*/
+
+    // Use context to access setFormValues
+    const { formValues, setFormValues } = useContext(FormDataContext);
+
     /*=========== HOOKS===========*/
 
     // form line items
-    const [items, setItems] = useState([
-        {
-            id: 1,
-            productService: "",
-            description: "",
-            qty: 1,
-            price: "",
-            taxPercentage: "",
-            discountPercentage: "",
-        },
-    ]);
+    // Initialize state with values from formValues context
+    const [items, setItems] = useState(
+        formValues.items.length > 0
+            ? formValues.items
+            : [
+                  {
+                      id: 1,
+                      productService: "",
+                      description: "",
+                      qty: 1,
+                      price: "",
+                      taxPercentage: "",
+                      discountPercentage: "",
+                  },
+              ]
+    );
 
-    // Cost summaries
-    const [totals, setTotals] = useState({
-        subtotal: 0,
-        tax: 0,
-        discount: 0,
-        total: 0,
-    });
+    // Initialize nextItemId based on the maximum ID in items array plus one
+    const initialNextItemId =
+        items.length > 0 ? Math.max(...items.map((item) => item.id)) + 1 : 2;
+    const [nextItemId, setNextItemId] = useState(initialNextItemId);
 
-    // Line item IDs
-    const [nextItemId, setNextItemId] = useState(2);
-
-    // form header details
-    const [details, setDetails] = useState({
-        invoiceNumber: "",
-        purchaseOrder: "",
-        customer: "",
-        issueDate: "",
-        dueDate: "",
-        notes: "",
-        bankDetails: "",
-    });
+    const [totals, setTotals] = useState(formValues.totals);
+    const [details, setDetails] = useState(formValues.details);
 
     /*=========== FUNCTIONS ===========*/
 
@@ -364,9 +359,6 @@ export default function Form() {
         setItems((oldItems) => oldItems.filter((item) => item.id !== itemId));
     };
 
-    // Use context to access setFormValues
-    const { setFormValues } = useContext(FormDataContext);
-
     // navigate to preview page
     const navigate = useNavigate();
 
@@ -400,6 +392,7 @@ export default function Form() {
                             type="text"
                             id="invoiceNumber"
                             placeholder="Enter invoice number..."
+                            value={details.invoiceNumber || ""}
                         />
                     </StyledInput>
                     <StyledInput>
@@ -410,6 +403,7 @@ export default function Form() {
                             type="text"
                             id="purchaseOrder"
                             placeholder="Enter purchase order number..."
+                            value={details.purchaseOrder || ""}
                         />
                     </StyledInput>
                 </div>
@@ -420,7 +414,8 @@ export default function Form() {
                         name="customer"
                         id="customerName"
                         onChange={handleChange}
-                        defaultValue=""
+                        // defaultValue=""
+                        defaultValue={details.customer || ""}
                     >
                         <option value="" disabled>
                             Select a customer
@@ -445,6 +440,7 @@ export default function Form() {
                             name="issueDate"
                             type="date"
                             id="issueDate"
+                            value={details.issueDate || ""}
                         />
                     </StyledInput>
                     <StyledDropdown>
@@ -453,7 +449,8 @@ export default function Form() {
                             onChange={handleChange}
                             name="dueDate"
                             id="dueDate"
-                            defaultValue=""
+                            // defaultValue=""
+                            defaultValue={details.dueDate || ""}
                         >
                             <option value="" disabled>
                                 Select a date
@@ -508,6 +505,7 @@ export default function Form() {
                             rows="5"
                             onChange={handleChange}
                             placeholder="Enter a description... (Optional)"
+                            value={details.notes || ""}
                         />
                     </StyledInput>
                     <StyledInput>
@@ -521,6 +519,7 @@ export default function Form() {
                             rows="5"
                             onChange={handleChange}
                             placeholder="Enter a description... (Optional)"
+                            value={details.bankDetails || ""}
                         />
                     </StyledInput>
                 </div>
@@ -544,16 +543,12 @@ export default function Form() {
                         </p>
                     </div>
                     <div className="costSummaryAmounts">
-                        <p className="subtotalAmount">
-                            {totals.subtotal.toFixed(2)}
-                        </p>
-                        <p className="vatAmount">+{totals.tax.toFixed(2)}</p>
-                        <p className="discountAmount">
-                            -{totals.discount.toFixed(2)}
-                        </p>
+                        <p className="subtotalAmount">{totals.subtotal}</p>
+                        <p className="vatAmount">+{totals.tax}</p>
+                        <p className="discountAmount">-{totals.discount}</p>
                         <p className="totalAmount">
                             <b>
-                                <span>USD</span> {totals.total.toFixed(2)}
+                                <span>USD</span> {totals.total}
                             </b>
                         </p>
                     </div>
