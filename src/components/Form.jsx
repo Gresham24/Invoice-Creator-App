@@ -248,7 +248,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
             {index > 0 && (
                 <StyledDeleteButton onClick={() => onDelete(item.id)}>
                     <img
-                        src="./public/delete_icon.svg"
+                        src="/delete_icon.svg"
                         alt="delete button"
                     />
                 </StyledDeleteButton>

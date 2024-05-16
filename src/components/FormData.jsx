@@ -2,7 +2,7 @@
 export const companyDetails = {
     name: "Masharty Tembo",
     companyName: "Web Masters Limited",
-    companyLogo: "./public/webcoin_web logo.png",
+    companyLogo: "/webcoin_web logo.png",
     companyAddress: "Riyadh 12345, Saudi Arabia",
     companyEmail: "mohamed.f.ghulam@gmail.com",
 };
