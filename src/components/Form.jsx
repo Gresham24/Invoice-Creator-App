@@ -336,7 +336,7 @@ export default function Form() {
                 id: nextItemId,
                 productService: "",
                 description: "",
-                qty: 0,
+                qty: 1,
                 price: 0,
                 taxPercentage: 0,
                 discountPercentage: 0,
