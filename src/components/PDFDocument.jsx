@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const itemsPerPage = 4;
+const itemsPerPage = 10;
 
 const PDFDocument = ({ formValues, totals }) => {
     // Storing saved invoice details
