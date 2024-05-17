@@ -204,7 +204,6 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         className="qty"
                         value={item.qty || ""}
                         onChange={handleChange}
-                        placeholder="0"
                     />
                 </label>
             </StyledInput>
@@ -277,7 +276,7 @@ export default function Form() {
                       productService: "",
                       description: "",
                       qty: 1,
-                      price: "",
+                      price: 0,
                       taxPercentage: "",
                       discountPercentage: "",
                   },
@@ -327,6 +326,25 @@ export default function Form() {
         });
     };
 
+    // Function to calculate the due date
+    const calculateDueDate = (issueDate, dueDateOption) => {
+        const issue = new Date(issueDate);
+        switch (dueDateOption) {
+            case "30days":
+                issue.setDate(issue.getDate() + 30);
+                break;
+            case "60days":
+                issue.setDate(issue.getDate() + 60);
+                break;
+            case "90days":
+                issue.setDate(issue.getDate() + 90);
+                break;
+            default:
+                break;
+        }
+        return issue.toISOString().split("T")[0]; // Format date to YYYY-MM-DD
+    };
+
     // Function to add a new line item
     const handleAddNewItem = (event) => {
         event.preventDefault();
@@ -364,7 +382,8 @@ export default function Form() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setFormValues({ details, items, totals });
+ const dueDate = calculateDueDate(details.issueDate, details.dueDate);
+ setFormValues({ details: { ...details, dueDate }, items, totals });
         navigate("/preview");
     };
 
@@ -448,7 +467,6 @@ export default function Form() {
                             onChange={handleChange}
                             name="dueDate"
                             id="dueDate"
-                            // defaultValue=""
                             defaultValue={details.dueDate || ""}
                         >
                             <option value="" disabled>

@@ -2,7 +2,7 @@
 
 1. 
 
-2. You need to fix the images issue. Because the final invoice doesn’t even have the logo. So that’s a problem.
+2. 
 
 3. 
 
@@ -10,7 +10,7 @@
 
 5. Error handling
 
-6. Due date calculation
+6. 
 
 7. Unit labels - currency and percentages
 
