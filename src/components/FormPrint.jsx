@@ -15,7 +15,6 @@ const StyledContainer = styled.div`
     max-width: 980px;
 `;
 
-
 const StyledHeader = styled.div`
     padding: 24px 40px;
     background-color: #f6f6f6;
@@ -34,7 +33,6 @@ const StyledHeader = styled.div`
     & p {
         color: #858585;
     }
-
 `;
 
 const StyledInvoiceDetails = styled.div`
@@ -136,6 +134,7 @@ const StyledbuttonWrapper = styled.div`
     display: flex;
     gap: 50px;
     justify-content: center;
+    align-items: center;
     & button {
         border-radius: 8px;
         border: 1px solid transparent;
@@ -161,7 +160,6 @@ function FormPrint() {
     const { formValues } = useContext(FormDataContext);
     const navigate = useNavigate();
 
-
     // Accessing the cost summaries
     const { totals } = formValues;
 
@@ -184,23 +182,6 @@ function FormPrint() {
 
     return (
         <div>
-            <StyledbuttonWrapper>
-                <button className="backButton" onClick={handleBackButton}>
-                    Back
-                </button>
-                <PDFDownloadLink
-                    document={
-                        <PDFDocument formValues={formValues} totals={totals} />
-                    }
-                    fileName={`INV${formEntryDetails.invoiceNumber}`}
-                    style={{ textDecoration: "none" }}
-                >
-                    {({ blob, url, loading, error }) =>
-                        loading ? "Loading document..." : "Download"
-                    }
-                </PDFDownloadLink>
-            </StyledbuttonWrapper>
-
             <StyledContainer>
                 {/************** Invoice header section ****************/}
                 <StyledHeader>
@@ -322,6 +303,29 @@ function FormPrint() {
                     <p>Thank you for your purchase!</p>
                 </StyledFooter>
             </StyledContainer>
+            <StyledbuttonWrapper>
+                <button className="backButton" onClick={handleBackButton}>
+                    Back
+                </button>
+                <PDFDownloadLink
+                    document={
+                        <PDFDocument formValues={formValues} totals={totals} />
+                    }
+                    fileName={`INV${formEntryDetails.invoiceNumber}`}
+                    style={{
+                        textDecoration: "none",
+                        border: "1px solid transparent",
+                        background: "#f8f9fa",
+                        padding: "8px 48px",
+                        borderRadius: "8px",
+                        
+                    }}
+                >
+                    {({ loading, error }) =>
+                        loading ? "Loading document..." : "Download"
+                    }
+                </PDFDownloadLink>
+            </StyledbuttonWrapper>
         </div>
     );
 }

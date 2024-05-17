@@ -414,7 +414,6 @@ export default function Form() {
                         name="customer"
                         id="customerName"
                         onChange={handleChange}
-                        // defaultValue=""
                         defaultValue={details.customer || ""}
                     >
                         <option value="" disabled>
