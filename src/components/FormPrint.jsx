@@ -69,6 +69,7 @@ const StyledLineItem = styled.div`
     color: #5e6470;
     background-color: white;
     & .lineItemContainer {
+        min-height: 69px;
         background-color: white;
         padding: 10px 0;
         margin: 0px 40px;
