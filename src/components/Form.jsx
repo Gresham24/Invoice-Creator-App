@@ -17,6 +17,11 @@ const StyledInput = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
+    & span {
+        color: red;
+        font-size: 0.8rem;
+        margin-left: 10px;
+    }
 `;
 const StyledDropdown = styled.div`
     display: flex;
@@ -26,6 +31,12 @@ const StyledDropdown = styled.div`
     & .customerDetails {
         color: #858585;
         font-size: 0.875rem;
+    }
+
+    & span {
+        color: red;
+        font-size: 0.8rem;
+        margin-left: 10px;
     }
 `;
 const StyledFormHeader = styled.div`
@@ -246,10 +257,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
             <div id={"itemTotal" + index}>{lineItemTotal}</div>
             {index > 0 && (
                 <StyledDeleteButton onClick={() => onDelete(item.id)}>
-                    <img
-                        src="/delete_icon.svg"
-                        alt="delete button"
-                    />
+                    <img src="/delete_icon.svg" alt="delete button" />
                 </StyledDeleteButton>
             )}
         </StyledDescriptionRow>
@@ -331,11 +339,78 @@ export default function Form() {
         });
     };
 
+    const [errors, setErrors] = useState({});
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setDetails((prev) => {
             return { ...prev, [name]: value };
         });
+
+        // Validate on change
+        validateField(name, value);
+    };
+
+    const validateField = (name, value) => {
+        let error = "";
+
+        switch (name) {
+            case "invoiceNumber":
+                if (!value) error = "Invoice number is required";
+                break;
+            case "purchaseOrder":
+                if (!value) error = "Purchase order is required";
+                break;
+            case "customer":
+                if (!value) error = "Customer is required";
+                break;
+            case "issueDate":
+                if (!value) error = "Issue date is required";
+                break;
+            case "dueDate":
+                if (!value) error = "Due date is required";
+                break;
+            case "qty":
+                if (!value || value <= 0)
+                    error = "Quantity must be greater than 0";
+                break;
+            case "price":
+                if (!value || value <= 0)
+                    error = "Price must be greater than 0";
+                break;
+            default:
+                break;
+        }
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
+    };
+
+    const validateForm = () => {
+        const currentErrors = {};
+
+        if (!details.invoiceNumber)
+            currentErrors.invoiceNumber = "Invoice number is required";
+        if (!details.purchaseOrder)
+            currentErrors.purchaseOrder = "Purchase order is required";
+        if (!details.customer) currentErrors.customer = "Customer is required";
+        if (!details.issueDate)
+            currentErrors.issueDate = "Issue date is required";
+        if (!details.dueDate)
+            currentErrors.dueDate = "Due date is required";
+
+        items.forEach((item, index) => {
+            if (!item.productService)
+                currentErrors[`productService${index}`] =
+                    "Product/service is required";
+            if (!item.qty || item.qty <= 0)
+                currentErrors[`qty${index}`] =
+                    "Quantity must be greater than 0";
+            if (!item.price || item.price <= 0)
+                currentErrors[`price${index}`] = "Price must be greater than 0";
+        });
+
+        setErrors(currentErrors);
+
+        return Object.keys(currentErrors).length === 0;
     };
 
     // Function to calculate the due date
@@ -382,6 +457,8 @@ export default function Form() {
                 item.id === id ? { ...item, [name]: value } : item
             )
         );
+        // Validate on change
+        validateField(name, value);
     };
 
     // Function to delete a line item
@@ -394,9 +471,13 @@ export default function Form() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const dueDate = calculateDueDate(details.issueDate, details.dueDate);
-        setFormValues({ details: { ...details, dueDate }, items, totals });
-        navigate("/preview");
+if (validateForm()) {
+    const dueDate = calculateDueDate(details.issueDate, details.dueDate);
+    setFormValues({ details: { ...details, dueDate }, items, totals });
+    navigate("/preview");
+} else {
+    alert("Please fill in all the necessary fields in the form.");
+}
     };
 
     // Form display
@@ -425,6 +506,9 @@ export default function Form() {
                             placeholder="Enter invoice number..."
                             value={details.invoiceNumber || ""}
                         />
+                        {errors.invoiceNumber && (
+                            <span>{errors.invoiceNumber}</span>
+                        )}
                     </StyledInput>
                     <StyledInput>
                         <label htmlFor="purchaseOrder">Purchase order</label>
@@ -436,6 +520,9 @@ export default function Form() {
                             placeholder="Enter purchase order number..."
                             value={details.purchaseOrder || ""}
                         />
+                        {errors.purchaseOrder && (
+                            <span>{errors.purchaseOrder}</span>
+                        )}
                     </StyledInput>
                 </div>
 
@@ -454,6 +541,7 @@ export default function Form() {
                         <option value="Mandu">Mandu</option>
                         <option value="Amasuku">Amasuku</option>
                     </select>
+                    {errors.customer && <span>{errors.customer}</span>}
                     {details.customer && (
                         <div className="customerDetails">
                             <p>{customerDetails[details.customer]?.address}</p>
@@ -472,6 +560,7 @@ export default function Form() {
                             id="issueDate"
                             value={details.issueDate || ""}
                         />
+                        {errors.issueDate && <span>{errors.issueDate}</span>}
                     </StyledInput>
                     <StyledDropdown>
                         <label htmlFor="dueDate">Due date</label>
@@ -488,6 +577,7 @@ export default function Form() {
                             <option value="60days">Next 60 Days</option>
                             <option value="90days">Next 90 Days</option>
                         </select>
+                        {errors.dueDate && <span>{errors.dueDate}</span>}
                     </StyledDropdown>
                 </div>
             </StyledFormHeader>
