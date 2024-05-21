@@ -258,8 +258,8 @@ function FormPrint() {
                             </div>
                             <div className="flex-right">
                                 <p>{lineItem.qty}</p>
-                                <p>{lineItem.price}</p>
-                                <p>{lineItem.qty * lineItem.price}</p>
+                                <p>$ {lineItem.price}</p>
+                                <p>$ {lineItem.qty * lineItem.price}</p>
                             </div>
                         </div>
                     </StyledLineItem>
@@ -269,19 +269,19 @@ function FormPrint() {
                 <StyledTotalSummaries>
                     <div className="subtotal">
                         <p>Subtotal</p>
-                        <p>${totals.subtotal.toFixed(2)}</p>
+                        <p>$ {totals.subtotal.toFixed(2)}</p>
                     </div>
                     <div className="taxAmount">
                         <p>Tax</p>
-                        <p>${totals.tax.toFixed(2)}</p>
+                        <p>$ {totals.tax.toFixed(2)}</p>
                     </div>
                     <div className="discountTotal">
                         <p>Discount</p>
-                        <p>${totals.discount.toFixed(2)}</p>
+                        <p>$ {totals.discount.toFixed(2)}</p>
                     </div>
                     <div className="totalAmount">
                         <p>Amount Due</p>
-                        <p>${totals.total.toFixed(2)}</p>
+                        <p>$ {totals.total.toFixed(2)}</p>
                     </div>
                 </StyledTotalSummaries>
 

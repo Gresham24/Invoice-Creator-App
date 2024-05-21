@@ -331,14 +331,14 @@ const PDFDocument = ({ formValues, totals }) => {
                                                 styles.lineItemRightSectionText
                                             }
                                         >
-                                            {lineItem.price}
+                                            $ {lineItem.price}
                                         </Text>
                                         <Text
                                             style={
                                                 styles.lineItemRightSectionText
                                             }
                                         >
-                                            {lineItem.qty * lineItem.price}
+                                            $ {lineItem.qty * lineItem.price}
                                         </Text>
                                     </View>
                                 </View>
@@ -359,17 +359,17 @@ const PDFDocument = ({ formValues, totals }) => {
                                     <View style={styles.amountWrappers}>
                                         <Text>Subtotal</Text>
                                         <Text>
-                                            ${totals.subtotal.toFixed(2)}
+                                            $ {totals.subtotal.toFixed(2)}
                                         </Text>
                                     </View>
                                     <View style={styles.amountWrappers}>
                                         <Text>Tax</Text>
-                                        <Text>${totals.tax.toFixed(2)}</Text>
+                                        <Text>$ {totals.tax.toFixed(2)}</Text>
                                     </View>
                                     <View style={styles.amountWrappers}>
                                         <Text>Discount</Text>
                                         <Text>
-                                            ${totals.discount.toFixed(2)}
+                                            $ {totals.discount.toFixed(2)}
                                         </Text>
                                     </View>
                                     <View
@@ -384,7 +384,7 @@ const PDFDocument = ({ formValues, totals }) => {
                                         ]}
                                     >
                                         <Text>Amount Due</Text>
-                                        <Text>${totals.total.toFixed(2)}</Text>
+                                        <Text>$ {totals.total.toFixed(2)}</Text>
                                     </View>
                                 </View>
                                 <View style={styles.extraInfoSection}>
