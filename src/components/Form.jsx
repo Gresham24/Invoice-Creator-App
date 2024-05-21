@@ -263,6 +263,15 @@ export default function Form() {
     // Use context to access setFormValues
     const { formValues, setFormValues } = useContext(FormDataContext);
 
+    // Get today's date in YYYY-MM-DD format
+    const getCurrentDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, "0");
+        const day = String(today.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+    };
+
     /*=========== HOOKS===========*/
 
     // form line items
@@ -289,10 +298,13 @@ export default function Form() {
     const [nextItemId, setNextItemId] = useState(initialNextItemId);
 
     const [totals, setTotals] = useState(formValues.totals);
-    const [details, setDetails] = useState(formValues.details);
+    // Initialize details with current date for issueDate
+    const [details, setDetails] = useState({
+        ...formValues.details,
+        issueDate: formValues.details.issueDate || getCurrentDate(),
+    });
 
     /*=========== FUNCTIONS ===========*/
-
     useEffect(() => {
         calculateTotals();
     }, [items]);
@@ -382,8 +394,8 @@ export default function Form() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
- const dueDate = calculateDueDate(details.issueDate, details.dueDate);
- setFormValues({ details: { ...details, dueDate }, items, totals });
+        const dueDate = calculateDueDate(details.issueDate, details.dueDate);
+        setFormValues({ details: { ...details, dueDate }, items, totals });
         navigate("/preview");
     };
 
