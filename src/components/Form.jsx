@@ -20,7 +20,11 @@ const StyledInput = styled.div`
     & span {
         color: red;
         font-size: 0.8rem;
-        margin-left: 10px;
+        /* margin-left: 10px; */
+    }
+    & label {
+        display: flex;
+        flex-direction: column;
     }
 `;
 const StyledDropdown = styled.div`
@@ -76,7 +80,7 @@ const StyledDescriptionRow = styled.div`
     & .qty,
     .taxPercentage,
     .discountPercentage {
-        width: 3rem;
+        width: 4rem;
     }
     & .price {
         width: 5rem;
@@ -170,7 +174,7 @@ const StyledFormActionButtons = styled.div`
 
 //**========== COMPONENTS=========== **/
 
-const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
+const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         onUpdate(item.id, name, value);
@@ -194,6 +198,9 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         onChange={handleChange}
                         placeholder="Enter a product"
                     />
+                    {errors[`productService${index}`] && (
+                        <span>{errors[`productService${index}`]}</span>
+                    )}
                 </label>
                 <label htmlFor="description">
                     <textarea
@@ -216,6 +223,9 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         value={item.qty || ""}
                         onChange={handleChange}
                     />
+                    {errors[`qty${index}`] && (
+                        <span>{errors[`qty${index}`]}</span>
+                    )}
                 </label>
             </StyledInput>
             <StyledInput>
@@ -228,6 +238,9 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal }) => {
                         onChange={handleChange}
                         placeholder="0.00"
                     />
+                    {errors[`price${index}`] && (
+                        <span>{errors[`price${index}`]}</span>
+                    )}
                 </label>
             </StyledInput>
             <StyledInput>
@@ -388,24 +401,22 @@ export default function Form() {
         const currentErrors = {};
 
         if (!details.invoiceNumber)
-            currentErrors.invoiceNumber = "Invoice number is required";
+            currentErrors.invoiceNumber = "Required";
         if (!details.purchaseOrder)
-            currentErrors.purchaseOrder = "Purchase order is required";
-        if (!details.customer) currentErrors.customer = "Customer is required";
+            currentErrors.purchaseOrder = "Required";
+        if (!details.customer) currentErrors.customer = "Required";
         if (!details.issueDate)
-            currentErrors.issueDate = "Issue date is required";
+            currentErrors.issueDate = "Required";
         if (!details.dueDate)
-            currentErrors.dueDate = "Due date is required";
+            currentErrors.dueDate = "Required";
 
         items.forEach((item, index) => {
             if (!item.productService)
-                currentErrors[`productService${index}`] =
-                    "Product/service is required";
+                currentErrors[`productService${index}`] = "Required";
             if (!item.qty || item.qty <= 0)
-                currentErrors[`qty${index}`] =
-                    "Quantity must be greater than 0";
+                currentErrors[`qty${index}`] = "Required";
             if (!item.price || item.price <= 0)
-                currentErrors[`price${index}`] = "Price must be greater than 0";
+                currentErrors[`price${index}`] = "Required";
         });
 
         setErrors(currentErrors);
@@ -604,6 +615,7 @@ if (validateForm()) {
                             item={item}
                             onUpdate={handleUpdateItem}
                             onDelete={handleDeleteItem}
+                            errors={errors}
                         />
                     ))}
                 </div>
