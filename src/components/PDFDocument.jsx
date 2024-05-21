@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
         padding: "5px 0",
     },
     lineItemContainer: {
+        minHeight: "45px",
         fontSize: 10,
         padding: "10px 0",
         margin: "0px 40px",
@@ -156,7 +157,8 @@ const styles = StyleSheet.create({
     },
 });
 
-const itemsPerPage = 10;
+const firstPageItems = 9;
+const subsequentPageItems = 12;
 
 const PDFDocument = ({ formValues, totals }) => {
     // Storing saved invoice details
@@ -170,16 +172,24 @@ const PDFDocument = ({ formValues, totals }) => {
         bankDetails: formValues.details.bankDetails,
     };
 
-    // Split items into groups of 'itemsPerPage'
-    const pages = formValues.items.reduce((acc, item, idx) => {
-        const pageNo = Math.floor(idx / itemsPerPage);
-        if (!acc[pageNo]) {
-            acc[pageNo] = [];
-        }
-        acc[pageNo].push(item);
-        return acc;
-    }, []);
+    // Split items into groups of firstPageItems for the first page and subsequentPageItems for subsequent pages
+    const pages = [];
+    let currentPage = [];
 
+    formValues.items.forEach((item, idx) => {
+        const itemsPerPage =
+            pages.length === 0 ? firstPageItems : subsequentPageItems;
+        if (currentPage.length < itemsPerPage) {
+            currentPage.push(item);
+        } else {
+            pages.push(currentPage);
+            currentPage = [item];
+        }
+    });
+
+    if (currentPage.length > 0) {
+        pages.push(currentPage);
+    }
     return (
         <Document>
             {pages.map((items, index) => (
