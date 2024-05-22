@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     },
 
     descriptionHeaders: {
-        backgroundColor: "#f6f6f6",
+        backgroundColor: "#EDEDED",
         padding: "10px 40px",
         fontSize: 12,
         display: "flex",
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
 });
 
 const firstPageItems = 9;
-const subsequentPageItems = 12;
+const subsequentPageItems = 11;
 
 const PDFDocument = ({ formValues, totals }) => {
     // Storing saved invoice details
@@ -270,7 +270,6 @@ const PDFDocument = ({ formValues, totals }) => {
                             </View>
                         )}
                         {/* Conditional Rendering of Description Headers */}
-                        {index === 0 && (
                             <View wrap style={styles.descriptionHeaders}>
                                 <View>
                                     <Text>Item</Text>
@@ -303,7 +302,6 @@ const PDFDocument = ({ formValues, totals }) => {
                                     </View>
                                 </View>
                             </View>
-                        )}
 
                         {/* Line Items Section */}
                         {items.map((lineItem) => (

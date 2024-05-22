@@ -49,7 +49,7 @@ const StyledInvoiceDetails = styled.div`
 `;
 
 const StyldDescriptionHeaders = styled.div`
-    background-color: #f6f6f6;
+    background-color: #ededed;
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;
