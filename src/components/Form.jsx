@@ -6,7 +6,11 @@ import { useNavigate } from "react-router-dom";
 export const FormDataContext = createContext();
 
 /*=========== STYLED COMPONENTS ===========*/
-
+// Neater IMO to split into styled component file if there's a lot of styles. E.g Form.styled.js to contain all styled components for the Form component
+// Neater to move functions into helper files. E.g make a utils.js(x) or helpers.js(x) file to store calculation or util functions and then import them here
+// Break components into separate files -> imagine you want to add more form components - it will just make this file bigger. Recommend storing only the main Form component here. 
+// Break other components into separate files and import them. More sustainable, makes reusablity a little neater too in case you have more than one kind of form
+// Could add linting, 'prettier' is a standard one
 const StyledCompanyDetails = styled.div`
     display: flex;
     flex-direction: column;
@@ -175,6 +179,7 @@ const StyledFormActionButtons = styled.div`
 //**========== COMPONENTS=========== **/
 
 const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) => {
+    // const { id, productService, description, qty, price, taxPercentage, discountPercentage } = item; Use destructuring to make neater - no need to always so item.foo
     const handleChange = (e) => {
         const { name, value } = e.target;
         onUpdate(item.id, name, value);
@@ -184,7 +189,50 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
     const subTotalWithTax = subtotal * (1 + item.taxPercentage / 100);
     const discountAmount = subTotalWithTax * (item.discountPercentage / 100);
     lineItemTotal = parseFloat((subTotalWithTax - discountAmount).toFixed(2));
+    //   const lineItemTotal = useMemo(() => {
+    //     const subtotal = qty * price;
+    //     const subTotalWithTax = subtotal * (1 + taxPercentage / 100);
+    //     const discountAmount = subTotalWithTax * (discountPercentage / 100);
+    //     return parseFloat((subTotalWithTax - discountAmount).toFixed(2));
+    //   }, [qty, price, taxPercentage, discountPercentage]);
+    // use useMemo to avoid unnecessary recalculations - it will memoise the result of the function if the inputs are the same (check react docs for good explanations)
 
+
+    // Doesn't have to be this way but you could map across your input fields to make the return a little neater
+    // const fields = [
+    //     { name: 'productService', type: 'text', placeholder: 'Enter a product' },
+    //     { name: 'description', type: 'textarea', rows: '3', placeholder: 'Enter a description... (Optional)' },
+    //     { name: 'qty', type: 'number' },
+    //     { name: 'price', type: 'number', placeholder: '0.00' },
+    //     { name: 'taxPercentage', type: 'number', placeholder: '% 0' },
+    //     { name: 'discountPercentage', type: 'number', placeholder: '%  0' },
+    //   ];
+    //
+    // then something like 
+    //
+    // {fields.map((field) => (
+    // <label key={field.name} htmlFor={`${field.name}${index}`}>
+    // {field.type === 'textarea' ? (
+    //   <textarea
+    //     name={field.name}
+    //     rows={field.rows}
+    //     className={field.name}
+    //     value={item[field.name] || ''}
+    //     onChange={handleChange}
+    //     placeholder={field.placeholder}
+    //   />
+    // ) : (
+    //   <input
+    //     name={field.name}
+    //     type={field.type}
+    //     className={field.name}
+    //     value={item[field.name] || ''}
+    //     onChange={handleChange}
+    //     placeholder={field.placeholder}
+    //   />
+    // )}
+    //
+    // maybe another nicer way to do it, mapping conceptually just seems like a good direction to go in this case
     return (
         <StyledDescriptionRow>
             <div>{index + 1}</div>
@@ -198,7 +246,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
                         onChange={handleChange}
                         placeholder="Enter a product"
                     />
-                    {errors[`productService${index}`] && (
+                    {errors[`productService${index}`] && ( // could be worthwhile looking into a validation library like 'yup' to simplify the error handling here
                         <span>{errors[`productService${index}`]}</span>
                     )}
                 </label>
@@ -214,7 +262,7 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
                     />
                 </label>
             </StyledInput>
-            <StyledInput>
+            <StyledInput> 
                 <label htmlFor="qty">
                     <input
                         name="qty"
@@ -284,6 +332,8 @@ export default function Form() {
     // Use context to access setFormValues
     const { formValues, setFormValues } = useContext(FormDataContext);
 
+    // Where possible, move util functions outside the component definition so that it isn't recreated on every rerender. Also neatens the code
+    // This function for example can be moved to a util file and then imported
     // Get today's date in YYYY-MM-DD format
     const getCurrentDate = () => {
         const today = new Date();
@@ -292,6 +342,10 @@ export default function Form() {
         const day = String(today.getDate()).padStart(2, "0");
         return `${year}-${month}-${day}`;
     };
+    //   const getCurrentDate = () => {
+    //     const today = new Date();
+    //     return today.toISOString().split('T')[0];
+    //   };
 
     /*=========== HOOKS===========*/
 
@@ -351,6 +405,36 @@ export default function Form() {
             total: parseFloat(total.toFixed(2)),
         });
     };
+
+    // wrapping a function in useCallback will memoise it so that it doesn't get redefined on every re-render. These are good performance wins you can get
+    // Recommend downloading react dev tools and recording doing some actions using the profiler. You can see every rerender.
+    // Also recommended just using the normal devtool profiler. You can see if a function is running a lot and slowing things down
+    // Note performance issues probably not notable at this point, but something to consider when going forward
+    //   const calculateTotals = useCallback(() => {
+    //     let subtotal = 0;
+    //     let taxAmount = 0;
+    //     let discountAmount = 0;
+
+    //     items.forEach((item) => {
+    //       const itemSubtotal = item.qty * item.price;
+    //       subtotal += itemSubtotal;
+    //       taxAmount += itemSubtotal * (item.taxPercentage / 100);
+    //       discountAmount += itemSubtotal * (item.discountPercentage / 100);
+    //     });
+
+    //     const total = subtotal + taxAmount - discountAmount;
+
+    //     setTotals({
+    //       subtotal: parseFloat(subtotal.toFixed(2)),
+    //       tax: parseFloat(taxAmount.toFixed(2)),
+    //       discount: parseFloat(discountAmount.toFixed(2)),
+    //       total: parseFloat(total.toFixed(2)),
+    //     });
+    //   }, [items]);
+
+    //   useEffect(() => {
+    //     calculateTotals();
+    //   }, [items, calculateTotals]);
 
     const [errors, setErrors] = useState({});
 
@@ -425,6 +509,7 @@ export default function Form() {
     };
 
     // Function to calculate the due date
+    // Another example of a util function - move outside component so that it isn't recreated on every rerender and also neatens the code
     const calculateDueDate = (issueDate, dueDateOption) => {
         const issue = new Date(issueDate);
         switch (dueDateOption) {
