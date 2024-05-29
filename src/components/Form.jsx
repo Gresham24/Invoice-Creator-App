@@ -35,7 +35,7 @@ const StyledDropdown = styled.div`
     & .customerDetails {
         color: #858585;
         font-size: 0.875rem;
-    }
+    } // There's an extra unnecessary line added here. It's important to format code consistently. I use prettier to help fix things like this.
 
     & span {
         color: red;
@@ -111,7 +111,7 @@ const StyledDeleteButton = styled.button`
 const StyledAddButton = styled.button`
     background: none;
     border: none;
-    color: #3dadaf;
+    color: #3dadaf; // In larger projects its best practice to store colors as constants in a file so that you reuse them for consistency.
     font-weight: 500;
     &:hover {
         cursor: pointer;
@@ -172,6 +172,8 @@ const StyledFormActionButtons = styled.div`
     }
 `;
 
+// Wow 175 lines of styling! I would encourage you to break this massive file up into separate files.
+
 //**========== COMPONENTS=========== **/
 
 const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) => {
@@ -183,6 +185,16 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
     const subtotal = item.qty * item.price;
     const subTotalWithTax = subtotal * (1 + item.taxPercentage / 100);
     const discountAmount = subTotalWithTax * (item.discountPercentage / 100);
+    // You shouldn't reassign lineItemTotal like this. The destructing of props creates constants. 
+    // If ESLint is setup correctly it should warn you.
+    // The reason for this rule is because it creates unexpected behaviour that can be hard to debug.
+
+    // e.g. Imagine you saw a grey cat spill a glass of water but without you knowing it shape shifted 
+    // and became an orange cat. You'd look for a grey cat and wouldn't think to accuse the orange cat. 
+    // A grey cat should remain a grey cat. Once a variable is declared it should remain that value. 
+    // For the same reason I would avoid using `let` and instead assign a new `const`. Not always possible
+    // but most of the time it is
+
     lineItemTotal = parseFloat((subTotalWithTax - discountAmount).toFixed(2));
 
     return (
@@ -238,6 +250,8 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
                         onChange={handleChange}
                         placeholder="0.00"
                     />
+                    {/* This is same thing is repeated multiple times. If you repeat something more 
+                    than twice its worth abstracting it into its own component or function */}
                     {errors[`price${index}`] && (
                         <span>{errors[`price${index}`]}</span>
                     )}
@@ -276,6 +290,11 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
         </StyledDescriptionRow>
     );
 };
+
+// This should be in a separate file. Also remove the useless inline comments. 
+// They're a clear indicator that you used AI to generate the code. 
+// An inline comment should always be a last resort to explain code. 
+// Rather rename the variables, break the code up into pieces or write unit tests that explain it.
 
 // Main funcition
 export default function Form() {
@@ -363,7 +382,7 @@ export default function Form() {
         // Validate on change
         validateField(name, value);
     };
-
+    // There are some libraries e.g. formik that make implementing validation much cleaner. They handle all the heavy lifting.
     const validateField = (name, value) => {
         let error = "";
 
@@ -423,6 +442,11 @@ export default function Form() {
 
         return Object.keys(currentErrors).length === 0;
     };
+    // This should be in a separate file. Theres something called the Separation of Concerns and its cousin 
+    // Single responsibility principle. I would strongly encourage that to discuss them with ChatGPT until 
+    // you fully understand them. Or as my math teach would say: "If I was to wake you up in the middle of the 
+    // and ask you what they were you'd be able to answer without hesitation". Lol!
+    // But seriously understanding these concepts are or to being a great developer.
 
     // Function to calculate the due date
     const calculateDueDate = (issueDate, dueDateOption) => {
@@ -696,3 +720,9 @@ if (validateForm()) {
         </form>
     );
 }
+// Jesus take the wheel 😅 700 line! This needs to be broken up into smaller components.
+// As a rough guide no file should be longer then 120 lines but try aim for less.
+// If a styled component is used by 2 components then it should be in a separate file so that 
+// each component can access it. Shared components I usually store like this: src/shared/components/some-component-name-here
+// I also sometimes have src/page/components for things that aren't common. 
+// But different frameworks have differing standards for this e.g. App Routing in Next.js 

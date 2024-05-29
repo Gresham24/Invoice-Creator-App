@@ -157,6 +157,8 @@ const StyledbuttonWrapper = styled.div`
     }
 `;
 
+// Nice Greshem this is more like it. Smaller components are almost always better because their intent is clear to the reader
+
 function FormPrint() {
     const { formValues } = useContext(FormDataContext);
     const navigate = useNavigate();
@@ -235,7 +237,7 @@ function FormPrint() {
                         </div>
                     </div>
                 </StyledInvoiceDetails>
-
+{/* Rath than a comment perhaps you could break this out into its own component */}
                 {/************** Description headers section ****************/}
                 <StyldDescriptionHeaders>
                     <div className="flex-left">
@@ -247,7 +249,7 @@ function FormPrint() {
                         <div>Total</div>
                     </div>
                 </StyldDescriptionHeaders>
-
+{/* Same here */}
                 {/************** Line items section ****************/}
                 {formValues.items.map((lineItem) => (
                     <StyledLineItem key={lineItem.id}>
