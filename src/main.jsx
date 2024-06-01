@@ -5,9 +5,9 @@ import InvoiceApp from "./InvoiceApp";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-        <BrowserRouter>
-        <InvoiceApp />
-        </BrowserRouter>
-    </React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
+      <InvoiceApp />
+    </BrowserRouter>
+  </React.StrictMode>
 );
