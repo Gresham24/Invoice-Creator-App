@@ -4,14 +4,14 @@ export const companyDetails = {
     companyName: "Web Masters Limited",
     companyLogo: "/webcoin_web logo.png",
     companyAddress: "Riyadh 12345, Saudi Arabia",
-    companyEmail: "mohamed.f.ghulam@gmail.com",
+    companyEmail: "email@gmail.com",
 };
 
 // Object storing customer details
 export const customerDetails = {
     Emirates: {
         address: "Garhoud Area, Dubai - United Arab Emirates",
-        phone: "+971600555555",
+        phone: "+971600599555",
     },
     Mandu: {
         address: "Lunkuswe, Lusaka - Zambia",
