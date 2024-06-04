@@ -20,7 +20,6 @@ const StyledInput = styled.div`
     & span {
         color: red;
         font-size: 0.8rem;
-        /* margin-left: 10px; */
     }
     & label {
         display: flex;
@@ -31,35 +30,32 @@ const StyledDropdown = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
-
-    & .customerDetails {
-        color: #858585;
-        font-size: 0.875rem;
-    }
-
     & span {
         color: red;
         font-size: 0.8rem;
         margin-left: 10px;
     }
 `;
+
+const StyledCustomerDetails = styled.div`
+    color: #858585;
+    font-size: 0.875rem;
+`;
 const StyledFormHeader = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-
-    & .invoiceDates,
-    .inputsWrapper {
-        display: flex;
-        gap: 2rem;
-    }
-
     & input,
     select {
         width: 250px;
         height: 40px;
         padding: 10px;
     }
+`;
+
+const StyledInputsWrapper = styled.div`
+    display: flex;
+    gap: 2rem;
 `;
 
 const StyledDescriptionHeaders = styled.div`
@@ -77,22 +73,22 @@ const StyledDescriptionRow = styled.div`
     grid-column-gap: auto;
     grid-row-gap: 60px;
     margin-bottom: 3.75rem;
-    & .qty,
-    .taxPercentage,
-    .discountPercentage {
-        width: 4rem;
-    }
-    & .price {
-        width: 5rem;
-    }
-    & .productService {
-        width: 200px;
-    }
-    & .description {
-        margin-top: 10px;
-        resize: none;
-        width: 200px;
-    }
+`;
+
+const StyledProductServiceInput = styled.input`
+    width: 200px;
+`;
+const StyledPriceInput = styled.input`
+    width: 5rem;
+`;
+const StyledQtyTaxDiscInput = styled.input`
+    width: 4rem;
+`;
+
+const StyledDescriptionTextarea = styled.textarea`
+    margin-top: 10px;
+    resize: none;
+    width: 200px;
 `;
 
 const StyledDeleteButton = styled.button`
@@ -122,26 +118,27 @@ const StyledAddButton = styled.button`
 `;
 
 const StyledFormFooter = styled.div`
-    & .costSummaries {
-        display: flex;
-    }
-    & .costSummaryAmounts {
-        text-align: right;
-    }
     & div:first-child {
         margin-right: 30px;
-    }
-    & .costSummaries div {
-        display: flex;
-        flex-direction: column;
     }
     & span {
         font-size: 0.7rem;
     }
-    & .extraDetails {
+`;
+
+const StyledCostSummaries = styled.div`
+    display: flex;
+    & div {
         display: flex;
+        flex-direction: column;
     }
-    & .extraDetails textarea {
+`;
+const StyledCostSummaryAmounts = styled.div`
+    text-align: right;
+`;
+const StyledExtraDetails = styled.div`
+    display: flex;
+    & textarea {
         margin-top: 5px;
         resize: none;
     }
@@ -151,30 +148,39 @@ const StyledFormActionButtons = styled.div`
     display: flex;
     justify-content: end;
     gap: 32px;
-    & .cancelButton {
-        border-radius: 8px;
-        border: 1px solid #e4e0dd;
-        background: #f8f9fa;
-        padding: 8px 32px;
-    }
-    & .cancelButton:active {
+`;
+
+const StyledCancelButton = styled.button`
+    border-radius: 8px;
+    border: 1px solid #e4e0dd;
+    background: #f8f9fa;
+    padding: 8px 32px;
+    &:active {
         background: #f0f2f3;
     }
-    & .createInvoiceButton {
-        border: none;
-        border-radius: 8px;
-        background: #3dadaf;
-        padding: 8px 32px;
-        color: white;
-    }
-    & .createInvoiceButton:active {
+`;
+
+const StyledSubmitButton = styled.button`
+    border: none;
+    border-radius: 8px;
+    background: #3dadaf;
+    padding: 8px 32px;
+    color: white;
+    &:active {
         opacity: 0.8;
     }
 `;
 
 //**========== COMPONENTS=========== **/
 
-const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) => {
+const LineItem = ({
+    item,
+    onUpdate,
+    onDelete,
+    index,
+    lineItemTotal,
+    errors,
+}) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         onUpdate(item.id, name, value);
@@ -190,10 +196,9 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
             <div>{index + 1}</div>
             <StyledInput>
                 <label htmlFor="productService">
-                    <input
+                    <StyledProductServiceInput
                         name="productService"
                         type="text"
-                        className="productService"
                         value={item.productService || ""}
                         onChange={handleChange}
                         placeholder="Enter a product"
@@ -203,11 +208,10 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
                     )}
                 </label>
                 <label htmlFor="description">
-                    <textarea
+                    <StyledDescriptionTextarea
                         name="description"
                         type="text"
                         rows="3"
-                        className="description"
                         value={item.description || ""}
                         onChange={handleChange}
                         placeholder="Enter a description... (Optional)"
@@ -216,10 +220,9 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
             </StyledInput>
             <StyledInput>
                 <label htmlFor="qty">
-                    <input
+                    <StyledQtyTaxDiscInput
                         name="qty"
                         type="number"
-                        className="qty"
                         value={item.qty || ""}
                         onChange={handleChange}
                     />
@@ -230,11 +233,10 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
             </StyledInput>
             <StyledInput>
                 <label htmlFor="price">
-                    <input
+                    <StyledPriceInput
                         name="price"
                         type="number"
                         value={item.price || ""}
-                        className="price"
                         onChange={handleChange}
                         placeholder="0.00"
                     />
@@ -245,11 +247,10 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
             </StyledInput>
             <StyledInput>
                 <label htmlFor="taxPercentage">
-                    <input
+                    <StyledQtyTaxDiscInput
                         name="taxPercentage"
                         type="number"
                         value={item.taxPercentage || ""}
-                        className="taxPercentage"
                         onChange={handleChange}
                         placeholder="% 0"
                     />
@@ -257,11 +258,10 @@ const LineItem = ({ item, onUpdate, onDelete, index, lineItemTotal, errors }) =>
             </StyledInput>
             <StyledInput>
                 <label htmlFor="discountPercentage">
-                    <input
+                    <StyledQtyTaxDiscInput
                         name="discountPercentage"
                         type="number"
                         value={item.discountPercentage || ""}
-                        className="discountPercentage"
                         onChange={handleChange}
                         placeholder="%  0"
                     />
@@ -400,15 +400,11 @@ export default function Form() {
     const validateForm = () => {
         const currentErrors = {};
 
-        if (!details.invoiceNumber)
-            currentErrors.invoiceNumber = "Required";
-        if (!details.purchaseOrder)
-            currentErrors.purchaseOrder = "Required";
+        if (!details.invoiceNumber) currentErrors.invoiceNumber = "Required";
+        if (!details.purchaseOrder) currentErrors.purchaseOrder = "Required";
         if (!details.customer) currentErrors.customer = "Required";
-        if (!details.issueDate)
-            currentErrors.issueDate = "Required";
-        if (!details.dueDate)
-            currentErrors.dueDate = "Required";
+        if (!details.issueDate) currentErrors.issueDate = "Required";
+        if (!details.dueDate) currentErrors.dueDate = "Required";
 
         items.forEach((item, index) => {
             if (!item.productService)
@@ -482,13 +478,16 @@ export default function Form() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-if (validateForm()) {
-    const dueDate = calculateDueDate(details.issueDate, details.dueDate);
-    setFormValues({ details: { ...details, dueDate }, items, totals });
-    navigate("/preview");
-} else {
-    alert("Please fill in all the necessary fields in the form.");
-}
+        if (validateForm()) {
+            const dueDate = calculateDueDate(
+                details.issueDate,
+                details.dueDate
+            );
+            setFormValues({ details: { ...details, dueDate }, items, totals });
+            navigate("/preview");
+        } else {
+            alert("Please fill in all the necessary fields in the form.");
+        }
     };
 
     // Form display
@@ -506,7 +505,7 @@ if (validateForm()) {
                     <p>{companyDetails.companyEmail}</p>
                 </StyledCompanyDetails>
 
-                <div className="inputsWrapper">
+                <StyledInputsWrapper>
                     <StyledInput>
                         <label htmlFor="invoiceNumber">Invoice number</label>
                         <input
@@ -535,7 +534,7 @@ if (validateForm()) {
                             <span>{errors.purchaseOrder}</span>
                         )}
                     </StyledInput>
-                </div>
+                </StyledInputsWrapper>
 
                 <StyledDropdown>
                     <label htmlFor="customerName">Customer</label>
@@ -554,14 +553,14 @@ if (validateForm()) {
                     </select>
                     {errors.customer && <span>{errors.customer}</span>}
                     {details.customer && (
-                        <div className="customerDetails">
+                        <StyledCustomerDetails>
                             <p>{customerDetails[details.customer]?.address}</p>
                             <p>{customerDetails[details.customer]?.phone}</p>
-                        </div>
+                        </StyledCustomerDetails>
                     )}
                 </StyledDropdown>
 
-                <div className="invoiceDates">
+                <StyledInputsWrapper>
                     <StyledInput>
                         <label htmlFor="issueDate">Issue date</label>
                         <input
@@ -590,7 +589,7 @@ if (validateForm()) {
                         </select>
                         {errors.dueDate && <span>{errors.dueDate}</span>}
                     </StyledDropdown>
-                </div>
+                </StyledInputsWrapper>
             </StyledFormHeader>
 
             <hr />
@@ -626,7 +625,7 @@ if (validateForm()) {
 
             <hr />
             <StyledFormFooter>
-                <div className="extraDetails">
+                <StyledExtraDetails>
                     <StyledInput>
                         <label htmlFor="notes">Notes</label>
                         <textarea
@@ -653,11 +652,11 @@ if (validateForm()) {
                             value={details.bankDetails || ""}
                         />
                     </StyledInput>
-                </div>
+                </StyledExtraDetails>
 
                 <hr />
 
-                <div className="costSummaries">
+                <StyledCostSummaries>
                     <div>
                         <p>
                             Subtotal <span>(USD)</span>
@@ -673,24 +672,24 @@ if (validateForm()) {
                             <b>Total</b>
                         </p>
                     </div>
-                    <div className="costSummaryAmounts">
-                        <p className="subtotalAmount">{totals.subtotal}</p>
-                        <p className="vatAmount">+{totals.tax}</p>
-                        <p className="discountAmount">-{totals.discount}</p>
-                        <p className="totalAmount">
+                    <StyledCostSummaryAmounts>
+                        <p>{totals.subtotal}</p>
+                        <p>+{totals.tax}</p>
+                        <p>-{totals.discount}</p>
+                        <p>
                             <b>
                                 <span>USD</span> {totals.total}
                             </b>
                         </p>
-                    </div>
-                </div>
+                    </StyledCostSummaryAmounts>
+                </StyledCostSummaries>
                 <hr />
 
                 <StyledFormActionButtons>
-                    <button className="cancelButton">Cancel</button>
-                    <button type="submit" className="createInvoiceButton">
+                    <StyledCancelButton>Cancel</StyledCancelButton>
+                    <StyledSubmitButton type="submit">
                         Create invoice
-                    </button>
+                    </StyledSubmitButton>
                 </StyledFormActionButtons>
             </StyledFormFooter>
         </form>
