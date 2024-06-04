@@ -23,7 +23,7 @@ import {
     StyledFormActionButtons,
     StyledCancelButton,
     StyledSubmitButton,
-} from "../styles/Form.styled";
+} from "../styles/Form.styles";
 
 export const FormDataContext = createContext();
 
