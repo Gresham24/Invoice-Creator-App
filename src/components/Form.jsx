@@ -1,175 +1,32 @@
-import styled from "styled-components";
 import { createContext, useContext, useEffect, useState } from "react";
 import { companyDetails, customerDetails } from "./FormData";
 import { useNavigate } from "react-router-dom";
+import {
+    StyledCompanyDetails,
+    StyledInput,
+    StyledDropdown,
+    StyledCustomerDetails,
+    StyledFormHeader,
+    StyledInputsWrapper,
+    StyledDescriptionHeaders,
+    StyledDescriptionRow,
+    StyledProductServiceInput,
+    StyledPriceInput,
+    StyledQtyTaxDiscInput,
+    StyledDescriptionTextarea,
+    StyledDeleteButton,
+    StyledAddButton,
+    StyledFormFooter,
+    StyledCostSummaries,
+    StyledCostSummaryAmounts,
+    StyledExtraDetails,
+    StyledFormActionButtons,
+    StyledCancelButton,
+    StyledSubmitButton,
+} from "../styles/Form.styled";
 
 export const FormDataContext = createContext();
 
-/*=========== STYLED COMPONENTS ===========*/
-
-const StyledCompanyDetails = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 0.5rem;
-`;
-const StyledInput = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    & span {
-        color: red;
-        font-size: 0.8rem;
-    }
-    & label {
-        display: flex;
-        flex-direction: column;
-    }
-`;
-const StyledDropdown = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    & span {
-        color: red;
-        font-size: 0.8rem;
-        margin-left: 10px;
-    }
-`;
-
-const StyledCustomerDetails = styled.div`
-    color: #858585;
-    font-size: 0.875rem;
-`;
-const StyledFormHeader = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    & input,
-    select {
-        width: 250px;
-        height: 40px;
-        padding: 10px;
-    }
-`;
-
-const StyledInputsWrapper = styled.div`
-    display: flex;
-    gap: 2rem;
-`;
-
-const StyledDescriptionHeaders = styled.div`
-    display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: auto;
-    margin-bottom: 2.75rem;
-`;
-
-const StyledDescriptionRow = styled.div`
-    display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: auto;
-    grid-row-gap: 60px;
-    margin-bottom: 3.75rem;
-`;
-
-const StyledProductServiceInput = styled.input`
-    width: 200px;
-`;
-const StyledPriceInput = styled.input`
-    width: 5rem;
-`;
-const StyledQtyTaxDiscInput = styled.input`
-    width: 4rem;
-`;
-
-const StyledDescriptionTextarea = styled.textarea`
-    margin-top: 10px;
-    resize: none;
-    width: 200px;
-`;
-
-const StyledDeleteButton = styled.button`
-    height: 1.5rem;
-    width: 1.5rem;
-    background: none;
-    border: none;
-    &:hover {
-        cursor: pointer;
-    }
-    & img:active {
-        opacity: 0.7;
-    }
-`;
-
-const StyledAddButton = styled.button`
-    background: none;
-    border: none;
-    color: #3dadaf;
-    font-weight: 500;
-    &:hover {
-        cursor: pointer;
-    }
-    &:active {
-        opacity: 0.7;
-    }
-`;
-
-const StyledFormFooter = styled.div`
-    & div:first-child {
-        margin-right: 30px;
-    }
-    & span {
-        font-size: 0.7rem;
-    }
-`;
-
-const StyledCostSummaries = styled.div`
-    display: flex;
-    & div {
-        display: flex;
-        flex-direction: column;
-    }
-`;
-const StyledCostSummaryAmounts = styled.div`
-    text-align: right;
-`;
-const StyledExtraDetails = styled.div`
-    display: flex;
-    & textarea {
-        margin-top: 5px;
-        resize: none;
-    }
-`;
-
-const StyledFormActionButtons = styled.div`
-    display: flex;
-    justify-content: end;
-    gap: 32px;
-`;
-
-const StyledCancelButton = styled.button`
-    border-radius: 8px;
-    border: 1px solid #e4e0dd;
-    background: #f8f9fa;
-    padding: 8px 32px;
-    &:active {
-        background: #f0f2f3;
-    }
-`;
-
-const StyledSubmitButton = styled.button`
-    border: none;
-    border-radius: 8px;
-    background: #3dadaf;
-    padding: 8px 32px;
-    color: white;
-    &:active {
-        opacity: 0.8;
-    }
-`;
 
 //**========== COMPONENTS=========== **/
 
