@@ -72,10 +72,10 @@ export const StyledProductServiceInput = styled.input`
     width: 200px;
 `;
 export const StyledPriceInput = styled.input`
-    width: 5rem;
+    width: 4rem;
 `;
 export const StyledQtyTaxDiscInput = styled.input`
-    width: 4rem;
+    width: 2.7rem;
 `;
 
 export const StyledDescriptionTextarea = styled.textarea`
