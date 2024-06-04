@@ -21,11 +21,6 @@ const StyledHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    & .title {
-        display: flex;
-        flex-direction: column;
-        text-align: end;
-    }
     & h1 {
         font-weight: 500;
         font-size: 32px;
@@ -35,61 +30,66 @@ const StyledHeader = styled.div`
     }
 `;
 
+const StyledTitle = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+`;
+
 const StyledInvoiceDetails = styled.div`
     padding: 24px 40px;
     background-color: white;
     display: flex;
     justify-content: space-between;
-    & .invoiceDates {
-        display: flex;
-        flex-direction: column;
-        text-align: end;
-        justify-content: space-between;
-    }
 `;
 
-const StyldDescriptionHeaders = styled.div`
+const StyledInvoiceDates = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+    justify-content: space-between;
+`;
+
+const StyledDescriptionHeaders = styled.div`
     background-color: #ededed;
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    & .flex-right {
-        width: 50%;
-        display: flex;
-        justify-content: space-between;
-    }
-    & .flex-right div {
+`;
+
+const StyledFlexRight = styled.div`
+    width: 50%;
+    display: flex;
+    text-align: right;
+    justify-content: space-between;
+    & div {
         width: 33.33%;
         text-align: right;
+    }
+    & p {
+        width: 33.33%;
+        margin: 0;
     }
 `;
 
 const StyledLineItem = styled.div`
     color: #5e6470;
     background-color: white;
-    & .lineItemContainer {
-        min-height: 69px;
-        background-color: white;
-        padding: 10px 0;
-        margin: 0px 40px;
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 0.5px solid #d7dae0;
-        & .flex-right {
-            width: 50%;
-            display: flex;
-            text-align: right;
-            justify-content: space-between;
-        }
-        .flex-right p {
-            width: 33.33%;
-            margin: 0;
-        }
-        & .flex-left p:first-child {
-            color: #333;
-        }
-    }
+`;
+
+const StyledDarkText = styled.p`
+    color: #333;
+`;
+
+const StyledLineItemContainer = styled.div`
+    min-height: 69px;
+    background-color: white;
+    padding: 10px 0;
+    margin: 0px 40px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.5px solid #d7dae0;
 `;
 
 const StyledTotalSummaries = styled.div`
@@ -97,20 +97,22 @@ const StyledTotalSummaries = styled.div`
     display: flex;
     flex-direction: column;
     align-items: end;
-    & .subtotal,
-    .taxAmount,
-    .discountTotal,
-    .totalAmount {
-        display: flex;
-        justify-content: space-between;
-        margin: 10px 40px 10px 0px;
-        width: 33.33%;
-    }
-    & .totalAmount {
-        padding: 10px 0px 10px 0px;
-        border-bottom: #d7dae0 3px solid;
-        border-top: #d7dae0 3px solid;
-    }
+`;
+
+const StyledTotalSummaryWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 40px 10px 0px;
+    width: 33.33%;
+`;
+const StyledTotalAmountDueWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 40px 10px 0px;
+    width: 33.33%;
+    padding: 10px 0px 10px 0px;
+    border-bottom: #d7dae0 3px solid;
+    border-top: #d7dae0 3px solid;
 `;
 
 const StyledExtraInfo = styled.div`
@@ -131,29 +133,23 @@ const StyledFooter = styled.div`
     font-weight: 500;
 `;
 
-const StyledbuttonWrapper = styled.div`
+const StyledButtonWrapper = styled.div`
     display: flex;
     gap: 50px;
     justify-content: center;
     align-items: center;
-    & button {
-        border-radius: 8px;
-        border: 1px solid transparent;
-        background: #f8f9fa;
-        padding: 8px 48px;
-    }
-    & button:hover {
+`;
+
+const StyledBackButton = styled.button`
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: #f8f9fa;
+    padding: 8px 48px;
+    &:hover {
         cursor: pointer;
     }
-    & .backButton:active {
+    &:active {
         background: #f0f2f3;
-    }
-    & .printButton {
-        background: #3dadaf;
-        color: white;
-    }
-    & .printButton:active {
-        opacity: 0.8;
     }
 `;
 
@@ -187,26 +183,26 @@ function FormPrint() {
                 {/************** Invoice header section ****************/}
                 <StyledHeader>
                     <img src={companyDetails.companyLogo} alt="logo" />
-                    <div className="title">
+                    <StyledTitle>
                         <h1>INVOICE</h1>
                         <p>{`NO. ${formEntryDetails.invoiceNumber}`}</p>
-                    </div>
+                    </StyledTitle>
                 </StyledHeader>
 
                 {/************** Invoice details section ****************/}
                 <StyledInvoiceDetails>
-                    <div className="companyDetails">
+                    <div>
                         <h3>From</h3>
                         <p>{companyDetails.name}</p>
                         <p>{companyDetails.companyName}</p>
                         <p>{companyDetails.companyAddress}</p>
                         <p>{companyDetails.companyEmail}</p>
                     </div>
-                    <div className="customerDetails">
+                    <div>
                         <h3>Billed To</h3>
                         <p>{formEntryDetails.customer}</p>
                         {formEntryDetails.customer && (
-                            <div className="customerDetails">
+                            <div>
                                 <p>
                                     {
                                         customerDetails[
@@ -224,65 +220,67 @@ function FormPrint() {
                             </div>
                         )}
                     </div>
-                    <div className="invoiceDates">
-                        <div className="issued">
+                    <StyledInvoiceDates>
+                        <div>
                             <h3>Issued</h3>
                             <p>{formEntryDetails.issueDate} </p>
                         </div>
-                        <div className="due">
+                        <div>
                             <h3>Due</h3>
                             <p>{formEntryDetails.dueDate} </p>
                         </div>
-                    </div>
+                    </StyledInvoiceDates>
                 </StyledInvoiceDetails>
 
                 {/************** Description headers section ****************/}
-                <StyldDescriptionHeaders>
+                <StyledDescriptionHeaders>
                     <div className="flex-left">
                         <div>Item</div>
                     </div>
-                    <div className="flex-right">
+                    <StyledFlexRight>
                         <div>Qty</div>
                         <div>Price</div>
                         <div>Total</div>
-                    </div>
-                </StyldDescriptionHeaders>
+                    </StyledFlexRight>
+                </StyledDescriptionHeaders>
 
                 {/************** Line items section ****************/}
                 {formValues.items.map((lineItem) => (
                     <StyledLineItem key={lineItem.id}>
-                        <div className="lineItemContainer">
-                            <div className="flex-left">
-                                <p>{lineItem.productService}</p>
+                        <StyledLineItemContainer>
+                            <div>
+                                <StyledDarkText>
+                                    {lineItem.productService}
+                                </StyledDarkText>
                                 <p>{lineItem.description}</p>
                             </div>
-                            <div className="flex-right">
+                            <StyledFlexRight>
                                 <p>{lineItem.qty}</p>
                                 <p>$ {lineItem.price}</p>
                                 <p>$ {lineItem.qty * lineItem.price}</p>
-                            </div>
-                        </div>
+                            </StyledFlexRight>
+                        </StyledLineItemContainer>
                     </StyledLineItem>
                 ))}
 
                 {/************** Cost summaries section ****************/}
                 <StyledTotalSummaries>
-                    <div className="subtotal">
+                    <StyledTotalSummaryWrapper>
                         <p>Subtotal</p>
                         <p>$ {totals.subtotal.toFixed(2)}</p>
-                    </div>
-                    <div className="taxAmount">
+                    </StyledTotalSummaryWrapper>
+                    <StyledTotalSummaryWrapper>
                         <p>Tax</p>
                         <p>$ {totals.tax.toFixed(2)}</p>
-                    </div>
-                    <div className="discountTotal">
+                    </StyledTotalSummaryWrapper>
+                    <StyledTotalSummaryWrapper>
                         <p>Discount</p>
                         <p>$ {totals.discount.toFixed(2)}</p>
-                    </div>
-                    <div className="totalAmount">
+                    </StyledTotalSummaryWrapper>
+                    <StyledTotalAmountDueWrapper>
                         <p>Amount Due</p>
                         <p>$ {totals.total.toFixed(2)}</p>
-                    </div>
+                    </StyledTotalAmountDueWrapper>
                 </StyledTotalSummaries>
 
                 {/************** Extra info section ****************/}
@@ -304,10 +302,10 @@ function FormPrint() {
                     <p>Thank you for your purchase!</p>
                 </StyledFooter>
             </StyledContainer>
-            <StyledbuttonWrapper>
-                <button className="backButton" onClick={handleBackButton}>
+            <StyledButtonWrapper>
+                <StyledBackButton onClick={handleBackButton}>
                     Back
-                </button>
+                </StyledBackButton>
                 <PDFDownloadLink
                     document={
                         <PDFDocument formValues={formValues} totals={totals} />
@@ -319,14 +317,13 @@ function FormPrint() {
                         background: "#f8f9fa",
                         padding: "8px 48px",
                         borderRadius: "8px",
-                        
                     }}
                 >
                     {({ loading, error }) =>
                         loading ? "Loading document..." : "Download"
                     }
                 </PDFDownloadLink>
-            </StyledbuttonWrapper>
+            </StyledButtonWrapper>
         </div>
     );
 }
