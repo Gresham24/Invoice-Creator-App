@@ -8,6 +8,7 @@ export default class LineItem {
     discount = 0
   ) {
     this.name = name;
+    this.description = description;
     this.quantity = quantity;
     this.price = price;
     this.tax = tax;

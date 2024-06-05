@@ -11,6 +11,7 @@ export default class Invoice {
     notes = null,
     bankAccountDetails = null
   ) {
+    this.id = Math.floor(Math.random() * 1000);
     this.number = number;
     this.purchaseOrderNumber = purchaseOrderNumber;
     this.date = date;
