@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { FormDataContext } from "./Form";
-import { companyDetails, customerDetails } from "./FormData";
+import { FormDataContext } from "../Form";
+import { companyDetails, customerDetails } from "../FormData";
 import { useNavigate } from "react-router-dom";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import PDFDocument from "./PDFDocument";
+import PDFDocument from "../PDFDocument";
 import {
     StyledContainer,
     StyledHeader,
@@ -22,9 +22,9 @@ import {
     StyledFooter,
     StyledButtonWrapper,
     StyledBackButton,
-} from "../styles/FormPreview.styles";
+} from "../../styles/FormPreview.styles";
 
-function FormPrint() {
+function FormView() {
     const { formValues } = useContext(FormDataContext);
     const navigate = useNavigate();
 
@@ -199,4 +199,4 @@ function FormPrint() {
     );
 }
 
-export default FormPrint;
+export default FormView;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Form, { FormDataContext } from "./components/Form";
-import FormPreview from "./components/FormPreview";
+import FormPreview from "./components/FormPreview/FormPreview";
 import { Route, Routes } from "react-router-dom";
 
 function InvoiceApp() {
