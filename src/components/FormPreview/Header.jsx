@@ -1,4 +1,4 @@
-import { companyDetails } from "../FormData";
+import { companyDetails } from "../formData";
 import { StyledHeader, StyledTitle } from "../../styles/FormPreview.styles";
 
 function Header({ invoiceNumber }) {

@@ -1,4 +1,4 @@
-import { companyDetails, customerDetails } from "./FormData";
+import { companyDetails, customerDetails } from "./formData";
 import React from "react";
 import {
     Document,
@@ -270,38 +270,22 @@ const PDFDocument = ({ formValues, totals }) => {
                             </View>
                         )}
                         {/* Conditional Rendering of Description Headers */}
-                            <View wrap style={styles.descriptionHeaders}>
-                                <View>
-                                    <Text>Item</Text>
+                        <View wrap style={styles.descriptionHeaders}>
+                            <View>
+                                <Text>Item</Text>
+                            </View>
+                            <View style={styles.descriptionHeadersRightSection}>
+                                <View style={styles.descriptionHeadersRightDiv}>
+                                    <Text>Qty</Text>
                                 </View>
-                                <View
-                                    style={
-                                        styles.descriptionHeadersRightSection
-                                    }
-                                >
-                                    <View
-                                        style={
-                                            styles.descriptionHeadersRightDiv
-                                        }
-                                    >
-                                        <Text>Qty</Text>
-                                    </View>
-                                    <View
-                                        style={
-                                            styles.descriptionHeadersRightDiv
-                                        }
-                                    >
-                                        <Text>Price</Text>
-                                    </View>
-                                    <View
-                                        style={
-                                            styles.descriptionHeadersRightDiv
-                                        }
-                                    >
-                                        <Text>Total</Text>
-                                    </View>
+                                <View style={styles.descriptionHeadersRightDiv}>
+                                    <Text>Price</Text>
+                                </View>
+                                <View style={styles.descriptionHeadersRightDiv}>
+                                    <Text>Total</Text>
                                 </View>
                             </View>
+                        </View>
 
                         {/* Line Items Section */}
                         {items.map((lineItem) => (

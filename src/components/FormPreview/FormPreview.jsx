@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { FormDataContext } from "../Form";
+import { FormDataContext } from "../Form/Form";
 import { useNavigate } from "react-router-dom";
 import { StyledContainer } from "../../styles/FormPreview.styles";
 import Header from "./Header";

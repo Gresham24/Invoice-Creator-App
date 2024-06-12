@@ -1,4 +1,4 @@
-import { companyDetails, customerDetails } from "../FormData";
+import { companyDetails, customerDetails } from "../formData";
 import {
     StyledInvoiceDetails,
     StyledInvoiceDates,
