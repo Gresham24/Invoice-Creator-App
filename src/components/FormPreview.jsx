@@ -22,7 +22,7 @@ import {
     StyledFooter,
     StyledButtonWrapper,
     StyledBackButton,
-} from "../styles/FormPrint.styles";
+} from "../styles/FormPreview.styles";
 
 function FormPrint() {
     const { formValues } = useContext(FormDataContext);

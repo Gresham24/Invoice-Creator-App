@@ -60,7 +60,7 @@ The project consists of several key components and configuration files:
 -   `InvoiceApp.jsx`: Main application component.
 -   `Form.jsx`: Component for capturing invoice data.
 -   `FormData.jsx`: Utility functions for managing form data.
--   `FormPrint.jsx`: Component for displaying and printing the invoice.
+-   `FormPreview.jsx`: Component for displaying and printing the invoice.
 -   `PDFDocument.jsx`: Component for generating the PDF document of the invoice.
 -   `package.json`: Contains project metadata, dependencies, and scripts.
 -   `vite.config.js`: Configuration file for Vite.
@@ -73,7 +73,7 @@ The project consists of several key components and configuration files:
 
 2. **Invoice Form**
 
-    - The `InvoiceApp` component includes the `Form` and `FormPrint` components.
+    - The `InvoiceApp` component includes the `Form` and `FormPreview` components.
     - The `Form` component presents the user with input fields to enter invoice details such as item names, quantities, prices, etc.
     - The form data is managed using React's `useState` hook. As the user fills out the form, the state is updated accordingly.
 
@@ -84,7 +84,7 @@ The project consists of several key components and configuration files:
 
 4. **Invoice Preview and Download**
 
-    - The `FormPrint` component is responsible for displaying the invoice in a format suitable for printing.
+    - The `FormPreview` component is responsible for displaying the invoice in a format suitable for printing.
     - The `PDFDocument` component defines the structure and content of the PDF. It uses the data from the form to dynamically generate the invoice.
 
 5. **PDF Generation**
@@ -138,13 +138,13 @@ ReactDOM.render(
 
 ### `InvoiceApp.jsx`
 
-This is the main application component that serves as the container for other components. It includes the Form and FormPrint components, organizing the overall layout of the application.
+This is the main application component that serves as the container for other components. It includes the Form and FormPreview components, organizing the overall layout of the application.
 
 ```jsx
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Form from "./Form";
-import FormPrint from "./FormPrint";
+import FormPreview from "./FormPreview";
 import FormDataContext from "./FormDataContext";
 
 const InvoiceApp = () => {
@@ -157,7 +157,7 @@ const InvoiceApp = () => {
     return (
         <FormDataContext.Provider value={{ formValues, setFormValues }}>
             <Routes>
-                <Route path="preview" element={<FormPrint />} />
+                <Route path="preview" element={<FormPreview />} />
                 <Route path="/" element={<Form />} />
             </Routes>
         </FormDataContext.Provider>
@@ -171,10 +171,10 @@ export default InvoiceApp;
 
 1. **State Management**: The `useState` hook is used to manage the form data state (`formValues`). It includes `details`, `items`, and `totals`, which are the main parts of the invoice data.
 
-2. **FormDataContext.Provider**: This context provider wraps the application components to pass down the `formValues` and `setFormValues` through context, making it accessible in both `Form` and `FormPrint` components.
+2. **FormDataContext.Provider**: This context provider wraps the application components to pass down the `formValues` and `setFormValues` through context, making it accessible in both `Form` and `FormPreview` components.
 
 3. **Routing**: The `Routes` component from `react-router-dom` defines the routing logic for the application.
-    - The path `/preview` renders the `FormPrint` component, which is used to preview the invoice.
+    - The path `/preview` renders the `FormPreview` component, which is used to preview the invoice.
     - The default path `/` renders the `Form` component, which is used to input invoice details.
 
 ### `Form.jsx`
@@ -213,7 +213,7 @@ const Form = () => {
 export default Form;
 ```
 
-### `FormPrint.jsx`
+### `FormPreview.jsx`
 
 This component handles the display of the invoice. It uses the `PDFDocument` component to generate the content of the PDF and renders it for printing.
 
@@ -225,7 +225,7 @@ import React from "react";
 import { PDFViewer } from "@react-pdf/renderer";
 import PDFDocument from "./PDFDocument";
 
-const FormPrint = () => {
+const FormPreview = () => {
     return (
         <div>
             {/* Renders the preview layout and invoice details with totals */}
@@ -259,7 +259,7 @@ const FormPrint = () => {
     );
 };
 
-export default FormPrint;
+export default FormPreview;
 ```
 
 ### `PDFDocument.jsx`
@@ -309,10 +309,10 @@ export default PDFDocument;
 ### How Components are Linked Together
 
 1. **Initialization**: The `main.jsx` file initializes the app by rendering `InvoiceApp`, setting up the main structure.
-2. **Main Container**: `InvoiceApp` serves as the container that includes both the `Form` and `FormPrint` components, along with the routing logic.
+2. **Main Container**: `InvoiceApp` serves as the container that includes both the `Form` and `FormPreview` components, along with the routing logic.
 3. **Form Data Handling**: The `Form` component manages the user input and updates the state with the help of the `FormData` utility. While the `FormDataContext.Provider` makes the form data available to all child components.
-4. **Routing and Data Sharing**: The `Routes` component defines the different routes, ensuring that `FormPrint` can access the form data to generate the invoice preview.
-5. **PDF Preview and Generation**: `PDFDocument` takes the form data and generates the PDF for the invoice, similar to the rendered view of the `FormPrint` component.
+4. **Routing and Data Sharing**: The `Routes` component defines the different routes, ensuring that `FormPreview` can access the form data to generate the invoice preview.
+5. **PDF Preview and Generation**: `PDFDocument` takes the form data and generates the PDF for the invoice, similar to the rendered view of the `FormPreview` component.
 
 ## Configuration Details
 
