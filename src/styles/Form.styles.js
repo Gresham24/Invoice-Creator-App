@@ -61,6 +61,8 @@ export const StyledDescriptionHeaders = styled.div`
     grid-template-rows: repeat(1, 1fr);
     grid-column-gap: auto;
     margin-bottom: 2.75rem;
+    font-weight: 500;
+    font-size: 14px;
 `;
 
 export const StyledDescriptionRow = styled.div`

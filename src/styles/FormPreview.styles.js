@@ -51,6 +51,8 @@ export const StyledDescriptionHeaders = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    font-size: 14px;
+    font-weight: 500;
 `;
 
 export const StyledFlexRight = styled.div`
