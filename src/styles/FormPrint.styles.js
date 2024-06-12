@@ -1,17 +1,18 @@
 import styled from "styled-components";
+import { colors } from "../constants";
 
 export const StyledContainer = styled.div`
     margin: 50px auto;
     padding: 20px 32px;
     border-radius: 15px;
-    box-shadow: 0px 15px 48px 0px rgba(46, 47, 58, 0.08);
-    background-color: #f8f9fa;
+    box-shadow: 0px 15px 48px 0px ${colors.shadowGray};
+    background-color: ${colors.lightGray};
     max-width: 980px;
 `;
 
 export const StyledHeader = styled.div`
     padding: 24px 40px;
-    background-color: #f6f6f6;
+    background-color: ${colors.mediumGray};
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,7 +21,7 @@ export const StyledHeader = styled.div`
         font-size: 32px;
     }
     & p {
-        color: #858585;
+        color: ${colors.gray};
     }
 `;
 
@@ -32,7 +33,7 @@ export const StyledTitle = styled.div`
 
 export const StyledInvoiceDetails = styled.div`
     padding: 24px 40px;
-    background-color: white;
+    background-color: ${colors.white};
     display: flex;
     justify-content: space-between;
 `;
@@ -45,7 +46,7 @@ export const StyledInvoiceDates = styled.div`
 `;
 
 export const StyledDescriptionHeaders = styled.div`
-    background-color: #ededed;
+    background-color: ${colors.mediumGray};
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;
@@ -68,26 +69,26 @@ export const StyledFlexRight = styled.div`
 `;
 
 export const StyledLineItem = styled.div`
-    color: #5e6470;
-    background-color: white;
+    color: ${colors.darkGray};
+    background-color: ${colors.white};
 `;
 
 export const StyledDarkText = styled.p`
-    color: #333;
+    color: ${colors.darkGray};
 `;
 
 export const StyledLineItemContainer = styled.div`
     min-height: 69px;
-    background-color: white;
+    background-color: ${colors.white};
     padding: 10px 0;
     margin: 0px 40px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 0.5px solid #d7dae0;
+    border-bottom: 0.5px solid ${colors.borderGray};
 `;
 
 export const StyledTotalSummaries = styled.div`
-    background-color: white;
+    background-color: ${colors.white};
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -99,31 +100,32 @@ export const StyledTotalSummaryWrapper = styled.div`
     margin: 10px 40px 10px 0px;
     width: 33.33%;
 `;
+
 export const StyledTotalAmountDueWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 10px 40px 10px 0px;
     width: 33.33%;
     padding: 10px 0px 10px 0px;
-    border-bottom: #d7dae0 3px solid;
-    border-top: #d7dae0 3px solid;
+    border-bottom: ${colors.borderGray} 3px solid;
+    border-top: ${colors.borderGray} 3px solid;
 `;
 
 export const StyledExtraInfo = styled.div`
-    background-color: white;
+    background-color: ${colors.white};
     padding: 110px 0px 20px 40px;
     display: flex;
     flex-direction: column;
     gap: 12px;
     & p {
-        color: #858585;
+        color: ${colors.gray};
         width: 300px;
     }
 `;
 
 export const StyledFooter = styled.div`
     padding: 40px 0px 40px 40px;
-    background-color: #f6f6f6;
+    background-color: ${colors.mediumGray};
     font-weight: 500;
 `;
 
@@ -137,12 +139,12 @@ export const StyledButtonWrapper = styled.div`
 export const StyledBackButton = styled.button`
     border-radius: 8px;
     border: 1px solid transparent;
-    background: #f8f9fa;
+    background: ${colors.lightGray};
     padding: 8px 48px;
     &:hover {
         cursor: pointer;
     }
     &:active {
-        background: #f0f2f3;
+        background: ${colors.mediumGray};
     }
 `;

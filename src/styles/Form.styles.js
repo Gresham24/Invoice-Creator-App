@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../constants";
 
 export const StyledCompanyDetails = styled.div`
     display: flex;
@@ -6,12 +7,13 @@ export const StyledCompanyDetails = styled.div`
     align-items: start;
     gap: 0.5rem;
 `;
+
 export const StyledInput = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
     & span {
-        color: red;
+        color: ${colors.red};
         font-size: 0.8rem;
     }
     & label {
@@ -19,21 +21,23 @@ export const StyledInput = styled.div`
         flex-direction: column;
     }
 `;
+
 export const StyledDropdown = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
     & span {
-        color: red;
+        color: ${colors.red};
         font-size: 0.8rem;
         margin-left: 10px;
     }
 `;
 
 export const StyledCustomerDetails = styled.div`
-    color: #858585;
+    color: ${colors.gray};
     font-size: 0.875rem;
 `;
+
 export const StyledFormHeader = styled.div`
     display: flex;
     flex-direction: column;
@@ -71,9 +75,11 @@ export const StyledDescriptionRow = styled.div`
 export const StyledProductServiceInput = styled.input`
     width: 200px;
 `;
+
 export const StyledPriceInput = styled.input`
     width: 4rem;
 `;
+
 export const StyledQtyTaxDiscInput = styled.input`
     width: 2.7rem;
 `;
@@ -100,7 +106,7 @@ export const StyledDeleteButton = styled.button`
 export const StyledAddButton = styled.button`
     background: none;
     border: none;
-    color: #3dadaf;
+    color: ${colors.lightBlue};
     font-weight: 500;
     &:hover {
         cursor: pointer;
@@ -126,9 +132,11 @@ export const StyledCostSummaries = styled.div`
         flex-direction: column;
     }
 `;
+
 export const StyledCostSummaryAmounts = styled.div`
     text-align: right;
 `;
+
 export const StyledExtraDetails = styled.div`
     display: flex;
     & textarea {
@@ -145,20 +153,20 @@ export const StyledFormActionButtons = styled.div`
 
 export const StyledCancelButton = styled.button`
     border-radius: 8px;
-    border: 1px solid #e4e0dd;
-    background: #f8f9fa;
+    border: 1px solid ${colors.borderGray};
+    background: ${colors.lightGray};
     padding: 8px 32px;
     &:active {
-        background: #f0f2f3;
+        background: ${colors.mediumGray};
     }
 `;
 
 export const StyledSubmitButton = styled.button`
     border: none;
     border-radius: 8px;
-    background: #3dadaf;
+    background: ${colors.lightBlue};
     padding: 8px 32px;
-    color: white;
+    color: ${colors.white};
     &:active {
         opacity: 0.8;
     }
