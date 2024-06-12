@@ -1,9 +1,9 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import PDFDocument from "./PDFDocument";
+import PDFDocument from "../PDFDocument";
 import {
     StyledButtonWrapper,
     StyledBackButton,
-} from "../styles/FormPreview.styles";
+} from "../../styles/FormPreview.styles";
 
 function ButtonWrapper({
     handleBackButton,

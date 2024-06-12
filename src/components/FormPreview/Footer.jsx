@@ -1,4 +1,4 @@
-import { StyledFooter } from "../styles/FormPreview.styles";
+import { StyledFooter } from "../../styles/FormPreview.styles";
 
 function Footer() {
     return (

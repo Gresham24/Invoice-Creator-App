@@ -3,7 +3,7 @@ import {
     StyledLineItemContainer,
     StyledFlexRight,
     StyledDarkText,
-} from "../styles/FormPreview.styles";
+} from "../../styles/FormPreview.styles";
 
 function LineItems({ items }) {
     return (

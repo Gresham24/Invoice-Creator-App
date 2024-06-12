@@ -1,8 +1,8 @@
-import { companyDetails, customerDetails } from "./FormData";
+import { companyDetails, customerDetails } from "../FormData";
 import {
     StyledInvoiceDetails,
     StyledInvoiceDates,
-} from "../styles/FormPreview.styles";
+} from "../../styles/FormPreview.styles";
 
 function InvoiceDetails({ formEntryDetails }) {
     return (

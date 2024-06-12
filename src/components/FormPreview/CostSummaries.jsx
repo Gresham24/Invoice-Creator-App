@@ -2,7 +2,7 @@ import {
     StyledTotalSummaries,
     StyledTotalSummaryWrapper,
     StyledTotalAmountDueWrapper,
-} from "../styles/FormPreview.styles";
+} from "../../styles/FormPreview.styles";
 
 function CostSummaries({ totals }) {
     return (

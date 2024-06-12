@@ -1,4 +1,4 @@
-import { StyledExtraInfo } from "../styles/FormPreview.styles";
+import { StyledExtraInfo } from "../../styles/FormPreview.styles";
 
 function ExtraInfo({ bankDetails, notes }) {
     return (

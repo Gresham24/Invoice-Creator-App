@@ -1,7 +1,7 @@
 import {
     StyledDescriptionHeaders,
     StyledFlexRight,
-} from "../styles/FormPreview.styles";
+} from "../../styles/FormPreview.styles";
 
 function DescriptionHeaders() {
     return (
