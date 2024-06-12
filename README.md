@@ -59,7 +59,7 @@ The project consists of several key components and configuration files:
 -   `main.jsx`: Entry point for the React application.
 -   `InvoiceApp.jsx`: Main application component.
 -   `Form.jsx`: Component for capturing invoice data.
--   `FormData.jsx`: Utility functions for managing form data.
+-   `formData.js`: Utility functions for managing form data.
 -   `FormPreview.jsx`: Component for displaying and printing the invoice.
 -   `PDFDocument.jsx`: Component for generating the PDF document of the invoice.
 -   `package.json`: Contains project metadata, dependencies, and scripts.
@@ -79,7 +79,7 @@ The project consists of several key components and configuration files:
 
 3. **Data Management**
 
-    - The form data is encapsulated in a state object within `Form.jsx`. This data is collected and managed using the `FormData` utility.
+    - The form data is encapsulated in a state object within `Form.jsx`. This data is collected and managed using the `formData` utility.
     - When a user makes changes to the form fields, the `handleChange` function updates the state, ensuring the form data is always in sync with user input.
 
 4. **Invoice Preview and Download**
@@ -191,10 +191,10 @@ The form data is managed using React's `useState` hook, allowing for a dynamic a
 
 ```jsx
 import React, { useState } from "react";
-import FormData from "./FormData";
+import formData from "./formData";
 
 const Form = () => {
-    const [data, setData] = useState(FormData);
+    const [data, setData] = useState(formData);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -310,7 +310,7 @@ export default PDFDocument;
 
 1. **Initialization**: The `main.jsx` file initializes the app by rendering `InvoiceApp`, setting up the main structure.
 2. **Main Container**: `InvoiceApp` serves as the container that includes both the `Form` and `FormPreview` components, along with the routing logic.
-3. **Form Data Handling**: The `Form` component manages the user input and updates the state with the help of the `FormData` utility. While the `FormDataContext.Provider` makes the form data available to all child components.
+3. **Form Data Handling**: The `Form` component manages the user input and updates the state with the help of the `formData` utility. While the `FormDataContext.Provider` makes the form data available to all child components.
 4. **Routing and Data Sharing**: The `Routes` component defines the different routes, ensuring that `FormPreview` can access the form data to generate the invoice preview.
 5. **PDF Preview and Generation**: `PDFDocument` takes the form data and generates the PDF for the invoice, similar to the rendered view of the `FormPreview` component.
 
