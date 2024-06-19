@@ -1,17 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { companyDetails, customerDetails } from "../formData";
 import { useNavigate } from "react-router-dom";
 import {
-    StyledFormHeader,
-    StyledFormFooter,
     StyledAddButton,
     StyledDescriptionHeaders,
-    StyledCostSummaries,
-    StyledCostSummaryAmounts,
-    StyledExtraDetails,
-    StyledFormActionButtons,
-    StyledCancelButton,
-    StyledSubmitButton,
 } from "../../styles/Form.styles";
 
 import { calculateTotals } from "../../utils/calculateTotals";
@@ -33,16 +24,16 @@ export default function Form() {
         formValues.items.length > 0
             ? formValues.items
             : [
-                  {
-                      id: 1,
-                      productService: "",
-                      description: "",
-                      qty: 1,
-                      price: 0,
-                      taxPercentage: "",
-                      discountPercentage: "",
-                  },
-              ]
+                {
+                    id: 1,
+                    productService: "",
+                    description: "",
+                    qty: 1,
+                    price: 0,
+                    taxPercentage: "",
+                    discountPercentage: "",
+                },
+            ]
     );
 
     const initialNextItemId =
