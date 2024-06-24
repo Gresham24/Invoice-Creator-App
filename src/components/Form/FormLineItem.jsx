@@ -1,4 +1,5 @@
 import React from "react";
+import { useField, useFormikContext } from "formik";
 import {
     StyledDescriptionRow,
     StyledInput,
@@ -9,11 +10,16 @@ import {
     StyledDeleteButton,
 } from "../../styles/Form.styles";
 
-const LineItem = ({ item, onUpdate, onDelete, index, errors }) => {
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        onUpdate(item.id, name, value);
-    };
+const LineItem = ({ item, index, arrayHelpers }) => {
+        const { errors, touched, handleChange } = useFormikContext();
+    const [productServiceField] = useField(`items[${index}].productService`);
+    const [descriptionField] = useField(`items[${index}].description`);
+    const [qtyField] = useField(`items[${index}].qty`);
+    const [priceField] = useField(`items[${index}].price`);
+    const [taxPercentageField] = useField(`items[${index}].taxPercentage`);
+    const [discountPercentageField] = useField(
+        `items[${index}].discountPercentage`
+    );
 
     const subtotal = item.qty * item.price;
     const subTotalWithTax = subtotal * (1 + item.taxPercentage / 100);
@@ -22,85 +28,85 @@ const LineItem = ({ item, onUpdate, onDelete, index, errors }) => {
         (subTotalWithTax - discountAmount).toFixed(2)
     );
 
+
     return (
         <StyledDescriptionRow>
             <div>{index + 1}</div>
             <StyledInput>
-                <label htmlFor="productService">
+                <label htmlFor={`items[${index}].productService`}>
                     <StyledProductServiceInput
-                        name="productService"
-                        type="text"
-                        value={item.productService || ""}
+                        {...productServiceField}
                         onChange={handleChange}
                         placeholder="Enter a product"
                     />
-                    {errors[`productService${index}`] && (
-                        <span>{errors[`productService${index}`]}</span>
-                    )}
+                    {errors.items?.[index]?.productService &&
+                        touched.items?.[index]?.productService && (
+                            <span>{errors.items[index].productService}</span>
+                        )}
                 </label>
-                <label htmlFor="description">
+                <label htmlFor={`items[${index}].description`}>
                     <StyledDescriptionTextarea
-                        name="description"
-                        type="text"
-                        rows="3"
-                        value={item.description || ""}
+                        {...descriptionField}
                         onChange={handleChange}
+                        rows="3"
                         placeholder="Enter a description... (Optional)"
                     />
                 </label>
             </StyledInput>
             <StyledInput>
-                <label htmlFor="qty">
+                <label htmlFor={`items[${index}].qty`}>
                     <StyledQtyTaxDiscInput
-                        name="qty"
-                        type="number"
-                        value={item.qty || ""}
+                        {...qtyField}
                         onChange={handleChange}
                     />
-                    {errors[`qty${index}`] && (
-                        <span>{errors[`qty${index}`]}</span>
-                    )}
+                    {errors.items?.[index]?.qty &&
+                        touched.items?.[index]?.qty && (
+                            <span>{errors.items[index].qty}</span>
+                        )}
                 </label>
             </StyledInput>
             <StyledInput>
-                <label htmlFor="price">
+                <label htmlFor={`items[${index}].price`}>
                     <StyledPriceInput
-                        name="price"
-                        type="number"
-                        value={item.price || ""}
+                        {...priceField}
                         onChange={handleChange}
                         placeholder="0.00"
                     />
-                    {errors[`price${index}`] && (
-                        <span>{errors[`price${index}`]}</span>
-                    )}
+                    {errors.items?.[index]?.price &&
+                        touched.items?.[index]?.price && (
+                            <span>{errors.items[index].price}</span>
+                        )}
                 </label>
             </StyledInput>
             <StyledInput>
-                <label htmlFor="taxPercentage">
+                <label htmlFor={`items[${index}].taxPercentage`}>
                     <StyledQtyTaxDiscInput
-                        name="taxPercentage"
-                        type="number"
-                        value={item.taxPercentage || ""}
+                        {...taxPercentageField}
                         onChange={handleChange}
                         placeholder="% 0"
                     />
+                    {errors.items?.[index]?.taxPercentage &&
+                        touched.items?.[index]?.taxPercentage && (
+                            <span>{errors.items[index].taxPercentage}</span>
+                        )}
                 </label>
             </StyledInput>
             <StyledInput>
-                <label htmlFor="discountPercentage">
+                <label htmlFor={`items[${index}].discountPercentage`}>
                     <StyledQtyTaxDiscInput
-                        name="discountPercentage"
-                        type="number"
-                        value={item.discountPercentage || ""}
+                        {...discountPercentageField}
                         onChange={handleChange}
                         placeholder="%  0"
                     />
+                    {errors.items?.[index]?.discountPercentage &&
+                        touched.items?.[index]?.discountPercentage && (
+                            <span>{errors.items[index].discountPercentage}</span>
+                        )}
                 </label>
             </StyledInput>
-            <div id={"itemTotal" + index}>{lineItemTotal}</div>
+            <div id={`itemTotal${index}`}>{lineItemTotal}</div>
             {index > 0 && (
-                <StyledDeleteButton onClick={() => onDelete(item.id)}>
+                <StyledDeleteButton onClick={() => arrayHelpers.remove(index)}>
                     <img src="/delete_icon.svg" alt="delete button" />
                 </StyledDeleteButton>
             )}

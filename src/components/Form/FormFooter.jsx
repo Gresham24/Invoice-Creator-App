@@ -1,6 +1,7 @@
 import React from "react";
+import { useField, useFormikContext } from "formik";
 import {
-  StyledFormFooter,
+    StyledFormFooter,
     StyledCostSummaries,
     StyledCostSummaryAmounts,
     StyledExtraDetails,
@@ -10,32 +11,39 @@ import {
     StyledSubmitButton,
 } from "../../styles/Form.styles";
 
-const FormFooter = ({ totals, details, errors, handleChange }) => {
+const FormFooter = () => {
+    const { values, errors, handleChange } = useFormikContext();
+    const [notesField] = useField("details.notes");
+    const [bankDetailsField] = useField("details.bankDetails");
+
+    const totals = values.totals || {
+        subtotal: 0,
+        tax: 0,
+        discount: 0,
+        total: 0,
+    };
+
     return (
         <StyledFormFooter>
             <StyledExtraDetails>
                 <StyledInput>
                     <label htmlFor="notes">Notes</label>
                     <textarea
-                        name="notes"
-                        id="notes"
+                        {...notesField}
+                        onChange={handleChange}
                         cols="30"
                         rows="5"
-                        onChange={handleChange}
                         placeholder="Enter a description... (Optional)"
-                        value={details.notes || ""}
                     />
                 </StyledInput>
                 <StyledInput>
                     <label htmlFor="bankDetails">Bank account details</label>
                     <textarea
-                        name="bankDetails"
-                        id="bankDetails"
+                        {...bankDetailsField}
+                        onChange={handleChange}
                         cols="30"
                         rows="5"
-                        onChange={handleChange}
                         placeholder="Enter a description... (Optional)"
-                        value={details.bankDetails || ""}
                     />
                 </StyledInput>
             </StyledExtraDetails>

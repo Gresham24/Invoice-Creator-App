@@ -1,4 +1,5 @@
 import React from "react";
+import { useField, useFormikContext } from "formik";
 import { companyDetails, customerDetails } from "../formData";
 import {
     StyledCompanyDetails,
@@ -9,7 +10,14 @@ import {
     StyledCustomerDetails,
 } from "../../styles/Form.styles";
 
-const FormHeader = ({ details, errors, handleChange }) => {
+const FormHeader = () => {
+    const { values, errors, touched, handleChange } = useFormikContext();
+    const [invoiceNumberField] = useField("details.invoiceNumber");
+    const [purchaseOrderField] = useField("details.purchaseOrder");
+    const [customerField] = useField("details.customer");
+    const [issueDateField] = useField("details.issueDate");
+    const [dueDateField] = useField("details.dueDate");
+
     return (
         <StyledFormHeader>
             <StyledCompanyDetails>
@@ -27,40 +35,36 @@ const FormHeader = ({ details, errors, handleChange }) => {
                 <StyledInput>
                     <label htmlFor="invoiceNumber">Invoice number</label>
                     <input
+                        {...invoiceNumberField}
                         onChange={handleChange}
-                        name="invoiceNumber"
-                        type="text"
-                        id="invoiceNumber"
                         placeholder="Enter invoice number..."
-                        value={details.invoiceNumber || ""}
                     />
-                    {errors.invoiceNumber && (
-                        <span>{errors.invoiceNumber}</span>
-                    )}
+                    {errors.details?.invoiceNumber &&
+                        touched.details?.invoiceNumber && (
+                            <span>{errors.details.invoiceNumber}</span>
+                        )}
                 </StyledInput>
                 <StyledInput>
                     <label htmlFor="purchaseOrder">Purchase order</label>
                     <input
+                        {...purchaseOrderField}
                         onChange={handleChange}
-                        name="purchaseOrder"
-                        type="text"
-                        id="purchaseOrder"
                         placeholder="Enter purchase order number..."
-                        value={details.purchaseOrder || ""}
                     />
-                    {errors.purchaseOrder && (
-                        <span>{errors.purchaseOrder}</span>
-                    )}
+                    {errors.details?.purchaseOrder &&
+                        touched.details?.purchaseOrder && (
+                            <span>{errors.details.purchaseOrder}</span>
+                        )}
                 </StyledInput>
             </StyledInputsWrapper>
 
             <StyledDropdown>
                 <label htmlFor="customerName">Customer</label>
                 <select
-                    name="customer"
+                    {...customerField}
                     id="customerName"
                     onChange={handleChange}
-                    defaultValue={details.customer || ""}
+                    value={values.details.customer || ""}
                 >
                     <option value="" disabled>
                         Select a customer
@@ -69,11 +73,15 @@ const FormHeader = ({ details, errors, handleChange }) => {
                     <option value="Mandu">Mandu</option>
                     <option value="Amasuku">Amasuku</option>
                 </select>
-                {errors.customer && <span>{errors.customer}</span>}
-                {details.customer && (
+                {errors.details?.customer && touched.details?.customer && (
+                    <span>{errors.details.customer}</span>
+                )}
+                {values.details.customer && (
                     <StyledCustomerDetails>
-                        <p>{customerDetails[details.customer]?.address}</p>
-                        <p>{customerDetails[details.customer]?.phone}</p>
+                        <p>
+                            {customerDetails[values.details.customer]?.address}
+                        </p>
+                        <p>{customerDetails[values.details.customer]?.phone}</p>
                     </StyledCustomerDetails>
                 )}
             </StyledDropdown>
@@ -82,21 +90,21 @@ const FormHeader = ({ details, errors, handleChange }) => {
                 <StyledInput>
                     <label htmlFor="issueDate">Issue date</label>
                     <input
+                        {...issueDateField}
                         onChange={handleChange}
-                        name="issueDate"
                         type="date"
-                        id="issueDate"
-                        value={details.issueDate || ""}
                     />
-                    {errors.issueDate && <span>{errors.issueDate}</span>}
+                    {errors.details?.issueDate &&
+                        touched.details?.issueDate && (
+                            <span>{errors.details.issueDate}</span>
+                        )}
                 </StyledInput>
                 <StyledDropdown>
                     <label htmlFor="dueDate">Due date</label>
                     <select
+                        {...dueDateField}
                         onChange={handleChange}
-                        name="dueDate"
-                        id="dueDate"
-                        defaultValue={details.dueDate || ""}
+                        value={values.details.dueDate || ""}
                     >
                         <option value="" disabled>
                             Select a date
@@ -105,7 +113,9 @@ const FormHeader = ({ details, errors, handleChange }) => {
                         <option value="60days">Next 60 Days</option>
                         <option value="90days">Next 90 Days</option>
                     </select>
-                    {errors.dueDate && <span>{errors.dueDate}</span>}
+                    {errors.details?.dueDate && touched.details?.dueDate && (
+                        <span>{errors.details.dueDate}</span>
+                    )}
                 </StyledDropdown>
             </StyledInputsWrapper>
         </StyledFormHeader>
