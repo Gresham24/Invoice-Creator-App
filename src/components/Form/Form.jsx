@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik, FieldArray, FormikProvider } from "formik";
 import * as Yup from "yup";
+import { v4 as uuidv4 } from "uuid";
 import {
     StyledAddButton,
     StyledDescriptionHeaders,
@@ -69,7 +70,7 @@ export default function Form() {
                     ? formValues.items
                     : [
                           {
-                              id: 1,
+                              id: uuidv4(),
                               productService: "",
                               description: "",
                               qty: 1,
@@ -136,7 +137,7 @@ export default function Form() {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     arrayHelpers.push({
-                                        id: formik.values.items.length + 1,
+                                        id: uuidv4(),
                                         productService: "",
                                         description: "",
                                         qty: 1,
