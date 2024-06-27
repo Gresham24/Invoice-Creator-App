@@ -4,7 +4,7 @@ The Invoice Creator App is a React-based web application designed to create, vie
 
 ## Hosted Link
 
-[Invoice Creator App](https://invoiceappcreator.netlify.app/)
+https://invoiceappcreator.netlify.app/
 
 ## Table of Contents
 
@@ -15,7 +15,6 @@ The Invoice Creator App is a React-based web application designed to create, vie
 -   [Project Structure](#project-structure)
 -   [How It Works](#how-it-works)
 -   [Available Scripts](#available-scripts)
--   [License](#license)
 
 ## Features
 
@@ -108,7 +107,3 @@ It correctly bundles React in production mode and optimizes the build for the be
 ### `npm run preview`
 
 Serves the production build locally to preview it.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
