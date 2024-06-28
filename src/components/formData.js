@@ -1,4 +1,3 @@
-// Object storing static company details
 export const companyDetails = {
     name: "Masharty Tembo",
     companyName: "Web Masters Limited",
@@ -7,7 +6,6 @@ export const companyDetails = {
     companyEmail: "email@gmail.com",
 };
 
-// Object storing customer details
 export const customerDetails = {
     Emirates: {
         address: "Garhoud Area, Dubai - United Arab Emirates",
