@@ -1,9 +1,9 @@
 export const companyDetails = {
-    name: "Masharty Tembo",
-    companyName: "Web Masters Limited",
+    name: "Gresham Tembo",
+    companyName: "ABC Technologies Inc.",
     companyLogo: "/webcoin_web logo.png",
-    companyAddress: "Riyadh 12345, Saudi Arabia",
-    companyEmail: "email@gmail.com",
+    companyAddress: "123 Main Road, Cape Town, 7441",
+    companyEmail: "info@abctech.com",
 };
 
 export const customerDetails = {

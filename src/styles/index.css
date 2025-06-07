@@ -11,11 +11,12 @@
 body {
     padding: 2rem;
     background-color: #c5d8fe;
-    width: 60%;
+    /* width: 60%; */
     margin: 0 auto;
 }
 
 form {
+    /* width: 60%; */
     padding: 2rem;
     background-color: #f8f9fa;
     border-radius: 15px;

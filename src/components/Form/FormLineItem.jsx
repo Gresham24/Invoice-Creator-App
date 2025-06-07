@@ -1,4 +1,3 @@
-import React from "react";
 import { useField, useFormikContext } from "formik";
 import {
     StyledDescriptionRow,
@@ -83,7 +82,7 @@ const LineItem = ({ item, index, arrayHelpers }) => {
                     <StyledQtyTaxDiscInput
                         {...taxPercentageField}
                         onChange={handleChange}
-                        placeholder="% 0"
+                        placeholder="%0"
                     />
                     {errors.items?.[index]?.taxPercentage &&
                         touched.items?.[index]?.taxPercentage && (
@@ -96,7 +95,7 @@ const LineItem = ({ item, index, arrayHelpers }) => {
                     <StyledQtyTaxDiscInput
                         {...discountPercentageField}
                         onChange={handleChange}
-                        placeholder="%  0"
+                        placeholder="%0"
                     />
                     {errors.items?.[index]?.discountPercentage &&
                         touched.items?.[index]?.discountPercentage && (

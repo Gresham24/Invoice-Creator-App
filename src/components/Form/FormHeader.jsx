@@ -1,4 +1,3 @@
-import React from "react";
 import { useField, useFormikContext } from "formik";
 import { companyDetails, customerDetails } from "../formData";
 import {
