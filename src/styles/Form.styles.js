@@ -168,33 +168,33 @@ export const StyledTableHeaderCell = styled.th`
 
     &:nth-child(1) {
         width: 5%;
-        text-align: center;
+        text-align: left;
     }
     &:nth-child(2) {
         width: 35%;
     }
     &:nth-child(3) {
         width: 10%;
-        text-align: center;
+        text-align: left;
     }
     &:nth-child(4) {
         width: 12%;
-        text-align: center;
+        text-align: left;
     }
     &:nth-child(5) {
         width: 10%;
-        text-align: center;
+        text-align: left;
     }
     &:nth-child(6) {
         width: 10%;
-        text-align: center;
+        text-align: left;
     }
     &:nth-child(7) {
         width: 10%;
         text-align: right;
     }
     &:nth-child(8) {
-        width: 8%;
+        width: 5%;
         text-align: center;
     }
 
