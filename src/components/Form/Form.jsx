@@ -20,6 +20,11 @@ export const FormDataContext = createContext();
 
 const validationSchema = Yup.object().shape({
     details: Yup.object().shape({
+        name: Yup.string().required("Full name is required"),
+        companyName: Yup.string().required("Company name is required"),
+        companyLogo: Yup.string().nullable(),
+        companyAddress: Yup.string().required("Company address is required"),
+        companyEmail: Yup.string().email("Invalid email").required("Company email is required"),
         invoiceNumber: Yup.string().required("Invoice number is required"),
         purchaseOrder: Yup.string().required("Purchase order is required"),
         issueDate: Yup.date().required("Issue date is required"),
@@ -50,12 +55,17 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function Form() {
-    const { formValues, setFormValues } = useContext(FormDataContext);
+    const { formValues, setFormValues, companyDetails } = useContext(FormDataContext);
     const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
             details: {
+                name: formValues.details?.name || "",
+                companyName: formValues.details?.companyName || "",
+                companyLogo: formValues.details?.companyLogo || "",
+                companyAddress: formValues.details?.companyAddress || "",
+                companyEmail: formValues.details?.companyEmail || "",
                 invoiceNumber: "",
                 purchaseOrder: "",
                 issueDate: getCurrentDate(),

@@ -1,10 +1,17 @@
-import { companyDetails } from "../formData";
 import { StyledHeader, StyledTitle } from "../../styles/FormPreview.styles";
 
-function Header({ invoiceNumber }) {
+function Header({ invoiceNumber, companyDetails }) {
     return (
         <StyledHeader>
-            <img src={companyDetails.companyLogo} alt="logo" />
+            {companyDetails.companyLogo ? (
+                <img
+                    src={companyDetails.companyLogo}
+                    alt="logo"
+                    style={{ maxHeight: "80px", maxWidth: "80px" }}
+                />
+            ) : (
+                <div />
+            )}
             <StyledTitle>
                 <h1>INVOICE</h1>
                 <p>{`NO. ${invoiceNumber}`}</p>

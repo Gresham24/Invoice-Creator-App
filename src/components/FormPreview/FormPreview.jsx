@@ -34,8 +34,8 @@ function FormPreview() {
     return (
         <div>
             <StyledContainer>
-                <Header invoiceNumber={formEntryDetails.invoiceNumber} />
-                <InvoiceDetails formEntryDetails={formEntryDetails} />
+                <Header invoiceNumber={formEntryDetails.invoiceNumber} companyDetails={formValues.details} />
+                <InvoiceDetails formEntryDetails={formEntryDetails} companyDetails={formValues.details} />
                 <DescriptionHeaders />
                 <LineItems items={formValues.items} />
                 <CostSummaries totals={totals} />

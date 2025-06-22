@@ -1,10 +1,10 @@
-import { companyDetails, customerDetails } from "../formData";
+import { customerDetails } from "../formData";
 import {
     StyledInvoiceDetails,
-    StyledInvoiceDates,
+    StyledInvoiceMetaInfo,
 } from "../../styles/FormPreview.styles";
 
-function InvoiceDetails({ formEntryDetails }) {
+function InvoiceDetails({ formEntryDetails, companyDetails }) {
     return (
         <StyledInvoiceDetails>
             <div>
@@ -31,7 +31,11 @@ function InvoiceDetails({ formEntryDetails }) {
                     </div>
                 )}
             </div>
-            <StyledInvoiceDates>
+            <StyledInvoiceMetaInfo>
+                <div>
+                    <h3>Purchase Order</h3>
+                    <p>{formEntryDetails.purchaseOrder} </p>
+                </div>
                 <div>
                     <h3>Issued</h3>
                     <p>{formEntryDetails.issueDate} </p>
@@ -40,7 +44,7 @@ function InvoiceDetails({ formEntryDetails }) {
                     <h3>Due</h3>
                     <p>{formEntryDetails.dueDate} </p>
                 </div>
-            </StyledInvoiceDates>
+            </StyledInvoiceMetaInfo>
         </StyledInvoiceDetails>
     );
 }

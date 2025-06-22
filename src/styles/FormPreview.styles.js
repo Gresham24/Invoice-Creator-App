@@ -56,6 +56,16 @@ export const StyledInvoiceDetails = styled.div`
     background-color: ${colors.white};
     display: flex;
     justify-content: space-between;
+    font-size: 14px;
+
+    & h3 {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    & p {
+        color: ${colors.gray};
+    }
 
     @media (max-width: 768px) {
         padding: 16px 20px;
@@ -64,11 +74,20 @@ export const StyledInvoiceDetails = styled.div`
     }
 `;
 
-export const StyledInvoiceDates = styled.div`
+export const StyledInvoiceMetaInfo = styled.div`
     display: flex;
     flex-direction: column;
     text-align: end;
     justify-content: space-between;
+    gap: 1rem;
+
+    & h3 {
+        margin-bottom: 0;
+    }
+
+    & p {
+        margin-top: 0;
+    }
 
     @media (max-width: 768px) {
         text-align: start;

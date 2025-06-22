@@ -1,5 +1,5 @@
 import { useField, useFormikContext } from "formik";
-import { companyDetails, customerDetails } from "../formData";
+import { customerDetails } from "../formData";
 import {
     StyledCompanyDetails,
     StyledFormHeader,
@@ -8,26 +8,140 @@ import {
     StyledInputsWrapper,
     StyledCustomerDetails,
 } from "../../styles/Form.styles";
+import { useRef } from "react";
 
 const FormHeader = () => {
-    const { values, errors, touched, handleChange } = useFormikContext();
+    const { values, errors, touched, handleChange, setFieldValue } = useFormikContext();
+    const [nameField] = useField("details.name");
+    const [companyNameField] = useField("details.companyName");
+    const [companyAddressField] = useField("details.companyAddress");
+    const [companyEmailField] = useField("details.companyEmail");
     const [invoiceNumberField] = useField("details.invoiceNumber");
     const [purchaseOrderField] = useField("details.purchaseOrder");
     const [customerField] = useField("details.customer");
     const [issueDateField] = useField("details.issueDate");
     const [dueDateField] = useField("details.dueDate");
+    const fileInputRef = useRef();
+
+    const handleLogoChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new window.FileReader();
+            reader.onloadend = () => {
+                setFieldValue("details.companyLogo", reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     return (
         <StyledFormHeader>
             <StyledCompanyDetails>
-                <div>
-                    <h3>{companyDetails.name}</h3>
-                    <p>{companyDetails.companyName}</p>
-                </div>
-                <img src={companyDetails.companyLogo} alt="logo" />
-                <p>{companyDetails.companyAddress1}</p>
-                <p>{companyDetails.companyAddress2}</p>
-                <p>{companyDetails.companyEmail}</p>
+                <StyledInput>
+                    <label htmlFor="name">Full Name</label>
+                    <input
+                        {...nameField}
+                        onChange={handleChange}
+                        placeholder="Enter your full name..."
+                        required
+                    />
+                    {errors.details?.name && touched.details?.name && (
+                        <span>{errors.details.name}</span>
+                    )}
+                </StyledInput>
+                <StyledInput>
+                    <label htmlFor="companyName">Company Name</label>
+                    <input
+                        {...companyNameField}
+                        onChange={handleChange}
+                        placeholder="Enter your company name..."
+                        required
+                    />
+                    {errors.details?.companyName && touched.details?.companyName && (
+                        <span>{errors.details.companyName}</span>
+                    )}
+                </StyledInput>
+                <StyledInput>
+                    <label htmlFor="companyLogo">Company Logo (optional)</label>
+                    <input
+                        id="companyLogo"
+                        name="companyLogo"
+                        type="file"
+                        accept="image/*"
+                        ref={fileInputRef}
+                        onChange={handleLogoChange}
+                    />
+                    {values.details.companyLogo && (
+                        <div style={{ position: 'relative', width: 'fit-content', marginTop: '12px' }}>
+                            <img
+                                src={values.details.companyLogo}
+                                alt="Company Logo Preview"
+                                style={{
+                                    maxWidth: 80,
+                                    maxHeight: 80,
+                                    display: 'block',
+                                    border: '1px solid #ddd',
+                                    borderRadius: '4px'
+                                }}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setFieldValue("details.companyLogo", "");
+                                    if (fileInputRef.current) {
+                                        fileInputRef.current.value = "";
+                                    }
+                                }}
+                                style={{
+                                    position: 'absolute',
+                                    top: -8,
+                                    right: -10,
+                                    background: 'white',
+                                    color: 'red',
+                                    border: '1px solid #999',
+                                    borderRadius: '50%',
+                                    width: 20,
+                                    height: 20,
+                                    fontWeight: 'bold',
+                                    fontSize: '14px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer',
+                                    padding: 0,
+                                    lineHeight: 1
+                                }}
+                            >
+                                &times;
+                            </button>
+                        </div>
+                    )}
+                </StyledInput>
+                <StyledInput>
+                    <label htmlFor="companyAddress">Company Address</label>
+                    <input
+                        {...companyAddressField}
+                        onChange={handleChange}
+                        placeholder="Enter your company address..."
+                        required
+                    />
+                    {errors.details?.companyAddress && touched.details?.companyAddress && (
+                        <span>{errors.details.companyAddress}</span>
+                    )}
+                </StyledInput>
+                <StyledInput>
+                    <label htmlFor="companyEmail">Company Email</label>
+                    <input
+                        {...companyEmailField}
+                        onChange={handleChange}
+                        placeholder="Enter your company email..."
+                        required
+                        type="email"
+                    />
+                    {errors.details?.companyEmail && touched.details?.companyEmail && (
+                        <span>{errors.details.companyEmail}</span>
+                    )}
+                </StyledInput>
             </StyledCompanyDetails>
 
             <StyledInputsWrapper>
