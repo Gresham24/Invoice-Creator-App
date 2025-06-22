@@ -88,7 +88,7 @@ export const StyledDescriptionHeaders = styled.div`
 export const StyledTable = styled.table`
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 2rem;
+    margin-bottom: 1.2rem;
     background-color: ${colors.white};
     border-radius: 0 0 8px 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -175,19 +175,19 @@ export const StyledTableHeaderCell = styled.th`
     }
     &:nth-child(3) {
         width: 10%;
-        text-align: right;
+        text-align: center;
     }
     &:nth-child(4) {
         width: 12%;
-        text-align: right;
+        text-align: center;
     }
     &:nth-child(5) {
         width: 10%;
-        text-align: right;
+        text-align: center;
     }
     &:nth-child(6) {
         width: 10%;
-        text-align: right;
+        text-align: center;
     }
     &:nth-child(7) {
         width: 10%;
