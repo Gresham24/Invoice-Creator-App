@@ -16,6 +16,8 @@ export const StyledInput = styled.div`
     & span {
         color: ${colors.red};
         font-size: 0.8rem;
+        margin-top: 4px;
+        text-align: left;
     }
     & label {
         display: flex;
@@ -70,10 +72,6 @@ export const StyledInputsWrapper = styled.div`
 `;
 
 export const StyledDescriptionHeaders = styled.div`
-    display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 1rem;
     margin-bottom: 1rem;
     font-weight: 500;
     font-size: 14px;
@@ -81,49 +79,133 @@ export const StyledDescriptionHeaders = styled.div`
     background-color: ${colors.mediumGray};
     border-radius: 8px 8px 0 0;
 
-    & > div {
-        padding: 0 12px;
+    @media (max-width: 768px) {
+        padding: 0.75rem;
+        font-size: 12px;
+    }
+`;
+
+export const StyledTable = styled.table`
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    background-color: ${colors.white};
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+`;
+
+export const StyledTableHeader = styled.thead`
+    background-color: ${colors.mediumGray};
+    font-weight: 500;
+    font-size: 14px;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
+`;
+
+export const StyledTableBody = styled.tbody``;
+
+export const StyledTableRow = styled.tr`
+    &:not(:last-child) {
+        border-bottom: 1px solid ${colors.borderGray};
+    }
+`;
+
+export const StyledTableCell = styled.td`
+    padding: 1rem 0.5rem;
+    vertical-align: top;
+
+    &.item-number {
+        text-align: center;
+        width: 5%;
     }
 
-    @media (max-width: 1024px) {
-        grid-template-columns: 0.5fr 1.5fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.5fr;
-        grid-column-gap: 0.5rem;
+    &.product-service {
+        width: 35%;
+    }
+
+    &.qty {
+        text-align: right;
+        width: 10%;
+    }
+
+    &.price {
+        text-align: right;
+        width: 12%;
+    }
+
+    &.tax {
+        text-align: right;
+        width: 10%;
+    }
+
+    &.discount {
+        text-align: right;
+        width: 10%;
+    }
+
+    &.total {
+        text-align: right;
+        width: 10%;
+    }
+
+    &.actions {
+        text-align: center;
+        width: 8%;
     }
 
     @media (max-width: 768px) {
-        grid-template-columns: 0.5fr 1.2fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.5fr;
-        padding: 0.75rem;
-        grid-column-gap: 0.25rem;
+        padding: 0.75rem 0.5rem;
+    }
+`;
+
+export const StyledTableHeaderCell = styled.th`
+    padding: 1rem 0.5rem;
+    text-align: left;
+    font-weight: 500;
+
+    &:nth-child(1) {
+        width: 5%;
+        text-align: center;
+    }
+    &:nth-child(2) {
+        width: 35%;
+    }
+    &:nth-child(3) {
+        width: 10%;
+        text-align: right;
+    }
+    &:nth-child(4) {
+        width: 12%;
+        text-align: right;
+    }
+    &:nth-child(5) {
+        width: 10%;
+        text-align: right;
+    }
+    &:nth-child(6) {
+        width: 10%;
+        text-align: right;
+    }
+    &:nth-child(7) {
+        width: 10%;
+        text-align: right;
+    }
+    &:nth-child(8) {
+        width: 8%;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0.75rem 0.5rem;
         font-size: 12px;
     }
 `;
 
 export const StyledDescriptionRow = styled.div`
-    display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 1rem;
-    grid-row-gap: 1rem;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: ${colors.white};
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-
-    & > div:first-child {
-        padding: 0 12px;
-    }
-
-    @media (max-width: 1024px) {
-        grid-template-columns: 0.5fr 1.5fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.5fr;
-        grid-column-gap: 0.5rem;
-    }
-
-    @media (max-width: 768px) {
-        grid-template-columns: 0.5fr 1.2fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.5fr;
-        padding: 0.75rem;
-        grid-column-gap: 0.25rem;
-    }
+    display: none;
 `;
 
 export const StyledProductServiceInput = styled.input`
@@ -156,7 +238,7 @@ export const StyledPriceInput = styled.input`
     width: 100%;
     max-width: 100px;
     height: 36px;
-    padding: 8px 12px;
+    padding: 8px 4px;
     border: 1px solid ${colors.borderGray};
     border-radius: 4px;
     font-size: 14px;
@@ -175,7 +257,7 @@ export const StyledPriceInput = styled.input`
 
     @media (max-width: 768px) {
         font-size: 12px;
-        padding: 6px 8px;
+        padding: 6px 4px;
         max-width: 80px;
     }
 `;
@@ -184,7 +266,7 @@ export const StyledQtyTaxDiscInput = styled.input`
     width: 100%;
     max-width: 50px;
     height: 36px;
-    padding: 8px 12px;
+    padding: 8px 4px;
     border: 1px solid ${colors.borderGray};
     border-radius: 4px;
     font-size: 14px;

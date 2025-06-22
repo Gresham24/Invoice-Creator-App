@@ -6,6 +6,9 @@ import { v4 as uuidv4 } from "uuid";
 import {
     StyledAddButton,
     StyledDescriptionHeaders,
+    StyledTable,
+    StyledTableHeader,
+    StyledTableHeaderCell,
 } from "../../styles/Form.styles";
 
 import { calculateTotals } from "../../utils/calculateTotals";
@@ -34,21 +37,17 @@ const validationSchema = Yup.object().shape({
     items: Yup.array().of(
         Yup.object().shape({
             productService: Yup.string().required(
-                "Product/Service is required"
+                "Required"
             ),
             qty: Yup.number()
-                .typeError("Quantity must be a number")
-                .required("Quantity is required")
+                .required("Required")
                 .min(1, "Quantity must be at least 1"),
             price: Yup.number()
-                .typeError("Price must be a valid number")
-                .required("Price is required")
+                .required("Required")
                 .min(1, "Price must be at least 1"),
             taxPercentage: Yup.number()
-                .typeError("Tax percentage must be a valid number")
                 .min(0, "Tax percentage must be at least 0"),
             discountPercentage: Yup.number()
-                .typeError("Discount percentage must be a valid number")
                 .min(0, "Discount percentage must be at least 0"),
         })
     ),
@@ -123,13 +122,20 @@ export default function Form() {
                 <hr />
 
                 <StyledDescriptionHeaders>
-                    <div>Item</div>
-                    <div>Product / Service</div>
-                    <div>QTY</div>
-                    <div>Price</div>
-                    <div>TAX</div>
-                    <div>Discount</div>
-                    <div>Total</div>
+                    <StyledTable>
+                        <StyledTableHeader>
+                            <tr>
+                                <StyledTableHeaderCell>Item</StyledTableHeaderCell>
+                                <StyledTableHeaderCell>Product / Service</StyledTableHeaderCell>
+                                <StyledTableHeaderCell>QTY</StyledTableHeaderCell>
+                                <StyledTableHeaderCell>Price</StyledTableHeaderCell>
+                                <StyledTableHeaderCell>TAX</StyledTableHeaderCell>
+                                <StyledTableHeaderCell>Discount</StyledTableHeaderCell>
+                                <StyledTableHeaderCell>Total</StyledTableHeaderCell>
+                                <StyledTableHeaderCell></StyledTableHeaderCell>
+                            </tr>
+                        </StyledTableHeader>
+                    </StyledTable>
                 </StyledDescriptionHeaders>
                 <FieldArray
                     name="items"
