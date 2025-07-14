@@ -115,7 +115,7 @@ export const StyledTableRow = styled.tr`
 
     &:hover {
         background: white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     &:focus-within {
@@ -435,20 +435,13 @@ export const StyledAddButton = styled.button`
 
 export const StyledFormFooter = styled.div`
     padding: 0 32px 32px;
-    
+
     @media (max-width: 1024px) {
         padding: 0 24px 24px;
     }
-    
+
     @media (max-width: 768px) {
         padding: 0 16px 16px;
-    }
-    
-    & div:first-child {
-        margin-right: 30px;
-    }
-    & span {
-        font-size: 0.7rem;
     }
 `;
 
@@ -495,10 +488,7 @@ export const StyledSummarySection = styled.div`
 
     @media (max-width: 1200px) {
         grid-template-columns: 1fr 320px;
-
     }
-
-  
 
     @media (max-width: 768px) {
         display: none;
@@ -561,7 +551,6 @@ export const StyledSummaryCard = styled.div`
 export const StyledSummaryRow = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 16px;
     font-size: 15px;
     line-height: 1.4;
@@ -573,13 +562,17 @@ export const StyledSummaryRow = styled.div`
     span:first-child {
         color: #666;
         font-weight: 500;
+        justify-self: start;
     }
 
     span:last-child {
         font-weight: 600;
         color: #1a1a1a;
-        font-family: 'Inter', monospace;
+        font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
         letter-spacing: 0.5px;
+        justify-self: end;
+        white-space: nowrap;
+        text-align: right;
     }
 
     &.total {
@@ -600,6 +593,8 @@ export const StyledSummaryRow = styled.div`
             font-size: 20px;
             font-weight: 700;
             color: ${colors.lightBlue};
+            font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono",
+                monospace;
         }
     }
 `;
@@ -631,12 +626,12 @@ export const StyledCancelButton = styled.button`
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    
+
     &:hover {
         background: #f8f9fa;
         border-color: #ccc;
     }
-    
+
     &:active {
         background: ${colors.mediumGray};
     }
@@ -657,13 +652,13 @@ export const StyledSubmitButton = styled.button`
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
-    
+
     &:hover {
         background: #0056b3;
         box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
         transform: translateY(-1px);
     }
-    
+
     &:active {
         transform: translateY(0);
         box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
@@ -831,9 +826,9 @@ export const StyledAdvancedToggle = styled.button`
 `;
 
 export const StyledAdvancedSection = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'isOpen'
+    shouldForwardProp: (prop) => prop !== "isOpen",
 })`
-    display: ${props => props.isOpen ? 'block' : 'none'};
+    display: ${(props) => (props.isOpen ? "block" : "none")};
     margin-top: 12px;
     padding-top: 12px;
     border-top: 1px solid #eee;
@@ -847,56 +842,6 @@ export const StyledItemTotal = styled.div`
     margin-top: 12px;
     padding-top: 12px;
     border-top: 2px solid #eee;
-`;
-
-export const StyledMobileTable = styled.div`
-    @media (max-width: 768px) {
-        display: none;
-    }
-`;
-
-
-export const StyledItemsSection = styled.div`
-    background: white;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    padding: 32px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-
-    @media (max-width: 768px) {
-        padding: 16px;
-    }
-`;
-
-export const StyledSectionHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-`;
-
-export const StyledSectionTitle = styled.h3`
-    font-size: 20px;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin: 0;
-
-    @media (max-width: 768px) {
-        font-size: 18px;
-    }
-`;
-
-export const StyledTotalBadge = styled.div`
-    background: #e8f4fd;
-    color: ${colors.lightBlue};
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-
-    @media (max-width: 768px) {
-        padding: 6px 12px;
-    }
 `;
 
 export const StyledDesktopItemNumber = styled.div`
@@ -918,3 +863,49 @@ export const StyledDesktopItemNumber = styled.div`
     }
 `;
 
+export const StyledTotalBadge = styled.div`
+    background: #e8f4fd;
+    color: ${colors.lightBlue};
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    @media (max-width: 768px) {
+        padding: 6px 12px;
+    }
+`;
+
+export const StyledSectionHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+`;
+
+export const StyledSectionTitle = styled.h3`
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+`;
+
+export const StyledMobileTable = styled.div`
+    @media (max-width: 768px) {
+        display: none;
+    }
+`;
+
+export const StyledItemsSection = styled.div`
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 32px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+        padding: 16px;
+    }
+`;
