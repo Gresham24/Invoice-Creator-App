@@ -86,18 +86,20 @@ export const StyledDescriptionHeaders = styled.div`
 
 export const StyledTable = styled.table`
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1.2rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 24px;
     background-color: ${colors.white};
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
     overflow: hidden;
 `;
 
 export const StyledTableHeader = styled.thead`
-    background-color: ${colors.mediumGray};
-    font-weight: 500;
+    background-color: #f8f9fa;
+    font-weight: 600;
     font-size: 14px;
+    color: #666;
 
     @media (max-width: 768px) {
         font-size: 12px;
@@ -107,52 +109,77 @@ export const StyledTableHeader = styled.thead`
 export const StyledTableBody = styled.tbody``;
 
 export const StyledTableRow = styled.tr`
-    &:not(:last-child) {
-        border-bottom: 1px solid ${colors.borderGray};
+    background: #fafafa;
+    border-bottom: 8px solid #f5f7fa;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    &:focus-within {
+        background: white;
+        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    &:last-child {
+        border-bottom: none;
+        border-radius: 0 0 8px 8px;
     }
 `;
 
 export const StyledTableCell = styled.td`
-    padding: 1rem 0.5rem;
+    padding: 16px 12px;
     vertical-align: top;
+    border: none;
 
     &.item-number {
+        width: 50px;
         text-align: center;
-        width: 5%;
     }
 
     &.product-service {
-        width: 35%;
+        width: 400px;
     }
 
     &.qty {
-        text-align: right;
-        width: 10%;
+        width: 80px;
+        text-align: center;
     }
 
     &.price {
-        text-align: right;
-        width: 12%;
+        width: 100px;
+        text-align: center;
     }
 
     &.tax {
-        text-align: right;
-        width: 10%;
+        width: 80px;
+        text-align: center;
     }
 
     &.discount {
-        text-align: right;
-        width: 10%;
+        width: 100px;
+        text-align: center;
     }
 
     &.total {
+        width: 120px;
         text-align: right;
-        width: 10%;
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a1a1a;
     }
 
     &.actions {
+        width: 60px;
         text-align: center;
-        width: 8%;
+    }
+
+    @media (max-width: 1024px) {
+        &.product-service {
+            width: 300px;
+        }
     }
 
     @media (max-width: 768px) {
@@ -161,40 +188,50 @@ export const StyledTableCell = styled.td`
 `;
 
 export const StyledTableHeaderCell = styled.th`
-    padding: 1rem 0.5rem;
+    padding: 16px 12px;
     text-align: left;
-    font-weight: 500;
+    font-weight: 600;
+    color: #666;
+    border-bottom: 2px solid #e9ecef;
 
-    &:nth-child(1) {
-        width: 5%;
-        text-align: left;
+    &:first-child {
+        width: 50px;
+        text-align: center;
+        border-radius: 8px 0 0 0;
     }
     &:nth-child(2) {
-        width: 35%;
+        width: 400px;
     }
     &:nth-child(3) {
-        width: 10%;
-        text-align: left;
+        width: 80px;
+        text-align: center;
     }
     &:nth-child(4) {
-        width: 12%;
-        text-align: left;
+        width: 100px;
+        text-align: center;
     }
     &:nth-child(5) {
-        width: 10%;
-        text-align: left;
+        width: 80px;
+        text-align: center;
     }
     &:nth-child(6) {
-        width: 10%;
-        text-align: left;
+        width: 100px;
+        text-align: center;
     }
     &:nth-child(7) {
-        width: 10%;
+        width: 120px;
         text-align: right;
     }
-    &:nth-child(8) {
-        width: 5%;
+    &:last-child {
+        width: 60px;
         text-align: center;
+        border-radius: 0 8px 0 0;
+    }
+
+    @media (max-width: 1024px) {
+        &:nth-child(2) {
+            width: 300px;
+        }
     }
 
     @media (max-width: 768px) {
@@ -209,12 +246,14 @@ export const StyledDescriptionRow = styled.div`
 
 export const StyledProductServiceInput = styled.input`
     width: 100%;
-    max-width: 200px;
-    height: 36px;
+    max-width: 380px;
     padding: 8px 12px;
     border: 1px solid ${colors.borderGray};
     border-radius: 4px;
     font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    background: white;
     transition: border-color 0.2s ease;
 
     &:focus {
@@ -227,21 +266,26 @@ export const StyledProductServiceInput = styled.input`
         color: ${colors.gray};
     }
 
+    @media (max-width: 1024px) {
+        max-width: 280px;
+    }
+
     @media (max-width: 768px) {
         font-size: 12px;
         padding: 6px 8px;
+        max-width: 100%;
     }
 `;
 
 export const StyledPriceInput = styled.input`
     width: 100%;
-    max-width: 100px;
-    height: 36px;
+    max-width: 80px;
     padding: 8px 4px;
     border: 1px solid ${colors.borderGray};
     border-radius: 4px;
     font-size: 14px;
-    text-align: right;
+    text-align: center;
+    background: white;
     transition: border-color 0.2s ease;
 
     &:focus {
@@ -257,19 +301,19 @@ export const StyledPriceInput = styled.input`
     @media (max-width: 768px) {
         font-size: 12px;
         padding: 6px 4px;
-        max-width: 80px;
+        max-width: 70px;
     }
 `;
 
 export const StyledQtyTaxDiscInput = styled.input`
     width: 100%;
-    max-width: 50px;
-    height: 36px;
+    max-width: 60px;
     padding: 8px 4px;
     border: 1px solid ${colors.borderGray};
     border-radius: 4px;
     font-size: 14px;
-    text-align: right;
+    text-align: center;
+    background: white;
     transition: border-color 0.2s ease;
 
     &:focus {
@@ -285,102 +329,107 @@ export const StyledQtyTaxDiscInput = styled.input`
     @media (max-width: 768px) {
         font-size: 12px;
         padding: 6px 8px;
-        max-width: 60px;
+        max-width: 50px;
     }
 `;
 
 export const StyledDescriptionTextarea = styled.textarea`
-    margin-top: 8px;
     resize: none;
     width: 100%;
-    max-width: 200px;
+    max-width: 380px;
     height: 60px;
     padding: 8px 12px;
     border: 1px solid ${colors.borderGray};
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 13px;
+    color: #666;
+    background: white;
     line-height: 1.4;
     transition: border-color 0.2s ease;
 
     &:focus {
         outline: none;
         border-color: ${colors.lightBlue};
-        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
     }
 
     &::placeholder {
-        color: ${colors.gray};
+        color: #999;
+    }
+
+    @media (max-width: 1024px) {
+        max-width: 280px;
+    }
+
+    @media (max-width: 600px) {
+        max-width: 180px;
+        font-size: 11px;
+        padding: 6px 8px;
+        height: 50px;
     }
 
     @media (max-width: 768px) {
         font-size: 12px;
         padding: 6px 8px;
         height: 50px;
-        max-width: 150px;
+        max-width: 100%;
     }
 `;
 
 export const StyledDeleteButton = styled.button`
     height: 32px;
     width: 32px;
-    background: none;
+    background: #ff4444;
+    color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s ease;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    margin: 0 auto;
 
     &:hover {
-        cursor: pointer;
-        background-color: ${colors.lightGray};
-    }
-
-    &:active {
-        background-color: ${colors.mediumGray};
+        background: #cc0000;
+        transform: scale(1.1);
     }
 
     & img {
         width: 16px;
         height: 16px;
+        filter: invert(1);
     }
 `;
 
 export const StyledAddButton = styled.button`
-    background: none;
+    width: 100%;
+    padding: 16px;
+    background: ${colors.lightBlue};
+    color: white;
     border: none;
-    color: ${colors.lightBlue};
-    font-weight: 500;
-    padding: 1rem;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    transition: background 0.2s;
+
     &:hover {
-        cursor: pointer;
+        background: #0056b3;
     }
+
     &:active {
-        opacity: 0.7;
+        opacity: 0.8;
     }
 
     @media (max-width: 768px) {
-        width: 100%;
-        padding: 16px;
-        background: ${colors.lightBlue};
-        color: white;
-        border-radius: 12px;
-        font-size: 16px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
         margin-top: 20px;
-        transition: background 0.2s;
-
-        &:hover {
-            background: #0056b3;
-        }
-
-        &:active {
-            opacity: 0.8;
-        }
+        border-radius: 12px;
     }
 `;
 
@@ -424,6 +473,86 @@ export const StyledExtraDetails = styled.div`
     @media (max-width: 768px) {
         flex-direction: column;
         gap: 1rem;
+    }
+`;
+
+export const StyledSummarySection = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 32px;
+    margin-top: 32px;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+`;
+
+export const StyledMobileSummarySection = styled.div`
+    display: none;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+`;
+
+export const StyledNotesSection = styled.div`
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 16px;
+`;
+
+export const StyledNotesTitle = styled.h4`
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+`;
+
+export const StyledNotesInput = styled.textarea`
+    padding: 16px;
+    border: 1px solid ${colors.borderGray};
+    border-radius: 8px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 140px;
+    background: white;
+
+    &:focus {
+        outline: none;
+        border-color: ${colors.lightBlue};
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+    }
+
+    &::placeholder {
+        color: ${colors.gray};
+    }
+`;
+
+export const StyledSummaryCard = styled.div`
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #e9ecef;
+`;
+
+export const StyledSummaryRow = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 15px;
+
+    &.total {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1a1a1a;
+        border-top: 2px solid #ddd;
+        padding-top: 16px;
+        margin-top: 16px;
     }
 `;
 
@@ -650,14 +779,16 @@ export const StyledMobileTable = styled.div`
     }
 `;
 
+
 export const StyledItemsSection = styled.div`
     background: white;
     border-radius: 12px;
     margin-bottom: 20px;
+    padding: 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 
     @media (max-width: 768px) {
         padding: 16px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 `;
 
@@ -665,25 +796,49 @@ export const StyledSectionHeader = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-
-    @media (min-width: 769px) {
-        display: none;
-    }
+    margin-bottom: 24px;
 `;
 
 export const StyledSectionTitle = styled.h3`
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     color: #1a1a1a;
     margin: 0;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
 `;
 
 export const StyledTotalBadge = styled.div`
     background: #e8f4fd;
     color: ${colors.lightBlue};
-    padding: 6px 12px;
+    padding: 8px 16px;
     border-radius: 20px;
     font-size: 14px;
     font-weight: 500;
+
+    @media (max-width: 768px) {
+        padding: 6px 12px;
+    }
 `;
+
+export const StyledDesktopItemNumber = styled.div`
+    background: ${colors.lightBlue};
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 auto;
+    transition: background 0.2s ease;
+
+    .item-row:focus-within & {
+        background: #0056b3;
+    }
+`;
+

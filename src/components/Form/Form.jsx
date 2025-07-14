@@ -127,7 +127,7 @@ export default function Form() {
 
                 <StyledItemsSection>
                     <StyledSectionHeader>
-                        <StyledSectionTitle>Items</StyledSectionTitle>
+                        <StyledSectionTitle>Items & Services</StyledSectionTitle>
                         <StyledTotalBadge>
                             {formik.values.items.length} item{formik.values.items.length !== 1 ? 's' : ''} • ${(formik.values.totals?.total || 0).toFixed(2)}
                         </StyledTotalBadge>

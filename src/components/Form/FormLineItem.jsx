@@ -26,6 +26,7 @@ import {
     StyledAdvancedSection,
     StyledItemTotal,
     StyledMobileTable,
+    StyledDesktopItemNumber,
 } from "../../styles/Form.styles";
 
 const LineItem = ({ item, index, arrayHelpers }) => {
@@ -56,7 +57,7 @@ const LineItem = ({ item, index, arrayHelpers }) => {
                     <StyledTableBody>
                         <StyledTableRow>
                             <StyledTableCell className="item-number">
-                                {index + 1}
+                                <StyledDesktopItemNumber>{index + 1}</StyledDesktopItemNumber>
                             </StyledTableCell>
                             <StyledTableCell className="product-service">
                                 <StyledInput>
@@ -88,6 +89,7 @@ const LineItem = ({ item, index, arrayHelpers }) => {
                                             {...qtyField}
                                             onChange={handleChange}
                                             type="number"
+                                            inputMode="numeric"
                                         />
                                         {errors.items?.[index]?.qty &&
                                             touched.items?.[index]?.qty && (
@@ -104,6 +106,7 @@ const LineItem = ({ item, index, arrayHelpers }) => {
                                             onChange={handleChange}
                                             placeholder="0.00"
                                             type="number"
+                                            inputMode="decimal"
                                         />
                                         {errors.items?.[index]?.price &&
                                             touched.items?.[index]?.price && (
@@ -118,8 +121,9 @@ const LineItem = ({ item, index, arrayHelpers }) => {
                                         <StyledQtyTaxDiscInput
                                             {...taxPercentageField}
                                             onChange={handleChange}
-                                            placeholder="%0"
+                                            placeholder="0"
                                             type="number"
+                                            inputMode="numeric"
                                         />
                                         {errors.items?.[index]?.taxPercentage &&
                                             touched.items?.[index]?.taxPercentage && (
@@ -136,6 +140,7 @@ const LineItem = ({ item, index, arrayHelpers }) => {
                                             onChange={handleChange}
                                             placeholder="%0"
                                             type="number"
+                                            inputMode="numeric"
                                         />
                                         {errors.items?.[index]?.discountPercentage &&
                                             touched.items?.[index]?.discountPercentage && (
@@ -149,8 +154,14 @@ const LineItem = ({ item, index, arrayHelpers }) => {
                             </StyledTableCell>
                             <StyledTableCell className="actions">
                                 {index > 0 && (
-                                    <StyledDeleteButton onClick={() => arrayHelpers.remove(index)}>
-                                        <img src="/delete_icon.svg" alt="delete button" />
+                                    <StyledDeleteButton 
+                                        type="button"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            arrayHelpers.remove(index);
+                                        }}
+                                    >
+                                        ×
                                     </StyledDeleteButton>
                                 )}
                             </StyledTableCell>
