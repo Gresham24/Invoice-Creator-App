@@ -625,7 +625,9 @@ export const StyledAdvancedToggle = styled.button`
     gap: 4px;
 `;
 
-export const StyledAdvancedSection = styled.div`
+export const StyledAdvancedSection = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isOpen'
+})`
     display: ${props => props.isOpen ? 'block' : 'none'};
     margin-top: 12px;
     padding-top: 12px;

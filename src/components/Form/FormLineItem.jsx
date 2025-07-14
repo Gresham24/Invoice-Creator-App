@@ -222,8 +222,14 @@ const LineItem = ({ item, index, arrayHelpers }) => {
                     </StyledInputGroup>
                 </StyledDetailsGrid>
 
-                <StyledAdvancedToggle onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}>
-                    <span>Advanced options</span>
+                <StyledAdvancedToggle 
+                    type="button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setIsAdvancedOpen(!isAdvancedOpen);
+                    }}
+                >
+                    <span>More options</span>
                     <span>{isAdvancedOpen ? '▲' : '▼'}</span>
                 </StyledAdvancedToggle>
 
