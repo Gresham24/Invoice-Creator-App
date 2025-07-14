@@ -113,7 +113,7 @@ const FormFooter = () => {
                     </StyledSummaryRow>
                 </StyledSummaryCard>
             </StyledMobileSummarySection>
-            <hr />
+            {/* <hr /> */}
 
             <StyledFormActionButtons>
                 <StyledCancelButton>Cancel</StyledCancelButton>

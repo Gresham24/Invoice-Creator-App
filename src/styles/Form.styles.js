@@ -544,6 +544,7 @@ export const StyledNotesInput = styled.textarea`
 `;
 
 export const StyledSummaryCard = styled.div`
+    margin-top: 20px;
     background: #f8f9fa;
     border-radius: 12px;
     padding: 28px;
