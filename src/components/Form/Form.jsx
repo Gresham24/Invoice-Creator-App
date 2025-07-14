@@ -9,6 +9,10 @@ import {
     StyledTable,
     StyledTableHeader,
     StyledTableHeaderCell,
+    StyledItemsSection,
+    StyledSectionHeader,
+    StyledSectionTitle,
+    StyledTotalBadge,
 } from "../../styles/Form.styles";
 
 import { calculateTotals } from "../../utils/calculateTotals";
@@ -54,7 +58,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function Form() {
-    const { formValues, setFormValues, companyDetails } = useContext(FormDataContext);
+    const { formValues, setFormValues } = useContext(FormDataContext);
     const navigate = useNavigate();
 
     const formik = useFormik({
@@ -121,53 +125,63 @@ export default function Form() {
 
                 <hr />
 
-                <StyledDescriptionHeaders>
-                    <StyledTable>
-                        <StyledTableHeader>
-                            <tr>
-                                <StyledTableHeaderCell>Item</StyledTableHeaderCell>
-                                <StyledTableHeaderCell>Product / Service</StyledTableHeaderCell>
-                                <StyledTableHeaderCell>QTY</StyledTableHeaderCell>
-                                <StyledTableHeaderCell>Price</StyledTableHeaderCell>
-                                <StyledTableHeaderCell>TAX</StyledTableHeaderCell>
-                                <StyledTableHeaderCell>Discount</StyledTableHeaderCell>
-                                <StyledTableHeaderCell>Total</StyledTableHeaderCell>
-                                <StyledTableHeaderCell></StyledTableHeaderCell>
-                            </tr>
-                        </StyledTableHeader>
-                    </StyledTable>
-                </StyledDescriptionHeaders>
-                <FieldArray
-                    name="items"
-                    render={(arrayHelpers) => (
-                        <div>
-                            {formik.values.items.map((item, index) => (
-                                <LineItem
-                                    index={index}
-                                    key={item.id}
-                                    item={item}
-                                    arrayHelpers={arrayHelpers}
-                                />
-                            ))}
-                            <StyledAddButton
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    arrayHelpers.push({
-                                        id: uuidv4(),
-                                        productService: "",
-                                        description: "",
-                                        qty: 1,
-                                        price: "",
-                                        taxPercentage: "",
-                                        discountPercentage: "",
-                                    });
-                                }}
-                            >
-                                + Add a new item
-                            </StyledAddButton>
-                        </div>
-                    )}
-                />
+                <StyledItemsSection>
+                    <StyledSectionHeader>
+                        <StyledSectionTitle>Items</StyledSectionTitle>
+                        <StyledTotalBadge>
+                            {formik.values.items.length} item{formik.values.items.length !== 1 ? 's' : ''} • ${(formik.values.totals?.total || 0).toFixed(2)}
+                        </StyledTotalBadge>
+                    </StyledSectionHeader>
+
+                    <StyledDescriptionHeaders>
+                        <StyledTable>
+                            <StyledTableHeader>
+                                <tr>
+                                    <StyledTableHeaderCell>Item</StyledTableHeaderCell>
+                                    <StyledTableHeaderCell>Product / Service</StyledTableHeaderCell>
+                                    <StyledTableHeaderCell>QTY</StyledTableHeaderCell>
+                                    <StyledTableHeaderCell>Price</StyledTableHeaderCell>
+                                    <StyledTableHeaderCell>TAX</StyledTableHeaderCell>
+                                    <StyledTableHeaderCell>Discount</StyledTableHeaderCell>
+                                    <StyledTableHeaderCell>Total</StyledTableHeaderCell>
+                                    <StyledTableHeaderCell></StyledTableHeaderCell>
+                                </tr>
+                            </StyledTableHeader>
+                        </StyledTable>
+                    </StyledDescriptionHeaders>
+                    
+                    <FieldArray
+                        name="items"
+                        render={(arrayHelpers) => (
+                            <div>
+                                {formik.values.items.map((item, index) => (
+                                    <LineItem
+                                        index={index}
+                                        key={item.id}
+                                        item={item}
+                                        arrayHelpers={arrayHelpers}
+                                    />
+                                ))}
+                                <StyledAddButton
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        arrayHelpers.push({
+                                            id: uuidv4(),
+                                            productService: "",
+                                            description: "",
+                                            qty: 1,
+                                            price: "",
+                                            taxPercentage: "",
+                                            discountPercentage: "",
+                                        });
+                                    }}
+                                >
+                                    + Add another item
+                                </StyledAddButton>
+                            </div>
+                        )}
+                    />
+                </StyledItemsSection>
 
                 <hr />
                 <FormFooter />

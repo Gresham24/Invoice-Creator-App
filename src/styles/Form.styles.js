@@ -80,8 +80,7 @@ export const StyledDescriptionHeaders = styled.div`
     border-radius: 8px 8px 0 0;
 
     @media (max-width: 768px) {
-        padding: 0.75rem;
-        font-size: 12px;
+        display: none;
     }
 `;
 
@@ -359,6 +358,30 @@ export const StyledAddButton = styled.button`
     &:active {
         opacity: 0.7;
     }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        padding: 16px;
+        background: ${colors.lightBlue};
+        color: white;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 20px;
+        transition: background 0.2s;
+
+        &:hover {
+            background: #0056b3;
+        }
+
+        &:active {
+            opacity: 0.8;
+        }
+    }
 `;
 
 export const StyledFormFooter = styled.div`
@@ -444,4 +467,221 @@ export const StyledSubmitButton = styled.button`
     @media (max-width: 768px) {
         width: 100%;
     }
+`;
+
+// Mobile card-based styles
+export const StyledItemCard = styled.div`
+    border: 2px solid #f0f0f0;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: #fafafa;
+    transition: all 0.2s ease;
+
+    &:focus-within {
+        border-color: ${colors.lightBlue};
+        background: white;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    @media (min-width: 769px) {
+        display: none;
+    }
+`;
+
+export const StyledItemCardHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+`;
+
+export const StyledItemNumber = styled.div`
+    background: ${colors.lightBlue};
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+`;
+
+export const StyledCardDeleteButton = styled.button`
+    background: #ff4444;
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+
+    &:hover {
+        background: #cc0000;
+    }
+`;
+
+export const StyledMainCardInput = styled.input`
+    width: 100%;
+    padding: 12px;
+    border: 1px solid ${colors.borderGray};
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 8px;
+    background: white;
+
+    &:focus {
+        outline: none;
+        border-color: ${colors.lightBlue};
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+    }
+
+    &::placeholder {
+        color: ${colors.gray};
+    }
+`;
+
+export const StyledDescriptionCardInput = styled.textarea`
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid ${colors.borderGray};
+    border-radius: 6px;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+    background: white;
+    resize: none;
+    height: 60px;
+
+    &:focus {
+        outline: none;
+        border-color: ${colors.lightBlue};
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+    }
+
+    &::placeholder {
+        color: ${colors.gray};
+    }
+`;
+
+export const StyledDetailsGrid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+`;
+
+export const StyledInputGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const StyledInputLabel = styled.label`
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+    font-weight: 500;
+`;
+
+export const StyledCompactInput = styled.input`
+    padding: 10px;
+    border: 1px solid ${colors.borderGray};
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+
+    &:focus {
+        outline: none;
+        border-color: ${colors.lightBlue};
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+    }
+
+    &::placeholder {
+        color: ${colors.gray};
+    }
+`;
+
+export const StyledAdvancedToggle = styled.button`
+    background: none;
+    border: none;
+    color: ${colors.lightBlue};
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+`;
+
+export const StyledAdvancedSection = styled.div`
+    display: ${props => props.isOpen ? 'block' : 'none'};
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+`;
+
+export const StyledItemTotal = styled.div`
+    text-align: right;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 2px solid #eee;
+`;
+
+export const StyledMobileTable = styled.div`
+    @media (max-width: 768px) {
+        display: none;
+    }
+`;
+
+export const StyledItemsSection = styled.div`
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+        padding: 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+`;
+
+export const StyledSectionHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    @media (min-width: 769px) {
+        display: none;
+    }
+`;
+
+export const StyledSectionTitle = styled.h3`
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+`;
+
+export const StyledTotalBadge = styled.div`
+    background: #e8f4fd;
+    color: ${colors.lightBlue};
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
 `;
