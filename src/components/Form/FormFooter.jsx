@@ -16,6 +16,7 @@ import {
     StyledSummaryCard,
     StyledSummaryRow,
     StyledMobileSummarySection,
+    StyledMobileSummaryCard,
 } from "../../styles/Form.styles";
 
 const FormFooter = () => {
@@ -32,7 +33,7 @@ const FormFooter = () => {
 
     return (
         <StyledFormFooter>
-            {/* Desktop Summary Layout */}
+            {/* Desktop & Mobile Summary Layout (identical markup, responsive via CSS) */}
             <StyledSummarySection>
                 <StyledNotesSection>
                     <div>
@@ -73,61 +74,46 @@ const FormFooter = () => {
                 </StyledSummaryCard>
             </StyledSummarySection>
 
-            {/* Mobile Fallback Layout */}
+            {/* Mobile: Only show summary card and notes, stacked vertically */}
             <StyledMobileSummarySection>
-                <StyledExtraDetails>
-                    <StyledInput>
-                        <label htmlFor="notes">Notes</label>
-                        <textarea
+                <StyledNotesSection>
+                    <div>
+                        <StyledNotesTitle>Notes</StyledNotesTitle>
+                        <StyledNotesInput
                             {...notesField}
                             onChange={handleChange}
-                            cols="30"
-                            rows="5"
                             placeholder="Enter a description... (Optional)"
                         />
-                    </StyledInput>
-                    <StyledInput>
-                        <label htmlFor="bankDetails">Bank account details</label>
-                        <textarea
+                    </div>
+                    <div>
+                        <StyledNotesTitle>Bank Account Details</StyledNotesTitle>
+                        <StyledNotesInput
                             {...bankDetailsField}
                             onChange={handleChange}
-                            cols="30"
-                            rows="5"
-                            placeholder="Enter a description... (Optional)"
+                            placeholder="Enter bank details... (Optional)"
                         />
-                    </StyledInput>
-                </StyledExtraDetails>
-
-                <hr />
-
-                <StyledCostSummaries>
-                    <div>
-                        <p>
-                            Subtotal <span>(USD)</span>
-                        </p>
-                        <p>
-                            Total VAT<span>(USD)</span>
-                        </p>
-                        <p>
-                            Discount <span>(USD)</span>
-                        </p>
-                        <p>
-                            <b>Total</b>
-                        </p>
                     </div>
-                    <StyledCostSummaryAmounts>
-                        <p>{totals.subtotal}</p>
-                        <p>+{totals.tax}</p>
-                        <p>-{totals.discount}</p>
-                        <p>
-                            <b>
-                                <span>USD</span> {totals.total}
-                            </b>
-                        </p>
-                    </StyledCostSummaryAmounts>
-                </StyledCostSummaries>
-                <hr />
+                </StyledNotesSection>
+                <StyledSummaryCard>
+                    <StyledSummaryRow>
+                        <span>Subtotal:</span>
+                        <span>${(totals.subtotal || 0).toFixed(2)}</span>
+                    </StyledSummaryRow>
+                    <StyledSummaryRow>
+                        <span>Total Tax:</span>
+                        <span>+${(totals.tax || 0).toFixed(2)}</span>
+                    </StyledSummaryRow>
+                    <StyledSummaryRow>
+                        <span>Discount:</span>
+                        <span>-${(totals.discount || 0).toFixed(2)}</span>
+                    </StyledSummaryRow>
+                    <StyledSummaryRow className="total">
+                        <span>Total:</span>
+                        <span>USD ${(totals.total || 0).toFixed(2)}</span>
+                    </StyledSummaryRow>
+                </StyledSummaryCard>
             </StyledMobileSummarySection>
+            <hr />
 
             <StyledFormActionButtons>
                 <StyledCancelButton>Cancel</StyledCancelButton>

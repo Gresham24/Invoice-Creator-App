@@ -447,14 +447,12 @@ export const StyledFormFooter = styled.div`
 
 export const StyledCostSummaries = styled.div`
     display: flex;
-    /* justify-content: flex-end; */
     & div {
         display: flex;
         flex-direction: column;
     }
 
     @media (max-width: 768px) {
-        /* flex-direction: column; */
         align-items: flex-end;
     }
 `;
@@ -507,6 +505,11 @@ export const StyledNotesSection = styled.div`
     display: grid;
     grid-template-rows: auto 1fr;
     gap: 24px;
+    @media (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
 `;
 
 export const StyledNotesTitle = styled.h4`
@@ -526,6 +529,8 @@ export const StyledNotesInput = styled.textarea`
     min-height: 120px;
     background: white;
     transition: all 0.2s ease;
+    width: 100%;
+    max-width: 100%;
 
     &:focus {
         outline: none;
@@ -778,7 +783,7 @@ export const StyledDetailsGrid = styled.div`
     gap: 12px;
     margin-bottom: 12px;
 
-    @media (max-width: 480px) {
+    @media (max-width: 580px) {
         grid-template-columns: 1fr;
     }
 `;
@@ -907,5 +912,19 @@ export const StyledItemsSection = styled.div`
 
     @media (max-width: 768px) {
         padding: 16px;
+    }
+`;
+
+export const StyledMobileSummaryCard = styled.div`
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 28px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    position: static;
+    margin-bottom: 16px;
+    display: none;
+    @media (max-width: 768px) {
+        display: block;
     }
 `;
