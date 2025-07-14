@@ -434,7 +434,16 @@ export const StyledAddButton = styled.button`
 `;
 
 export const StyledFormFooter = styled.div`
-    padding: 0 1rem;
+    padding: 0 32px 32px;
+    
+    @media (max-width: 1024px) {
+        padding: 0 24px 24px;
+    }
+    
+    @media (max-width: 768px) {
+        padding: 0 16px 16px;
+    }
+    
     & div:first-child {
         margin-right: 30px;
     }
@@ -478,14 +487,18 @@ export const StyledExtraDetails = styled.div`
 
 export const StyledSummarySection = styled.div`
     display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 32px;
-    margin-top: 32px;
+    grid-template-columns: 1fr 350px;
+    gap: 48px;
+    margin-top: 40px;
+    margin-bottom: 32px;
+    align-items: start;
 
-    @media (max-width: 1024px) {
-        grid-template-columns: 1fr;
-        gap: 24px;
+    @media (max-width: 1200px) {
+        grid-template-columns: 1fr 320px;
+
     }
+
+  
 
     @media (max-width: 768px) {
         display: none;
@@ -503,7 +516,7 @@ export const StyledMobileSummarySection = styled.div`
 export const StyledNotesSection = styled.div`
     display: grid;
     grid-template-rows: auto 1fr;
-    gap: 16px;
+    gap: 24px;
 `;
 
 export const StyledNotesTitle = styled.h4`
@@ -518,14 +531,16 @@ export const StyledNotesInput = styled.textarea`
     border: 1px solid ${colors.borderGray};
     border-radius: 8px;
     font-size: 14px;
+    line-height: 1.5;
     resize: vertical;
-    min-height: 140px;
+    min-height: 120px;
     background: white;
+    transition: all 0.2s ease;
 
     &:focus {
         outline: none;
         border-color: ${colors.lightBlue};
-        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
     }
 
     &::placeholder {
@@ -536,44 +551,92 @@ export const StyledNotesInput = styled.textarea`
 export const StyledSummaryCard = styled.div`
     background: #f8f9fa;
     border-radius: 12px;
-    padding: 24px;
+    padding: 28px;
     border: 1px solid #e9ecef;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    position: sticky;
+    top: 20px;
 `;
 
 export const StyledSummaryRow = styled.div`
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
+    align-items: center;
+    margin-bottom: 16px;
     font-size: 15px;
+    line-height: 1.4;
+
+    &:last-child:not(.total) {
+        margin-bottom: 0;
+    }
+
+    span:first-child {
+        color: #666;
+        font-weight: 500;
+    }
+
+    span:last-child {
+        font-weight: 600;
+        color: #1a1a1a;
+        font-family: 'Inter', monospace;
+        letter-spacing: 0.5px;
+    }
 
     &.total {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
         color: #1a1a1a;
         border-top: 2px solid #ddd;
-        padding-top: 16px;
-        margin-top: 16px;
+        padding-top: 20px;
+        margin-top: 20px;
+        margin-bottom: 0;
+
+        span:first-child {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        span:last-child {
+            font-size: 20px;
+            font-weight: 700;
+            color: ${colors.lightBlue};
+        }
     }
 `;
 
 export const StyledFormActionButtons = styled.div`
     display: flex;
     justify-content: end;
-    gap: 32px;
-    padding: 1rem;
+    gap: 16px;
+    padding: 32px 0 0;
+    border-top: 1px solid #e9ecef;
+    margin-top: 40px;
 
     @media (max-width: 768px) {
         flex-direction: column;
         align-items: stretch;
-        gap: 1rem;
+        gap: 12px;
+        padding: 24px 0 0;
+        margin-top: 24px;
     }
 `;
 
 export const StyledCancelButton = styled.button`
     border-radius: 8px;
     border: 1px solid ${colors.borderGray};
-    background: ${colors.lightGray};
-    padding: 8px 32px;
+    background: white;
+    color: #666;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+        background: #f8f9fa;
+        border-color: #ccc;
+    }
+    
     &:active {
         background: ${colors.mediumGray};
     }
@@ -587,10 +650,23 @@ export const StyledSubmitButton = styled.button`
     border: none;
     border-radius: 8px;
     background: ${colors.lightBlue};
-    padding: 8px 32px;
     color: ${colors.white};
+    padding: 12px 32px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+    
+    &:hover {
+        background: #0056b3;
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        transform: translateY(-1px);
+    }
+    
     &:active {
-        opacity: 0.8;
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
     }
 
     @media (max-width: 768px) {
