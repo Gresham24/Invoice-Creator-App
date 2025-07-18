@@ -56,7 +56,7 @@ export const StyledFormHeader = styled.div`
     }
 
     @media (max-width: 768px) {
-        padding: 0 0.5rem;
+        display: none;
     }
 `;
 
@@ -675,19 +675,21 @@ export const StyledSubmitButton = styled.button`
     }
 `;
 
-// Mobile card-based styles
+// Mobile card-based styles with section styling
 export const StyledItemCard = styled.div`
-    border: 2px solid #f0f0f0;
+    border: 1px solid #e9ecef;
     border-radius: 12px;
-    padding: 16px;
+    padding: 20px;
     margin-bottom: 16px;
-    background: #fafafa;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: all 0.2s ease;
+    overflow: hidden;
 
     &:focus-within {
         border-color: ${colors.lightBlue};
-        background: white;
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        background: ${colors.cardBackground};
+        box-shadow: 0 4px 12px rgba(61, 173, 175, 0.15);
     }
 
     @media (min-width: 769px) {
@@ -695,11 +697,234 @@ export const StyledItemCard = styled.div`
     }
 `;
 
+// New section-based mobile styles
+export const StyledMobileSection = styled.div`
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-bottom: 16px;
+    
+    @media (min-width: 769px) {
+        display: none;
+    }
+`;
+
+export const StyledMobileSectionInner = styled.div`
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s ease;
+    
+    &:last-child {
+        border-bottom: none;
+    }
+    
+    &:focus-within {
+        background: ${colors.cardBackground};
+    }
+    
+    &.company-section {
+        background: ${colors.lightBlueGradient};
+        
+        &:focus-within {
+            background: linear-gradient(135deg, #e8f4f6 0%, #ddeef0 100%);
+        }
+    }
+    
+    &.invoice-section {
+        background: ${colors.invoiceBlue};
+        
+        &:focus-within {
+            background: #daf0f3;
+        }
+    }
+`;
+
+export const StyledMobileSectionTitle = styled.h3`
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+`;
+
+export const StyledMobileSectionIcon = styled.span`
+    width: 20px;
+    height: 20px;
+    background: ${colors.sectionIconBg};
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    flex-shrink: 0;
+`;
+
+export const StyledMobileFormGroup = styled.div`
+    margin-bottom: 16px;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+`;
+
+export const StyledMobileFormLabel = styled.label`
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 6px;
+`;
+
+export const StyledMobileOptionalBadge = styled.span`
+    background: #f0f0f0;
+    color: #666;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: normal;
+`;
+
+export const StyledMobileFormInput = styled.input`
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    
+    &:focus {
+        outline: none;
+        border-color: ${colors.lightBlue};
+        box-shadow: 0 0 0 3px ${colors.focusBlue};
+    }
+    
+    &::placeholder {
+        color: #999;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+`;
+
+export const StyledMobileFormSelect = styled.select`
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 40px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    
+    &:focus {
+        outline: none;
+        border-color: ${colors.lightBlue};
+        box-shadow: 0 0 0 3px ${colors.focusBlue};
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+`;
+
+export const StyledMobileFormTextarea = styled.textarea`
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    
+    &:focus {
+        outline: none;
+        border-color: ${colors.lightBlue};
+        box-shadow: 0 0 0 3px ${colors.focusBlue};
+    }
+    
+    &::placeholder {
+        color: #999;
+    }
+`;
+
+export const StyledMobileInputRow = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+`;
+
+export const StyledMobileLogoUpload = styled.div`
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    background: #fafafa;
+    transition: all 0.2s;
+    cursor: pointer;
+    
+    &:hover {
+        border-color: ${colors.lightBlue};
+        background: ${colors.invoiceBlue};
+    }
+    
+    &.has-file {
+        border-color: ${colors.lightBlue};
+        background: ${colors.invoiceBlue};
+    }
+`;
+
+export const StyledMobileLogoIcon = styled.div`
+    width: 40px;
+    height: 40px;
+    background: ${colors.invoiceBlue};
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    color: ${colors.lightBlue};
+    font-size: 18px;
+`;
+
+export const StyledMobileLogoText = styled.div`
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+`;
+
+export const StyledMobileLogoSubtext = styled.div`
+    font-size: 12px;
+    color: #999;
+`;
+
 export const StyledItemCardHeader = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
 `;
 
 export const StyledItemNumber = styled.div`
@@ -738,43 +963,49 @@ export const StyledCardDeleteButton = styled.button`
 export const StyledMainCardInput = styled.input`
     width: 100%;
     padding: 12px;
-    border: 1px solid ${colors.borderGray};
+    border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 16px;
     margin-bottom: 8px;
     background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
 
     &:focus {
         outline: none;
         border-color: ${colors.lightBlue};
-        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+        box-shadow: 0 0 0 3px ${colors.focusBlue};
     }
 
     &::placeholder {
-        color: ${colors.gray};
+        color: #999;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 16px; /* Prevents zoom on iOS */
     }
 `;
 
 export const StyledDescriptionCardInput = styled.textarea`
     width: 100%;
-    padding: 8px 12px;
-    border: 1px solid ${colors.borderGray};
-    border-radius: 6px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     font-size: 14px;
     color: #666;
     margin-bottom: 16px;
     background: white;
     resize: none;
     height: 60px;
+    transition: border-color 0.2s, box-shadow 0.2s;
 
     &:focus {
         outline: none;
         border-color: ${colors.lightBlue};
-        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+        box-shadow: 0 0 0 3px ${colors.focusBlue};
     }
 
     &::placeholder {
-        color: ${colors.gray};
+        color: #999;
     }
 `;
 
@@ -802,20 +1033,21 @@ export const StyledInputLabel = styled.label`
 `;
 
 export const StyledCompactInput = styled.input`
-    padding: 10px;
-    border: 1px solid ${colors.borderGray};
-    border-radius: 6px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     font-size: 14px;
     background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
 
     &:focus {
         outline: none;
         border-color: ${colors.lightBlue};
-        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+        box-shadow: 0 0 0 3px ${colors.focusBlue};
     }
 
     &::placeholder {
-        color: ${colors.gray};
+        color: #999;
     }
 `;
 

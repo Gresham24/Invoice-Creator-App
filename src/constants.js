@@ -9,4 +9,12 @@ export const colors = {
     shadowGray: "rgba(46, 47, 58, 0.08)",
     lightBlue: "#3dadaf",
     red: "red",
+    // New mobile-optimized colors
+    sectionBlue: "#2c9599",
+    lightBlueGradient: "linear-gradient(135deg, #f0f8fa 0%, #e8f4f6 100%)",
+    invoiceBlue: "#e8f5f7",
+    cardBackground: "#fafbfc",
+    sectionIconBg: "#3dadaf",
+    focusBlue: "rgba(61, 173, 175, 0.15)",
+    hoverBlue: "#2c9599",
 };
