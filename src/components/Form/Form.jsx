@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik, FieldArray, FormikProvider } from "formik";
 import * as Yup from "yup";
 import { v4 as uuidv4 } from "uuid";
+import { formatAmount } from "../../utils/formatCurrency";
 import {
     StyledAddButton,
     StyledDescriptionHeaders,
@@ -130,7 +131,22 @@ export default function Form() {
                     <StyledSectionHeader>
                         <StyledSectionTitle>Items & Services</StyledSectionTitle>
                         <StyledTotalBadge>
-                            {formik.values.items.length} item{formik.values.items.length !== 1 ? 's' : ''} • ${(formik.values.totals?.total || 0).toFixed(2)}
+                            {(() => {
+                                const currency = formik.values.details.currency || 'USD';
+                                const currencySymbols = {
+                                    USD: '$',
+                                    EUR: '€',
+                                    GBP: '£',
+                                    ZAR: 'R',
+                                    CAD: '$',
+                                    AUD: '$',
+                                    JPY: '¥',
+                                    CHF: 'CHF',
+                                    CNY: '¥',
+                                };
+                                const symbol = currencySymbols[currency] || currency;
+                                return `${formik.values.items.length} item${formik.values.items.length !== 1 ? 's' : ''} • ${symbol} ${formatAmount(formik.values.totals?.total || 0)}`;
+                            })()}
                         </StyledTotalBadge>
                     </StyledSectionHeader>
 

@@ -1,4 +1,5 @@
 import { customerDetails } from "./formData";
+import { formatAmount } from "../utils/formatCurrency";
 // import React from "react";
 import {
     Document,
@@ -367,14 +368,14 @@ const PDFDocument = ({ formValues, totals }) => {
                                                 styles.lineItemRightSectionText
                                             }
                                         >
-                                            {symbol} {lineItem.price}
+                                            {symbol} {formatAmount(lineItem.price)}
                                         </Text>
                                         <Text
                                             style={
                                                 styles.lineItemRightSectionText
                                             }
                                         >
-                                            {symbol} {lineItem.qty * lineItem.price}
+                                            {symbol} {formatAmount(lineItem.qty * lineItem.price)}
                                         </Text>
                                     </View>
                                 </View>
@@ -395,17 +396,17 @@ const PDFDocument = ({ formValues, totals }) => {
                                     <View style={styles.amountWrappers}>
                                         <Text>Subtotal</Text>
                                         <Text>
-                                            {symbol} {totals.subtotal.toFixed(2)}
+                                            {symbol} {formatAmount(totals.subtotal)}
                                         </Text>
                                     </View>
                                     <View style={styles.amountWrappers}>
                                         <Text>Tax</Text>
-                                        <Text>{symbol} {totals.tax.toFixed(2)}</Text>
+                                        <Text>{symbol} {formatAmount(totals.tax)}</Text>
                                     </View>
                                     <View style={styles.amountWrappers}>
                                         <Text>Discount</Text>
                                         <Text>
-                                            {symbol} {totals.discount.toFixed(2)}
+                                            {symbol} {formatAmount(totals.discount)}
                                         </Text>
                                     </View>
                                     <View
@@ -420,7 +421,7 @@ const PDFDocument = ({ formValues, totals }) => {
                                         ]}
                                     >
                                         <Text>Amount Due</Text>
-                                        <Text> {symbol} {totals.total.toFixed(2)}</Text>
+                                        <Text> {symbol} {formatAmount(totals.total)}</Text>
                                     </View>
                                 </View>
                                 <View style={styles.extraInfoSection}>

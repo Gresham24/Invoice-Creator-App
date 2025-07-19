@@ -4,6 +4,7 @@ import {
     StyledFlexRight,
     StyledDarkText,
 } from "../../styles/FormPreview.styles";
+import { formatAmount } from "../../utils/formatCurrency";
 
 function LineItems({ items, currency = "USD", symbol = "$" }) {
     return (
@@ -19,8 +20,8 @@ function LineItems({ items, currency = "USD", symbol = "$" }) {
                         </div>
                         <StyledFlexRight>
                             <p>{lineItem.qty}</p>
-                            <p>{symbol} {lineItem.price}</p>
-                            <p>{symbol} {lineItem.qty * lineItem.price}</p>
+                            <p>{symbol} {formatAmount(lineItem.price)}</p>
+                            <p>{symbol} {formatAmount(lineItem.qty * lineItem.price)}</p>
                         </StyledFlexRight>
                     </StyledLineItemContainer>
                 </StyledLineItem>

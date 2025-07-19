@@ -12,6 +12,7 @@ import {
     StyledCancelButton,
     StyledSubmitButton,
 } from "../../styles/Form.styles";
+import { formatAmount } from "../../utils/formatCurrency";
 
 const FormFooter = () => {
     const { values, handleChange, handleReset } = useFormikContext();
@@ -65,19 +66,19 @@ const FormFooter = () => {
                 <StyledSummaryCard>
                     <StyledSummaryRow>
                         <span>Subtotal:</span>
-                        <span>{symbol} {(totals.subtotal || 0).toFixed(2)}</span>
+                        <span>{symbol} {formatAmount(totals.subtotal || 0)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow>
                         <span>Total Tax:</span>
-                        <span>+{symbol} {(totals.tax || 0).toFixed(2)}</span>
+                        <span>+{symbol} {formatAmount(totals.tax || 0)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow>
                         <span>Discount:</span>
-                        <span>-{symbol} {(totals.discount || 0).toFixed(2)}</span>
+                        <span>-{symbol} {formatAmount(totals.discount || 0)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow className="total">
                         <span>Total:</span>
-                        <span>{symbol} {(totals.total || 0).toFixed(2)}</span>
+                        <span>{symbol} {formatAmount(totals.total || 0)}</span>
                     </StyledSummaryRow>
                 </StyledSummaryCard>
             </StyledSummarySection>
@@ -115,19 +116,19 @@ const FormFooter = () => {
                 <StyledSummaryCard>
                     <StyledSummaryRow>
                         <span>Subtotal:</span>
-                        <span>{symbol}{(totals.subtotal || 0).toFixed(2)}</span>
+                        <span>{symbol} {formatAmount(totals.subtotal || 0)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow>
                         <span>Total Tax:</span>
-                        <span>+{symbol}{(totals.tax || 0).toFixed(2)}</span>
+                        <span>+{symbol} {formatAmount(totals.tax || 0)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow>
                         <span>Discount:</span>
-                        <span>-{symbol}{(totals.discount || 0).toFixed(2)}</span>
+                        <span>-{symbol} {formatAmount(totals.discount || 0)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow className="total">
                         <span>Total:</span>
-                        <span>{symbol}{(totals.total || 0).toFixed(2)}</span>
+                        <span>{symbol} {formatAmount(totals.total || 0)}</span>
                     </StyledSummaryRow>
                 </StyledSummaryCard>
             </StyledMobileSummarySection>

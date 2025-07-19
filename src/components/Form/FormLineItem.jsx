@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useField, useFormikContext } from "formik";
 import { useState } from "react";
+import { formatAmount } from "../../utils/formatCurrency";
 import {
     StyledTable,
     StyledTableBody,
@@ -30,7 +31,7 @@ import {
 } from "../../styles/Form.styles";
 
 const LineItem = ({ item, index, arrayHelpers }) => {
-    const { errors, touched, handleChange } = useFormikContext();
+    const { errors, touched, handleChange, values } = useFormikContext();
     const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
     
     const [productServiceField] = useField(`items[${index}].productService`);
@@ -150,7 +151,7 @@ const LineItem = ({ item, index, arrayHelpers }) => {
                                 </StyledInput>
                             </StyledTableCell>
                             <StyledTableCell className="total">
-                                <div id={`itemTotal${index}`}>{lineItemTotal}</div>
+                                <div id={`itemTotal${index}`}>{formatAmount(lineItemTotal)}</div>
                             </StyledTableCell>
                             <StyledTableCell className="actions">
                                 {index > 0 && (
@@ -281,7 +282,24 @@ const LineItem = ({ item, index, arrayHelpers }) => {
                     </StyledDetailsGrid>
                 </StyledAdvancedSection>
 
-                <StyledItemTotal>${lineItemTotal}</StyledItemTotal>
+                <StyledItemTotal>
+                    {(() => {
+                        const currency = values.details.currency || 'USD';
+                        const currencySymbols = {
+                            ZAR: 'R',
+                            USD: '$',
+                            EUR: '€',
+                            GBP: '£',
+                            CAD: '$',
+                            AUD: '$',
+                            JPY: '¥',
+                            CHF: 'CHF',
+                            CNY: '¥',
+                        };
+                        const symbol = currencySymbols[currency] || currency;
+                        return `${symbol} ${formatAmount(lineItemTotal)}`;
+                    })()}
+                </StyledItemTotal>
             </StyledItemCard>
         </>
     );

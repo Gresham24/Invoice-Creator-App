@@ -981,7 +981,7 @@ export const StyledMobileSectionInner = styled.div`
         background: ${colors.companyGradient};
         
         &:focus-within {
-            background: linear-gradient(135deg, #e6f2ff 0%, #ddeeff 100%);
+            background: #f0f2f5;
         }
     }
     
@@ -989,7 +989,7 @@ export const StyledMobileSectionInner = styled.div`
         background: ${colors.invoiceGradient};
         
         &:focus-within {
-            background: linear-gradient(135deg, #fff2e6 0%, #ffebdb 100%);
+            background: #f3f5f7;
         }
     }
 `;
