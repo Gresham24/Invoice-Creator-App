@@ -38,7 +38,15 @@ function InvoiceDetails({ formEntryDetails, companyDetails }) {
                 </div>
                 <div>
                     <h3>Issued</h3>
-                    <p>{formEntryDetails.issueDate} </p>
+                    <p>{formEntryDetails.issueDate && 
+                        (formEntryDetails.issueDate.includes('-') ? 
+                            new Date(formEntryDetails.issueDate).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                            }) : 
+                            formEntryDetails.issueDate)
+                    } </p>
                 </div>
                 <div>
                     <h3>Due</h3>
