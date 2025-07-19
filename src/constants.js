@@ -11,8 +11,8 @@ export const colors = {
     red: "red",
     // New mobile-optimized colors
     sectionBlue: "#2c9599",
-    lightBlueGradient: "linear-gradient(135deg, #f0f8fa 0%, #e8f4f6 100%)",
-    invoiceBlue: "#e8f5f7",
+    companyGradient: "linear-gradient(135deg, #f0f6ff 0%, #e6f2ff 100%)",
+    invoiceGradient: "linear-gradient(135deg, #fff8f0 0%, #fff2e6 100%)",
     cardBackground: "#fafbfc",
     sectionIconBg: "#3dadaf",
     focusBlue: "rgba(61, 173, 175, 0.15)",

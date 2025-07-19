@@ -46,18 +46,259 @@ export const StyledCustomerDetails = styled.div`
 export const StyledFormHeader = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 0;
     padding: 0 1rem;
-    & input,
-    select {
-        width: 100%;
-        height: 40px;
-        padding: 10px;
-    }
 
     @media (max-width: 768px) {
         display: none;
     }
+`;
+
+// Desktop section styles matching new HTML design
+export const StyledDesktopSection = styled.div`
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+`;
+
+export const StyledDesktopSectionsContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+    }
+`;
+
+export const StyledDesktopSectionInner = styled.div`
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s ease;
+    
+    &.company-section {
+        background: ${colors.companyGradient};
+        border-right: 1px solid #f0f0f0;
+        
+        &:focus-within {
+            background: linear-gradient(135deg, #e6f2ff 0%, #ddeeff 100%);
+        }
+        
+        @media (max-width: 1024px) {
+            border-right: none;
+            border-bottom: 1px solid #f0f0f0;
+        }
+    }
+    
+    &.invoice-section {
+        background: ${colors.invoiceGradient};
+        
+        &:focus-within {
+            background: linear-gradient(135deg, #fff2e6 0%, #ffebdb 100%);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        padding: 24px;
+    }
+    
+    @media (max-width: 480px) {
+        padding: 20px;
+    }
+`;
+
+export const StyledDesktopSectionTitle = styled.h3`
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+`;
+
+export const StyledDesktopSectionIcon = styled.span`
+    width: 24px;
+    height: 24px;
+    background: ${colors.sectionIconBg};
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    flex-shrink: 0;
+`;
+
+export const StyledDesktopFormGroup = styled.div`
+    margin-bottom: 20px;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+`;
+
+export const StyledDesktopFormLabel = styled.label`
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+`;
+
+export const StyledDesktopOptionalBadge = styled.span`
+    background: #f0f0f0;
+    color: #666;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: normal;
+`;
+
+export const StyledDesktopFormInput = styled.input`
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    
+    &:focus {
+        outline: none;
+        border-color: ${colors.lightBlue};
+        box-shadow: 0 0 0 3px ${colors.focusBlue};
+    }
+    
+    &::placeholder {
+        color: #999;
+    }
+`;
+
+export const StyledDesktopFormSelect = styled.select`
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 14px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 45px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    
+    &:focus {
+        outline: none;
+        border-color: ${colors.lightBlue};
+        box-shadow: 0 0 0 3px ${colors.focusBlue};
+    }
+`;
+
+export const StyledDesktopInputRow = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+`;
+
+export const StyledDesktopInputRowThree = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 120px;
+    gap: 16px;
+    align-items: end;
+    
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr 1fr;
+        
+        .currency-selector {
+            grid-column: 1 / -1;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+`;
+
+export const StyledDesktopLogoUpload = styled.div`
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    background: #fafafa;
+    transition: all 0.2s;
+    cursor: pointer;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+        border-color: ${colors.lightBlue};
+        background: #f0f6ff;
+        
+        .logo-icon {
+            background: ${colors.lightBlue};
+            color: white;
+        }
+    }
+    
+    &.has-file {
+        border-color: ${colors.lightBlue};
+        background: #f0f6ff;
+    }
+`;
+
+export const StyledDesktopLogoIcon = styled.div`
+    width: 48px;
+    height: 48px;
+    background: #e6f2ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    color: ${colors.lightBlue};
+    font-size: 20px;
+    transition: all 0.2s;
+`;
+
+export const StyledDesktopLogoText = styled.div`
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 6px;
+    font-weight: 500;
+`;
+
+export const StyledDesktopLogoSubtext = styled.div`
+    font-size: 13px;
+    color: #999;
+`;
+
+export const StyledDesktopCurrencySelector = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
 
 export const StyledInputsWrapper = styled.div`
@@ -420,7 +661,7 @@ export const StyledAddButton = styled.button`
     transition: background 0.2s;
 
     &:hover {
-        background: #0056b3;
+        background:#51c0c2;
     }
 
     &:active {
@@ -657,17 +898,18 @@ export const StyledSubmitButton = styled.button`
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+    box-shadow: 0 4px 8px rgba(46, 182, 184, 0.23);
+
 
     &:hover {
-        background: #0056b3;
-        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        background: #51c0c2;
+        box-shadow: 0 4px 8px rgba(46, 182, 184, 0.23);
         transform: translateY(-1px);
     }
 
     &:active {
         transform: translateY(0);
-        box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+        box-shadow: 0 2px 4px rgba(46, 182, 184, 0.23);
     }
 
     @media (max-width: 768px) {
@@ -724,18 +966,18 @@ export const StyledMobileSectionInner = styled.div`
     }
     
     &.company-section {
-        background: ${colors.lightBlueGradient};
+        background: ${colors.companyGradient};
         
         &:focus-within {
-            background: linear-gradient(135deg, #e8f4f6 0%, #ddeef0 100%);
+            background: linear-gradient(135deg, #e6f2ff 0%, #ddeeff 100%);
         }
     }
     
     &.invoice-section {
-        background: ${colors.invoiceBlue};
+        background: ${colors.invoiceGradient};
         
         &:focus-within {
-            background: #daf0f3;
+            background: linear-gradient(135deg, #fff2e6 0%, #ffebdb 100%);
         }
     }
 `;
@@ -885,19 +1127,19 @@ export const StyledMobileLogoUpload = styled.div`
     
     &:hover {
         border-color: ${colors.lightBlue};
-        background: ${colors.invoiceBlue};
+        background: #f0f6ff;
     }
     
     &.has-file {
         border-color: ${colors.lightBlue};
-        background: ${colors.invoiceBlue};
+        background: #f0f6ff;
     }
 `;
 
 export const StyledMobileLogoIcon = styled.div`
     width: 40px;
     height: 40px;
-    background: ${colors.invoiceBlue};
+    background: #e6f2ff;
     border-radius: 8px;
     display: flex;
     align-items: center;

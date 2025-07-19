@@ -21,7 +21,7 @@ function FormPreview() {
         purchaseOrder: formValues.details.purchaseOrder,
         customer: formValues.details.customer,
         issueDate: formValues.details.issueDate,
-        dueDate: formValues.details.dueDate,
+        dueDate: formValues.details.calculatedDueDate || formValues.details.dueDate,
         notes: formValues.details.notes,
         bankDetails: formValues.details.bankDetails,
     };

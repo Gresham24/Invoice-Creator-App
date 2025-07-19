@@ -294,7 +294,17 @@ const PDFDocument = ({ formValues, totals }) => {
                                         >
                                             Due
                                         </Text>
-                                        <Text style={styles.detailValue}>{formEntryDetails.dueDate}</Text>
+                                        <Text style={styles.detailValue}>
+                                            {formEntryDetails.dueDate && 
+                                                (formEntryDetails.dueDate.includes('-') ? 
+                                                    new Date(formEntryDetails.dueDate).toLocaleDateString('en-US', {
+                                                        year: 'numeric',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    }) : 
+                                                    formEntryDetails.dueDate)
+                                            }
+                                        </Text>
                                     </View>
                                 </View>
                             </View>

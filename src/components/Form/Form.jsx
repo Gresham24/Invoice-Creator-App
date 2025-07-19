@@ -101,7 +101,7 @@ export default function Form() {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            const dueDate = calculateDueDate(
+            const dueDate = values.details.calculatedDueDate || calculateDueDate(
                 values.details.issueDate,
                 values.details.dueDate
             );
