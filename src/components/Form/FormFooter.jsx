@@ -1,14 +1,6 @@
-import React from "react";
 import { useField, useFormikContext } from "formik";
 import {
     StyledFormFooter,
-    StyledCostSummaries,
-    StyledCostSummaryAmounts,
-    StyledExtraDetails,
-    StyledInput,
-    StyledFormActionButtons,
-    StyledCancelButton,
-    StyledSubmitButton,
     StyledSummarySection,
     StyledNotesSection,
     StyledNotesTitle,
@@ -16,11 +8,13 @@ import {
     StyledSummaryCard,
     StyledSummaryRow,
     StyledMobileSummarySection,
-    StyledMobileSummaryCard,
+    StyledFormActionButtons,
+    StyledCancelButton,
+    StyledSubmitButton,
 } from "../../styles/Form.styles";
 
 const FormFooter = () => {
-    const { values, errors, handleChange } = useFormikContext();
+    const { values, handleChange, handleReset } = useFormikContext();
     const [notesField] = useField("details.notes");
     const [bankDetailsField] = useField("details.bankDetails");
 
@@ -30,6 +24,20 @@ const FormFooter = () => {
         discount: 0,
         total: 0,
     };
+
+    const currency = values.details.currency || "ZAR";
+    const currencySymbols = {
+        ZAR: "R",
+        USD: "$",
+        EUR: "€",
+        GBP: "£",
+        CAD: "$",
+        AUD: "$",
+        JPY: "¥",
+        CHF: "CHF",
+        CNY: "¥",
+    };
+    const symbol = currencySymbols[currency] || currency;
 
     return (
         <StyledFormFooter>
@@ -57,22 +65,32 @@ const FormFooter = () => {
                 <StyledSummaryCard>
                     <StyledSummaryRow>
                         <span>Subtotal:</span>
-                        <span>${(totals.subtotal || 0).toFixed(2)}</span>
+                        <span>{symbol} {(totals.subtotal || 0).toFixed(2)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow>
                         <span>Total Tax:</span>
-                        <span>+${(totals.tax || 0).toFixed(2)}</span>
+                        <span>+{symbol} {(totals.tax || 0).toFixed(2)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow>
                         <span>Discount:</span>
-                        <span>-${(totals.discount || 0).toFixed(2)}</span>
+                        <span>-{symbol} {(totals.discount || 0).toFixed(2)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow className="total">
                         <span>Total:</span>
-                        <span>USD ${(totals.total || 0).toFixed(2)}</span>
+                        <span>{symbol} {(totals.total || 0).toFixed(2)}</span>
                     </StyledSummaryRow>
                 </StyledSummaryCard>
             </StyledSummarySection>
+
+            {/* Action Buttons */}
+            <StyledFormActionButtons className="footer-actions-desktop">
+                <StyledCancelButton type="button" onClick={handleReset}>
+                    Cancel
+                </StyledCancelButton>
+                <StyledSubmitButton type="submit">
+                    Create Invoice
+                </StyledSubmitButton>
+            </StyledFormActionButtons>
 
             {/* Mobile: Only show summary card and notes, stacked vertically */}
             <StyledMobileSummarySection>
@@ -97,30 +115,33 @@ const FormFooter = () => {
                 <StyledSummaryCard>
                     <StyledSummaryRow>
                         <span>Subtotal:</span>
-                        <span>${(totals.subtotal || 0).toFixed(2)}</span>
+                        <span>{symbol}{(totals.subtotal || 0).toFixed(2)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow>
                         <span>Total Tax:</span>
-                        <span>+${(totals.tax || 0).toFixed(2)}</span>
+                        <span>+{symbol}{(totals.tax || 0).toFixed(2)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow>
                         <span>Discount:</span>
-                        <span>-${(totals.discount || 0).toFixed(2)}</span>
+                        <span>-{symbol}{(totals.discount || 0).toFixed(2)}</span>
                     </StyledSummaryRow>
                     <StyledSummaryRow className="total">
                         <span>Total:</span>
-                        <span>USD ${(totals.total || 0).toFixed(2)}</span>
+                        <span>{symbol}{(totals.total || 0).toFixed(2)}</span>
                     </StyledSummaryRow>
                 </StyledSummaryCard>
             </StyledMobileSummarySection>
-            {/* <hr /> */}
 
-            <StyledFormActionButtons>
-                <StyledCancelButton>Cancel</StyledCancelButton>
+            {/* Mobile Action Buttons */}
+            <StyledFormActionButtons className="footer-actions-mobile">
+                <StyledCancelButton type="button" onClick={handleReset}>
+                    Cancel
+                </StyledCancelButton>
                 <StyledSubmitButton type="submit">
-                    Create invoice
+                    Create Invoice
                 </StyledSubmitButton>
             </StyledFormActionButtons>
+
         </StyledFormFooter>
     );
 };

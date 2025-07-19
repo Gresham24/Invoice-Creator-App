@@ -188,6 +188,20 @@ const PDFDocument = ({ formValues, totals }) => {
         companyEmail: formValues.details.companyEmail,
     };
 
+    const currency = formValues.details.currency || "USD";
+    const currencySymbols = {
+        USD: "$",
+        EUR: "€",
+        GBP: "£",
+        ZAR: "R",
+        CAD: "$",
+        AUD: "$",
+        JPY: "¥",
+        CHF: "CHF",
+        CNY: "¥",
+    };
+    const symbol = currencySymbols[currency] || currency;
+
     // Split items into groups of firstPageItems for the first page and subsequentPageItems for subsequent pages
     const pages = [];
     let currentPage = [];
@@ -353,14 +367,14 @@ const PDFDocument = ({ formValues, totals }) => {
                                                 styles.lineItemRightSectionText
                                             }
                                         >
-                                            $ {lineItem.price}
+                                            {symbol} {lineItem.price}
                                         </Text>
                                         <Text
                                             style={
                                                 styles.lineItemRightSectionText
                                             }
                                         >
-                                            $ {lineItem.qty * lineItem.price}
+                                            {symbol} {lineItem.qty * lineItem.price}
                                         </Text>
                                     </View>
                                 </View>
@@ -381,17 +395,17 @@ const PDFDocument = ({ formValues, totals }) => {
                                     <View style={styles.amountWrappers}>
                                         <Text>Subtotal</Text>
                                         <Text>
-                                            $ {totals.subtotal.toFixed(2)}
+                                            {symbol} {totals.subtotal.toFixed(2)}
                                         </Text>
                                     </View>
                                     <View style={styles.amountWrappers}>
                                         <Text>Tax</Text>
-                                        <Text>$ {totals.tax.toFixed(2)}</Text>
+                                        <Text>{symbol} {totals.tax.toFixed(2)}</Text>
                                     </View>
                                     <View style={styles.amountWrappers}>
                                         <Text>Discount</Text>
                                         <Text>
-                                            $ {totals.discount.toFixed(2)}
+                                            {symbol} {totals.discount.toFixed(2)}
                                         </Text>
                                     </View>
                                     <View
@@ -406,7 +420,7 @@ const PDFDocument = ({ formValues, totals }) => {
                                         ]}
                                     >
                                         <Text>Amount Due</Text>
-                                        <Text>$ {totals.total.toFixed(2)}</Text>
+                                        <Text> {symbol} {totals.total.toFixed(2)}</Text>
                                     </View>
                                 </View>
                                 <View style={styles.extraInfoSection}>

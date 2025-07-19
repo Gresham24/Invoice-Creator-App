@@ -76,6 +76,7 @@ export default function Form() {
                 customer: "",
                 notes: "",
                 bankDetails: "",
+                currency: formValues.details?.currency || "ZAR",
                 ...formValues.details,
             },
             items:
@@ -106,7 +107,7 @@ export default function Form() {
                 values.details.dueDate
             );
             setFormValues({
-                details: { ...values.details, dueDate },
+                details: { ...values.details, dueDate, currency: values.details.currency },
                 items: values.items,
                 totals: calculateTotals(values.items),
             });

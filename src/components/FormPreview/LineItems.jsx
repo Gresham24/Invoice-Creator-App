@@ -5,7 +5,7 @@ import {
     StyledDarkText,
 } from "../../styles/FormPreview.styles";
 
-function LineItems({ items }) {
+function LineItems({ items, currency = "USD", symbol = "$" }) {
     return (
         <>
             {items.map((lineItem) => (
@@ -19,8 +19,8 @@ function LineItems({ items }) {
                         </div>
                         <StyledFlexRight>
                             <p>{lineItem.qty}</p>
-                            <p>$ {lineItem.price}</p>
-                            <p>$ {lineItem.qty * lineItem.price}</p>
+                            <p>{symbol} {lineItem.price}</p>
+                            <p>{symbol} {lineItem.qty * lineItem.price}</p>
                         </StyledFlexRight>
                     </StyledLineItemContainer>
                 </StyledLineItem>

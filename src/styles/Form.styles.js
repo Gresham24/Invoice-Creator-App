@@ -854,12 +854,23 @@ export const StyledFormActionButtons = styled.div`
     border-top: 1px solid #e9ecef;
     margin-top: 40px;
 
-    @media (max-width: 768px) {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-        padding: 24px 0 0;
-        margin-top: 24px;
+    &.footer-actions-desktop {
+        @media (max-width: 768px) {
+            display: none;
+        }
+    }
+
+    &.footer-actions-mobile {
+        display: none;
+        
+        @media (max-width: 768px) {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+            padding: 24px 0 0;
+            margin-top: 24px;
+        }
     }
 `;
 

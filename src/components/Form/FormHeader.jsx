@@ -53,6 +53,7 @@ const FormHeader = () => {
     const [customerField] = useField("details.customer");
     const [issueDateField] = useField("details.issueDate");
     const [dueDateField] = useField("details.dueDate");
+    const [currencyField] = useField("details.currency");
     const fileInputRef = useRef();
 
     const handleLogoChange = (e) => {
@@ -459,7 +460,11 @@ const FormHeader = () => {
                             <StyledDesktopFormLabel>
                                 Currency
                             </StyledDesktopFormLabel>
-                            <StyledDesktopFormSelect defaultValue="ZAR">
+                            <StyledDesktopFormSelect
+                                {...currencyField}
+                                onChange={handleChange}
+                                value={values.details.currency || "ZAR"}
+                            >
                                 <option value="ZAR">ZAR</option>
                                 <option value="USD">USD</option>
                                 <option value="EUR">EUR</option>
@@ -1047,7 +1052,12 @@ const FormHeader = () => {
 
                     <StyledMobileFormGroup>
                         <StyledMobileFormLabel>Currency</StyledMobileFormLabel>
-                        <StyledMobileFormSelect defaultValue="USD">
+                        <StyledMobileFormSelect
+                            {...currencyField}
+                            onChange={handleChange}
+                            value={values.details.currency || "ZAR"}
+                        >
+                            <option value="ZAR">ZAR</option>
                             <option value="USD">USD</option>
                             <option value="EUR">EUR</option>
                             <option value="GBP">GBP</option>

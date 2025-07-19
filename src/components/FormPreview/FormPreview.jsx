@@ -31,14 +31,28 @@ function FormPreview() {
         navigate("/");
     };
 
+    const currency = formValues.details.currency || "USD";
+    const currencySymbols = {
+        USD: "$",
+        EUR: "€",
+        GBP: "£",
+        ZAR: "R",
+        CAD: "$",
+        AUD: "$",
+        JPY: "¥",
+        CHF: "CHF",
+        CNY: "¥",
+    };
+    const symbol = currencySymbols[currency] || currency;
+
     return (
         <div>
             <StyledContainer>
                 <Header invoiceNumber={formEntryDetails.invoiceNumber} companyDetails={formValues.details} />
                 <InvoiceDetails formEntryDetails={formEntryDetails} companyDetails={formValues.details} />
                 <DescriptionHeaders />
-                <LineItems items={formValues.items} />
-                <CostSummaries totals={totals} />
+                <LineItems items={formValues.items} currency={currency} symbol={symbol} />
+                <CostSummaries totals={totals} currency={currency} symbol={symbol} />
                 <ExtraInfo
                     bankDetails={formEntryDetails.bankDetails}
                     notes={formEntryDetails.notes}
