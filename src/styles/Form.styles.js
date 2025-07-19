@@ -90,7 +90,7 @@ export const StyledDesktopSectionInner = styled.div`
         border-right: 1px solid #f0f0f0;
         
         &:focus-within {
-            background: linear-gradient(135deg, #e6f2ff 0%, #ddeeff 100%);
+            background: #f0f2f5;
         }
         
         @media (max-width: 1024px) {
@@ -103,7 +103,7 @@ export const StyledDesktopSectionInner = styled.div`
         background: ${colors.invoiceGradient};
         
         &:focus-within {
-            background: linear-gradient(135deg, #fff2e6 0%, #ffebdb 100%);
+            background: #f3f5f7;
         }
     }
     
@@ -316,9 +316,10 @@ export const StyledDescriptionHeaders = styled.div`
     margin-bottom: 1rem;
     font-weight: 500;
     font-size: 14px;
-    padding: 1rem;
+    padding: 1rem 1rem 0rem 1rem;
     background-color: ${colors.mediumGray};
     border-radius: 8px 8px 0 0;
+    border: 1px solid #e9ecef;
 
     @media (max-width: 768px) {
         display: none;
