@@ -162,15 +162,61 @@ const FormHeader = () => {
                             >
                                 {values.details.companyLogo ? (
                                     <>
-                                        <StyledDesktopLogoIcon className="logo-icon">
-                                            ✓
-                                        </StyledDesktopLogoIcon>
+                                        <div style={{ position: 'relative', display: 'inline-block' }}>
+                                            <img
+                                                src={values.details.companyLogo}
+                                                alt="Company Logo Preview"
+                                                style={{
+                                                    maxWidth: '80px',
+                                                    maxHeight: '80px',
+                                                    borderRadius: '8px',
+                                                    objectFit: 'contain',
+                                                    marginBottom: '8px'
+                                                }}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setFieldValue("details.companyLogo", "");
+                                                    if (fileInputRef.current) {
+                                                        fileInputRef.current.value = "";
+                                                    }
+                                                }}
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: '-10px',
+                                                    right: '-10px',
+                                                    background: '#ff4444',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '50%',
+                                                    width: '24px',
+                                                    height: '24px',
+                                                    fontSize: '14px',
+                                                    cursor: 'pointer',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                                                    transition: 'all 0.2s ease'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.target.style.background = '#cc0000';
+                                                    e.target.style.transform = 'scale(1.1)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.target.style.background = '#ff4444';
+                                                    e.target.style.transform = 'scale(1)';
+                                                }}
+                                                title="Remove logo"
+                                            >
+                                                ×
+                                            </button>
+                                        </div>
                                         <StyledDesktopLogoText>
-                                            Logo uploaded
+                                            Click to change logo
                                         </StyledDesktopLogoText>
-                                        <StyledDesktopLogoSubtext>
-                                            Click to change
-                                        </StyledDesktopLogoSubtext>
                                     </>
                                 ) : (
                                     <>
@@ -773,15 +819,61 @@ const FormHeader = () => {
                         >
                             {values.details.companyLogo ? (
                                 <>
-                                    <StyledMobileLogoIcon>
-                                        ✓
-                                    </StyledMobileLogoIcon>
+                                    <div style={{ position: 'relative', display: 'inline-block' }}>
+                                        <img
+                                            src={values.details.companyLogo}
+                                            alt="Company Logo Preview"
+                                            style={{
+                                                maxWidth: '60px',
+                                                maxHeight: '60px',
+                                                borderRadius: '6px',
+                                                objectFit: 'contain',
+                                                marginBottom: '8px'
+                                            }}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setFieldValue("details.companyLogo", "");
+                                                if (fileInputRef.current) {
+                                                    fileInputRef.current.value = "";
+                                                }
+                                            }}
+                                            style={{
+                                                position: 'absolute',
+                                                top: '-6px',
+                                                right: '-6px',
+                                                background: '#ff4444',
+                                                color: 'white',
+                                                border: 'none',
+                                                borderRadius: '50%',
+                                                width: '20px',
+                                                height: '20px',
+                                                fontSize: '12px',
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                                                transition: 'all 0.2s ease'
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.target.style.background = '#cc0000';
+                                                e.target.style.transform = 'scale(1.1)';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.target.style.background = '#ff4444';
+                                                e.target.style.transform = 'scale(1)';
+                                            }}
+                                            title="Remove logo"
+                                        >
+                                            ×
+                                        </button>
+                                    </div>
                                     <StyledMobileLogoText>
-                                        Logo uploaded
+                                        Click to change logo
                                     </StyledMobileLogoText>
-                                    <StyledMobileLogoSubtext>
-                                        Click to change
-                                    </StyledMobileLogoSubtext>
                                 </>
                             ) : (
                                 <>
