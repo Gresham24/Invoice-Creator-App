@@ -16,20 +16,26 @@ const styles = StyleSheet.create({
         fontFamily: "Helvetica",
         height: "100%",
         position: "relative",
+        padding: "20px",
     },
     container: {
         display: "flex",
         flexDirection: "column",
         flex: 1,
         height: "100%",
+        backgroundColor: "white",
+        border: "1px solid #e0e0e0",
+        borderRadius: 8,
+        overflow: "hidden",
     },
     header: {
-        padding: "20px 40px",
-        backgroundColor: "#f6f6f6",
+        padding: "20px 30px",
+        backgroundColor: "#f8f9fa",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
+        borderBottom: "2px solid #e0e0e0",
     },
     headerTitle: {
         display: "flex",
@@ -38,43 +44,76 @@ const styles = StyleSheet.create({
     },
     headerH1: {
         fontSize: 24,
-        marginBottom: 5,
+        fontWeight: "bold",
+        marginBottom: 4,
+        color: "#333",
+        letterSpacing: 1,
     },
     headerText: {
-        color: "#858585",
-        fontSize: 16,
+        color: "#666",
+        fontSize: 12,
+        margin: 0,
+        fontWeight: "normal",
     },
     invoiceDetails: {
-        padding: "24px 40px",
-        backgroundColor: "white",
-        fontSize: 10,
+        padding: "25px 30px",
+        backgroundColor: "#ffffff",
+        fontSize: 11,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "flex-start",
+        minHeight: 120,
+        lineHeight: 1.4,
     },
     invoiceDetailsTextH1: {
-        fontSize: 10,
+        fontSize: 12,
         fontWeight: "bold",
-        marginBottom: 2,
+        marginBottom: 6,
+        color: "#333",
+        textTransform: "uppercase",
+        letterSpacing: 0.5,
+    },
+    invoiceDetailsSection: {
+        flex: 1,
+        maxWidth: 200,
+        paddingRight: 15,
+    },
+    invoiceDetailsSectionMiddle: {
+        flex: 1,
+        maxWidth: 200,
+        padding: "0 15px",
+    },
+    invoiceDetailsText: {
+        fontSize: 10,
+        color: "#666",
+        margin: "1px 0",
+        lineHeight: 1.3,
     },
     invoiceMetaInfo: {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-end",
         textAlign: "right",
+        minWidth: 150,
+        flexShrink: 0,
+        gap: 12,
     },
     invoiceMetaInfoWrapper: {
         alignItems: "flex-end",
-        marginBottom: 8,
+        marginBottom: 4,
     },
 
     descriptionHeaders: {
-        backgroundColor: "#EDEDED",
-        padding: "10px 40px",
-        fontSize: 12,
+        backgroundColor: "#f8f9fa",
+        padding: "8px 30px",
+        fontSize: 11,
+        fontWeight: "bold",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
+        borderBottom: "1px solid #e0e0e0",
     },
     descriptionHeadersRightSection: {
         width: "50%",
@@ -85,22 +124,23 @@ const styles = StyleSheet.create({
     descriptionHeadersRightDiv: {
         width: "33.33%",
         textAlign: "right",
-        fontSize: 10,
+        fontSize: 11,
+        fontWeight: "bold",
     },
     lineItem: {
-        color: "#000",
-        backgroundColor: "white",
-        padding: "5px 0",
+        color: "#333",
+        backgroundColor: "#ffffff",
     },
     lineItemContainer: {
-        minHeight: "45px",
+        minHeight: 40,
         fontSize: 10,
-        padding: "10px 0",
-        margin: "0px 40px",
-        borderBottom: "0.5px solid #d7dae0",
+        padding: "8px 0",
+        margin: "0px 30px",
+        borderBottom: "0.5px solid #e0e0e0",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
     },
     lineItemRightSection: {
         width: "50%",
@@ -113,56 +153,86 @@ const styles = StyleSheet.create({
         textAlign: "right",
         fontSize: 10,
         margin: 0,
+        color: "#333",
     },
     totalSummaries: {
-        backgroundColor: "white",
+        backgroundColor: "#ffffff",
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-end",
-        padding: "10px 40px",
+        padding: "15px 30px 0 0",
     },
     amountWrappers: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        width: "33.33%",
-        marginTop: 5,
-        fontSize: 10,
+        width: "35%",
+        marginBottom: 6,
+        fontSize: 11,
     },
     extraInfoSection: {
-        backgroundColor: "white",
-        padding: "10px 40px",
+        backgroundColor: "#ffffff",
+        padding: "20px 0px 15px 30px",
         display: "flex",
         flexDirection: "column",
-        gap: 12,
+        gap: 8,
         fontSize: 10,
+        minHeight: 60,
+        marginBottom: 20,
     },
     extraInfoText: {
-        color: "#858585",
-        width: 300,
+        color: "#666",
+        width: 250,
+        lineHeight: 1.3,
     },
     footer: {
-        padding: "40px 40px",
-        backgroundColor: "#f6f6f6",
-        fontWeight: 700,
+        padding: "15px 30px",
+        backgroundColor: "#f8f9fa",
+        fontWeight: "normal",
         fontSize: 10,
         width: "100%",
-        bottom: 0,
-        position: "absolute",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+        marginTop: "auto",
+        borderTop: "1px solid #e0e0e0",
+    },
+    pageNumbersFooter: {
+        padding: "8px 30px",
+        backgroundColor: "#f8f9fa",
+        fontWeight: "normal",
+        fontSize: 10,
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        marginTop: "auto",
+        borderTop: "1px solid #e0e0e0",
     },
     image: {
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
+        maxWidth: 50,
+        maxHeight: 50,
     },
     imagePlaceholder: {
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
     },
     detailValue: {
-        color: "#858585",
+        color: "#666",
+    },
+    lineItemDescription: {
+        fontSize: 9,
+        color: "#666",
+        lineHeight: 1.2,
+        marginTop: 1,
+    },
+    lineItemProduct: {
+        fontSize: 10,
+        color: "#333",
+        fontWeight: "bold",
+        marginBottom: 1,
     },
 });
 
@@ -176,6 +246,7 @@ const PDFDocument = ({ formValues, totals }) => {
         invoiceNumber: formValues.details.invoiceNumber,
         purchaseOrder: formValues.details.purchaseOrder,
         customer: formValues.details.customer,
+        customerData: formValues.details.customerData,
         issueDate: formValues.details.issueDate,
         dueDate: formValues.details.dueDate,
         notes: formValues.details.notes,
@@ -247,59 +318,73 @@ const PDFDocument = ({ formValues, totals }) => {
                         {/* Conditional Rendering of Invoice Details */}
                         {index === 0 && (
                             <View style={styles.invoiceDetails}>
-                                <View>
+                                <View style={styles.invoiceDetailsSection}>
                                     <Text style={styles.invoiceDetailsTextH1}>
                                         From
                                     </Text>
-                                    <Text style={styles.detailValue}>{companyDetails.name}</Text>
-                                    <Text style={styles.detailValue}>{companyDetails.companyName}</Text>
-                                    <Text style={styles.detailValue}>{companyDetails.companyAddress}</Text>
-                                    <Text style={styles.detailValue}>{companyDetails.companyEmail}</Text>
+                                    <Text style={styles.invoiceDetailsText}>{companyDetails.name}</Text>
+                                    {companyDetails.companyName && <Text style={styles.invoiceDetailsText}>{companyDetails.companyName}</Text>}
+                                    <Text style={styles.invoiceDetailsText}>{companyDetails.companyAddress}</Text>
+                                    <Text style={styles.invoiceDetailsText}>{companyDetails.companyEmail}</Text>
                                 </View>
-                                <View>
+                                <View style={styles.invoiceDetailsSectionMiddle}>
                                     <Text style={styles.invoiceDetailsTextH1}>
                                         Billed To
                                     </Text>
-                                    <Text style={styles.detailValue}>{formEntryDetails.customer}</Text>
-                                    {formEntryDetails.customer && (
+                                    {formEntryDetails.customer === "custom-customer" && formEntryDetails.customerData ? (
                                         <View>
-                                            <Text style={styles.detailValue}>
-                                                {
-                                                    customerDetails[
-                                                        formEntryDetails
-                                                            .customer
-                                                    ]?.address
-                                                }
-                                            </Text>
-                                            <Text style={styles.detailValue}>
-                                                {
-                                                    customerDetails[
-                                                        formEntryDetails
-                                                            .customer
-                                                    ]?.phone
-                                                }
-                                            </Text>
+                                            {formEntryDetails.customerData.companyName && <Text style={styles.invoiceDetailsText}>{formEntryDetails.customerData.companyName}</Text>}
+                                            {formEntryDetails.customerData.contactName && <Text style={styles.invoiceDetailsText}>{formEntryDetails.customerData.contactName}</Text>}
+                                            <Text style={styles.invoiceDetailsText}>{formEntryDetails.customerData.companyAddress}</Text>
+                                            <Text style={styles.invoiceDetailsText}>{formEntryDetails.customerData.email}</Text>
+                                            <Text style={styles.invoiceDetailsText}>{formEntryDetails.customerData.phoneNumber}</Text>
+                                        </View>
+                                    ) : (
+                                        <View>
+                                            <Text style={styles.invoiceDetailsText}>{formEntryDetails.customer}</Text>
+                                            {formEntryDetails.customer && (
+                                                <View>
+                                                    <Text style={styles.invoiceDetailsText}>
+                                                        {
+                                                            customerDetails[
+                                                                formEntryDetails
+                                                                    .customer
+                                                            ]?.address
+                                                        }
+                                                    </Text>
+                                                    <Text style={styles.invoiceDetailsText}>
+                                                        {
+                                                            customerDetails[
+                                                                formEntryDetails
+                                                                    .customer
+                                                            ]?.phone
+                                                        }
+                                                    </Text>
+                                                </View>
+                                            )}
                                         </View>
                                     )}
                                 </View>
                                 <View style={styles.invoiceMetaInfo}>
-                                    <View style={styles.invoiceMetaInfoWrapper}>
-                                        <Text
-                                            style={styles.invoiceDetailsTextH1}
-                                        >
-                                            Purchase Order
-                                        </Text>
-                                        <Text style={styles.detailValue}>
-                                            {formEntryDetails.purchaseOrder}
-                                        </Text>
-                                    </View>
+                                    {formEntryDetails.purchaseOrder && formEntryDetails.purchaseOrder.trim() !== '' && (
+                                        <View style={styles.invoiceMetaInfoWrapper}>
+                                            <Text
+                                                style={styles.invoiceDetailsTextH1}
+                                            >
+                                                Purchase Order
+                                            </Text>
+                                            <Text style={styles.invoiceDetailsText}>
+                                                {formEntryDetails.purchaseOrder}
+                                            </Text>
+                                        </View>
+                                    )}
                                     <View style={styles.invoiceMetaInfoWrapper}>
                                         <Text
                                             style={styles.invoiceDetailsTextH1}
                                         >
                                             Issued
                                         </Text>
-                                        <Text style={styles.detailValue}>
+                                        <Text style={styles.invoiceDetailsText}>
                                             {formEntryDetails.issueDate}
                                         </Text>
                                     </View>
@@ -309,7 +394,7 @@ const PDFDocument = ({ formValues, totals }) => {
                                         >
                                             Due
                                         </Text>
-                                        <Text style={styles.detailValue}>
+                                        <Text style={styles.invoiceDetailsText}>
                                             {formEntryDetails.dueDate && 
                                                 (formEntryDetails.dueDate.includes('-') ? 
                                                     new Date(formEntryDetails.dueDate).toLocaleDateString('en-US', {
@@ -352,8 +437,8 @@ const PDFDocument = ({ formValues, totals }) => {
                                 {/* Line item details */}
                                 <View wrap style={styles.lineItemContainer}>
                                     <View>
-                                        <Text>{lineItem.productService}</Text>
-                                        <Text>{lineItem.description}</Text>
+                                        <Text style={styles.lineItemProduct}>{lineItem.productService}</Text>
+                                        <Text style={styles.lineItemDescription}>{lineItem.description}</Text>
                                     </View>
                                     <View style={styles.lineItemRightSection}>
                                         <Text
@@ -381,13 +466,14 @@ const PDFDocument = ({ formValues, totals }) => {
                                 </View>
                             </View>
                         ))}
-                        {/* Page Numbers */}
-                        <View style={styles.footer}>
-                            <View></View>
-                            <Text style={styles.pageNumbers}>
-                                {index + 1} / {pages.length}{" "}
-                            </Text>
-                        </View>
+                        {/* Page Numbers - Only show on pages that aren't the last page */}
+                        {index !== pages.length - 1 && (
+                            <View style={styles.pageNumbersFooter}>
+                                <Text style={styles.pageNumbers}>
+                                    {index + 1} / {pages.length}{" "}
+                                </Text>
+                            </View>
+                        )}
 
                         {/* Summary and Footer */}
                         {index === pages.length - 1 && (
@@ -417,26 +503,27 @@ const PDFDocument = ({ formValues, totals }) => {
                                                 borderBottom:
                                                     "3px solid #d7dae0",
                                                 borderTop: "3px solid #d7dae0",
+                                                fontWeight: "bold",
                                             },
                                         ]}
                                     >
-                                        <Text>Amount Due</Text>
-                                        <Text> {symbol} {formatAmount(totals.total)}</Text>
+                                        <Text style={{ fontWeight: "bold" }}>Amount Due</Text>
+                                        <Text style={{ fontWeight: "bold" }}> {symbol} {formatAmount(totals.total)}</Text>
                                     </View>
                                 </View>
-                                <View style={styles.extraInfoSection}>
+                                <View wrap style={styles.extraInfoSection}>
                                     {formEntryDetails.bankDetails && (
-                                        <View>
-                                            <Text>Payment Infomration:</Text>
-                                            <Text>
+                                        <View wrap>
+                                            <Text style={{ fontWeight: 600, color: "#333", marginBottom: 4 }}>Payment Information:</Text>
+                                            <Text wrap style={styles.extraInfoText}>
                                                 {formEntryDetails.bankDetails}
                                             </Text>
                                         </View>
                                     )}
                                     {formEntryDetails.notes && (
-                                        <View>
-                                            <Text>Notes:</Text>
-                                            <Text style={styles.extraInfoText}>
+                                        <View wrap>
+                                            <Text style={{ fontWeight: 600, color: "#333", marginBottom: 4 }}>Notes:</Text>
+                                            <Text wrap style={styles.extraInfoText}>
                                                 {formEntryDetails.notes}
                                             </Text>
                                         </View>
@@ -444,9 +531,9 @@ const PDFDocument = ({ formValues, totals }) => {
                                 </View>
 
                                 <View style={styles.footer}>
-                                    <Text>Thank you for your purchase!</Text>
+                                    <Text style={{ color: "#333" }}>Thank you for your purchase!</Text>
                                     <Text
-                                        style={styles.pageNumbers}
+                                        style={[styles.pageNumbers, { color: "#333" }]}
                                         render={({ pageNumber, totalPages }) =>
                                             `${pageNumber} / ${totalPages}`
                                         }

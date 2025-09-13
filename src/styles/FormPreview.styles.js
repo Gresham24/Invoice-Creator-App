@@ -8,6 +8,22 @@ export const StyledContainer = styled.div`
     box-shadow: 0px 15px 48px 0px ${colors.shadowGray};
     background-color: ${colors.lightGray};
     max-width: 980px;
+    color: ${colors.darkGray};
+
+    /* Override parent text color inheritance */
+    * {
+        color: inherit;
+    }
+
+    /* Ensure headings are dark */
+    h1, h2, h3, h4, h5, h6 {
+        color: ${colors.darkGray};
+    }
+
+    /* Ensure paragraphs with gray text remain gray */
+    p {
+        color: ${colors.gray};
+    }
 
     @media (max-width: 768px) {
         margin: 20px auto;
@@ -52,45 +68,82 @@ export const StyledTitle = styled.div`
 `;
 
 export const StyledInvoiceDetails = styled.div`
-    padding: 24px 40px;
+    padding: 32px 40px;
     background-color: ${colors.white};
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     font-size: 14px;
+    line-height: 1.6;
+    min-height: 200px;
 
     & h3 {
         font-size: 14px;
-        margin-bottom: 4px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: ${colors.darkGray};
     }
 
     & p {
         color: ${colors.gray};
+        margin: 2px 0;
+        line-height: 1.5;
+    }
+
+    & > div {
+        flex: 1;
+        max-width: 300px;
+    }
+
+    & > div:first-child {
+        padding-right: 20px;
+    }
+
+    & > div:nth-child(2) {
+        padding: 0 20px;
     }
 
     @media (max-width: 768px) {
-        padding: 16px 20px;
+        padding: 24px 20px;
         flex-direction: column;
         gap: 2rem;
+        min-height: auto;
+        
+        & > div {
+            max-width: 100%;
+            padding: 0 !important;
+        }
     }
 `;
 
 export const StyledInvoiceMetaInfo = styled.div`
     display: flex;
     flex-direction: column;
-    text-align: end;
-    justify-content: space-between;
-    gap: 1rem;
+    text-align: right;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    min-width: 200px;
+    flex-shrink: 0;
+
+    & div {
+        margin-bottom: 8px;
+    }
 
     & h3 {
-        margin-bottom: 0;
+        margin-bottom: 4px;
+        font-weight: 600;
+        color: ${colors.darkGray};
     }
 
     & p {
-        margin-top: 0;
+        margin: 0;
+        line-height: 1.4;
     }
 
     @media (max-width: 768px) {
         text-align: start;
+        min-width: auto;
+        gap: 1rem;
     }
 `;
 
