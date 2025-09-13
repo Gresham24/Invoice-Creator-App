@@ -50,6 +50,8 @@ const FormFooter = () => {
                 companyLogo: "",
                 companyAddress: "",
                 companyEmail: "",
+                companyNumber: "",
+                vatNumber: "",
                 invoiceNumber: "",
                 purchaseOrder: "",
                 issueDate: getCurrentDate(),

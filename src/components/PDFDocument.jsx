@@ -266,6 +266,8 @@ const PDFDocument = ({ formValues, totals }) => {
         companyLogo: formValues.details.companyLogo,
         companyAddress: formValues.details.companyAddress,
         companyEmail: formValues.details.companyEmail,
+        companyNumber: formValues.details.companyNumber,
+        vatNumber: formValues.details.vatNumber,
     };
 
     const currency = formValues.details.currency || "USD";
@@ -334,6 +336,8 @@ const PDFDocument = ({ formValues, totals }) => {
                                     {companyDetails.companyName && <Text style={styles.invoiceDetailsText}>{companyDetails.companyName}</Text>}
                                     <Text style={styles.invoiceDetailsText}>{companyDetails.companyAddress}</Text>
                                     <Text style={styles.invoiceDetailsText}>{companyDetails.companyEmail}</Text>
+                                    {companyDetails.companyNumber && <Text style={styles.invoiceDetailsText}>{companyDetails.companyNumber}</Text>}
+                                    {companyDetails.vatNumber && <Text style={styles.invoiceDetailsText}>VAT No: {companyDetails.vatNumber}</Text>}
                                 </View>
                                 <View style={styles.invoiceDetailsSectionMiddle}>
                                     <Text style={styles.invoiceDetailsTextH1}>

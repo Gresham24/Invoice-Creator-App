@@ -13,6 +13,8 @@ function InvoiceDetails({ formEntryDetails, companyDetails }) {
                 {companyDetails.companyName && <p>{companyDetails.companyName}</p>}
                 <p>{companyDetails.companyAddress}</p>
                 <p>{companyDetails.companyEmail}</p>
+                {companyDetails.companyNumber && <p>{companyDetails.companyNumber}</p>}
+                {companyDetails.vatNumber && <p>VAT No: {companyDetails.vatNumber}</p>}
             </div>
             <div>
                 <h3>Billed To</h3>

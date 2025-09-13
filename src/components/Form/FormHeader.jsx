@@ -82,6 +82,8 @@ const FormHeader = () => {
     const [companyNameField] = useField("details.companyName");
     const [companyAddressField] = useField("details.companyAddress");
     const [companyEmailField] = useField("details.companyEmail");
+    const [companyNumberField] = useField("details.companyNumber");
+    const [vatNumberField] = useField("details.vatNumber");
     const [invoiceNumberField] = useField("details.invoiceNumber");
     const [purchaseOrderField] = useField("details.purchaseOrder");
     const [customerField] = useField("details.customer");
@@ -376,6 +378,56 @@ const FormHeader = () => {
                                         }}
                                     >
                                         {errors.details.companyEmail}
+                                    </span>
+                                )}
+                        </StyledDesktopFormGroup>
+
+                        <StyledDesktopFormGroup>
+                            <StyledDesktopFormLabel>
+                                Company Number (Optional)
+                            </StyledDesktopFormLabel>
+                            <StyledDesktopFormInput
+                                {...companyNumberField}
+                                onChange={handleChange}
+                                placeholder="Enter your company number"
+                                type="tel"
+                            />
+                            {errors.details?.companyNumber &&
+                                touched.details?.companyNumber && (
+                                    <span
+                                        style={{
+                                            color: "#ff4444",
+                                            fontSize: "12px",
+                                            marginTop: "4px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {errors.details.companyNumber}
+                                    </span>
+                                )}
+                        </StyledDesktopFormGroup>
+
+                        <StyledDesktopFormGroup>
+                            <StyledDesktopFormLabel>
+                                VAT Number (Optional)
+                            </StyledDesktopFormLabel>
+                            <StyledDesktopFormInput
+                                {...vatNumberField}
+                                onChange={handleChange}
+                                placeholder="Enter your VAT number"
+                                type="integer"
+                            />
+                            {errors.details?.vatNumber &&
+                                touched.details?.vatNumber && (
+                                    <span
+                                        style={{
+                                            color: "#ff4444",
+                                            fontSize: "12px",
+                                            marginTop: "4px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {errors.details.vatNumber}
                                     </span>
                                 )}
                         </StyledDesktopFormGroup>
@@ -1019,6 +1071,56 @@ const FormHeader = () => {
                                     }}
                                 >
                                     {errors.details.companyEmail}
+                                </span>
+                            )}
+                    </StyledMobileFormGroup>
+
+                    <StyledMobileFormGroup>
+                        <StyledMobileFormLabel>
+                            Company Number (Optional)
+                        </StyledMobileFormLabel>
+                        <StyledMobileFormInput
+                            {...companyNumberField}
+                            onChange={handleChange}
+                            placeholder="Enter your company number"
+                            type="tel"
+                        />
+                        {errors.details?.companyNumber &&
+                            touched.details?.companyNumber && (
+                                <span
+                                    style={{
+                                        color: "#ff4444",
+                                        fontSize: "12px",
+                                        marginTop: "4px",
+                                        display: "block",
+                                    }}
+                                >
+                                    {errors.details.companyNumber}
+                                </span>
+                            )}
+                    </StyledMobileFormGroup>
+
+                    <StyledMobileFormGroup>
+                        <StyledMobileFormLabel>
+                            VAT Number (Optional)
+                        </StyledMobileFormLabel>
+                        <StyledMobileFormInput
+                            {...vatNumberField}
+                            onChange={handleChange}
+                            placeholder="Enter your VAT number"
+                            type="integer"
+                        />
+                        {errors.details?.vatNumber &&
+                            touched.details?.vatNumber && (
+                                <span
+                                    style={{
+                                        color: "#ff4444",
+                                        fontSize: "12px",
+                                        marginTop: "4px",
+                                        display: "block",
+                                    }}
+                                >
+                                    {errors.details.vatNumber}
                                 </span>
                             )}
                     </StyledMobileFormGroup>
