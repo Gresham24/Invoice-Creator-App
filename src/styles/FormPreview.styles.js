@@ -163,9 +163,12 @@ export const StyledDescriptionHeaders = styled.div`
 
 export const StyledFlexRight = styled.div`
     width: 50%;
+    min-width: 300px;
     display: flex;
     text-align: right;
     justify-content: space-between;
+    flex-shrink: 0;
+    
     & div {
         width: 33.33%;
         text-align: right;
@@ -177,6 +180,7 @@ export const StyledFlexRight = styled.div`
 
     @media (max-width: 768px) {
         width: 100%;
+        min-width: auto;
     }
 `;
 
@@ -187,6 +191,22 @@ export const StyledLineItem = styled.div`
 
 export const StyledDarkText = styled.p`
     color: ${colors.darkGray};
+    font-weight: 500;
+    margin-bottom: 2px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+`;
+
+export const StyledDescriptionText = styled.p`
+    color: ${colors.gray};
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
 `;
 
 export const StyledLineItemContainer = styled.div`
@@ -198,8 +218,21 @@ export const StyledLineItemContainer = styled.div`
     justify-content: space-between;
     border-bottom: 0.5px solid ${colors.borderGray};
 
+    & > div:first-child {
+        flex: 1;
+        max-width: 50%;
+        padding-right: 20px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
     @media (max-width: 768px) {
         margin: 0px 20px;
+        
+        & > div:first-child {
+            max-width: 60%;
+        }
     }
 `;
 

@@ -3,10 +3,17 @@ import {
     StyledLineItemContainer,
     StyledFlexRight,
     StyledDarkText,
+    StyledDescriptionText,
 } from "../../styles/FormPreview.styles";
 import { formatAmount } from "../../utils/formatCurrency";
 
 function LineItems({ items, currency = "USD", symbol = "$" }) {
+    const truncateDescription = (description, maxLength = 150) => {
+        if (!description) return "";
+        if (description.length <= maxLength) return description;
+        return description.substring(0, maxLength) + "...";
+    };
+
     return (
         <>
             {items.map((lineItem) => (
@@ -16,7 +23,9 @@ function LineItems({ items, currency = "USD", symbol = "$" }) {
                             <StyledDarkText>
                                 {lineItem.productService}
                             </StyledDarkText>
-                            <p>{lineItem.description}</p>
+                            <StyledDescriptionText>
+                                {truncateDescription(lineItem.description)}
+                            </StyledDescriptionText>
                         </div>
                         <StyledFlexRight>
                             <p>{lineItem.qty}</p>

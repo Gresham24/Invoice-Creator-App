@@ -241,6 +241,13 @@ const subsequentPageItems = 11;
 
 // eslint-disable-next-line react/prop-types
 const PDFDocument = ({ formValues, totals }) => {
+    // Helper function to truncate descriptions
+    const truncateDescription = (description, maxLength = 120) => {
+        if (!description) return "";
+        if (description.length <= maxLength) return description;
+        return description.substring(0, maxLength) + "...";
+    };
+
     // Storing saved invoice details
     const formEntryDetails = {
         invoiceNumber: formValues.details.invoiceNumber,
@@ -438,7 +445,7 @@ const PDFDocument = ({ formValues, totals }) => {
                                 <View wrap style={styles.lineItemContainer}>
                                     <View>
                                         <Text style={styles.lineItemProduct}>{lineItem.productService}</Text>
-                                        <Text style={styles.lineItemDescription}>{lineItem.description}</Text>
+                                        <Text style={styles.lineItemDescription}>{truncateDescription(lineItem.description)}</Text>
                                     </View>
                                     <View style={styles.lineItemRightSection}>
                                         <Text
