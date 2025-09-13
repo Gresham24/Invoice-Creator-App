@@ -20,6 +20,7 @@ function FormPreview() {
         invoiceNumber: formValues.details.invoiceNumber,
         purchaseOrder: formValues.details.purchaseOrder,
         customer: formValues.details.customer,
+        customerData: formValues.details.customerData,
         issueDate: formValues.details.issueDate,
         dueDate: formValues.details.calculatedDueDate || formValues.details.dueDate,
         notes: formValues.details.notes,
@@ -28,7 +29,7 @@ function FormPreview() {
 
     const handleBackButton = (e) => {
         e.preventDefault();
-        navigate("/");
+        navigate("/app/");
     };
 
     const currency = formValues.details.currency || "USD";
