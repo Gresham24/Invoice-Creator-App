@@ -39,7 +39,41 @@ import {
     StyledDesktopLogoText,
     StyledDesktopLogoSubtext,
 } from "../../styles/Form.styles";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import CustomerModal from "./CustomerModal";
+import styled from "styled-components";
+
+const CustomerInputButton = styled.button`
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background: white;
+    font-size: 16px;
+    color: ${props => props.hasCustomer ? '#495057' : '#9ca3af'};
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:hover {
+        border-color: #dee2e6;
+        background-color: #f8f9fa;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+`;
+
+const CustomerIcon = styled.span`
+    color: #6c757d;
+    font-size: 14px;
+`;
 
 const FormHeader = () => {
     const { values, errors, touched, handleChange, setFieldValue } =
@@ -55,6 +89,15 @@ const FormHeader = () => {
     const [dueDateField] = useField("details.dueDate");
     const [currencyField] = useField("details.currency");
     const fileInputRef = useRef();
+
+    // Customer modal state
+    const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
+    const [customerData, setCustomerData] = useState(values.details?.customerData || null);
+
+    // Sync customerData with form values
+    useEffect(() => {
+        setCustomerData(values.details?.customerData || null);
+    }, [values.details?.customerData]);
 
     const handleLogoChange = (e) => {
         const file = e.target.files[0];
@@ -82,6 +125,34 @@ const FormHeader = () => {
             const formattedDueDate = dueDate.toISOString().split('T')[0];
             setFieldValue("details.calculatedDueDate", formattedDueDate);
         }
+    };
+
+    // Customer modal handlers
+    const handleOpenCustomerModal = () => {
+        setIsCustomerModalOpen(true);
+    };
+
+    const handleCloseCustomerModal = () => {
+        setIsCustomerModalOpen(false);
+    };
+
+    const handleSaveCustomer = (data) => {
+        setCustomerData(data);
+        // Set a unique identifier for this custom customer
+        setFieldValue("details.customer", "custom-customer");
+        setFieldValue("details.customerData", data);
+    };
+
+    const handleEditCustomer = () => {
+        setIsCustomerModalOpen(true);
+    };
+
+    // Function to get placeholder text based on customer state
+    const getCustomerPlaceholder = () => {
+        if (customerData) {
+            return "Edit customer details";
+        }
+        return "+ Customer details";
     };
 
     return (
@@ -125,12 +196,14 @@ const FormHeader = () => {
                         <StyledDesktopFormGroup>
                             <StyledDesktopFormLabel>
                                 Company Name
+                                <StyledDesktopOptionalBadge>
+                                    Optional
+                                </StyledDesktopOptionalBadge>
                             </StyledDesktopFormLabel>
                             <StyledDesktopFormInput
                                 {...companyNameField}
                                 onChange={handleChange}
                                 placeholder="Enter your company name"
-                                required
                             />
                             {errors.details?.companyName &&
                                 touched.details?.companyName && (
@@ -361,23 +434,14 @@ const FormHeader = () => {
                             <StyledDesktopFormLabel>
                                 Customer
                             </StyledDesktopFormLabel>
-                            <StyledDesktopFormSelect
-                                {...customerField}
-                                onChange={handleChange}
-                                value={values.details.customer || ""}
+                            <CustomerInputButton
+                                type="button"
+                                hasCustomer={!!customerData}
+                                onClick={customerData ? handleEditCustomer : handleOpenCustomerModal}
                             >
-                                <option value="" disabled>
-                                    Select a customer
-                                </option>
-                                <option value="Emirates">
-                                    Emirates Airlines
-                                </option>
-                                <option value="Mandu">Mandu</option>
-                                <option value="Amasuku">Amasuku</option>
-                                <option value="add-new">
-                                    + Add New Customer
-                                </option>
-                            </StyledDesktopFormSelect>
+                                <span>{getCustomerPlaceholder()}</span>
+                                <CustomerIcon>👤</CustomerIcon>
+                            </CustomerInputButton>
                             {errors.details?.customer &&
                                 touched.details?.customer && (
                                     <span
@@ -391,25 +455,14 @@ const FormHeader = () => {
                                         {errors.details.customer}
                                     </span>
                                 )}
-                            {values.details.customer &&
-                                values.details.customer !== "add-new" && (
-                                    <StyledCustomerDetails>
-                                        <p>
-                                            {
-                                                customerDetails[
-                                                    values.details.customer
-                                                ]?.address
-                                            }
-                                        </p>
-                                        <p>
-                                            {
-                                                customerDetails[
-                                                    values.details.customer
-                                                ]?.phone
-                                            }
-                                        </p>
-                                    </StyledCustomerDetails>
-                                )}
+                            {customerData && (
+                                <StyledCustomerDetails>
+                                    <p><strong>{customerData.companyName}</strong></p>
+                                    <p>{customerData.contactName}</p>
+                                    <p>{customerData.companyAddress}</p>
+                                    <p>{customerData.email} • {customerData.phoneNumber}</p>
+                                </StyledCustomerDetails>
+                            )}
                         </StyledDesktopFormGroup>
 
                         <StyledDesktopInputRow>
@@ -782,12 +835,14 @@ const FormHeader = () => {
                     <StyledMobileFormGroup>
                         <StyledMobileFormLabel>
                             Company Name
+                            <StyledMobileOptionalBadge>
+                                Optional
+                            </StyledMobileOptionalBadge>
                         </StyledMobileFormLabel>
                         <StyledMobileFormInput
                             {...companyNameField}
                             onChange={handleChange}
                             placeholder="Enter your company name"
-                            required
                         />
                         {errors.details?.companyName &&
                             touched.details?.companyName && (
@@ -1014,19 +1069,14 @@ const FormHeader = () => {
 
                     <StyledMobileFormGroup>
                         <StyledMobileFormLabel>Customer</StyledMobileFormLabel>
-                        <StyledMobileFormSelect
-                            {...customerField}
-                            onChange={handleChange}
-                            value={values.details.customer || ""}
+                        <CustomerInputButton
+                            type="button"
+                            hasCustomer={!!customerData}
+                            onClick={customerData ? handleEditCustomer : handleOpenCustomerModal}
                         >
-                            <option value="" disabled>
-                                Select a customer
-                            </option>
-                            <option value="Emirates">Emirates Airlines</option>
-                            <option value="Mandu">Mandu</option>
-                            <option value="Amasuku">Amasuku</option>
-                            <option value="add-new">+ Add New Customer</option>
-                        </StyledMobileFormSelect>
+                            <span>{getCustomerPlaceholder()}</span>
+                            <CustomerIcon>👤</CustomerIcon>
+                        </CustomerInputButton>
                         {errors.details?.customer &&
                             touched.details?.customer && (
                                 <span
@@ -1040,25 +1090,14 @@ const FormHeader = () => {
                                     {errors.details.customer}
                                 </span>
                             )}
-                        {values.details.customer &&
-                            values.details.customer !== "add-new" && (
-                                <StyledCustomerDetails>
-                                    <p>
-                                        {
-                                            customerDetails[
-                                                values.details.customer
-                                            ]?.address
-                                        }
-                                    </p>
-                                    <p>
-                                        {
-                                            customerDetails[
-                                                values.details.customer
-                                            ]?.phone
-                                        }
-                                    </p>
-                                </StyledCustomerDetails>
-                            )}
+                        {customerData && (
+                            <StyledCustomerDetails>
+                                <p><strong>{customerData.companyName}</strong></p>
+                                <p>{customerData.contactName}</p>
+                                <p>{customerData.companyAddress}</p>
+                                <p>{customerData.email} • {customerData.phoneNumber}</p>
+                            </StyledCustomerDetails>
+                        )}
                     </StyledMobileFormGroup>
 
                     <StyledMobileInputRow>
@@ -1162,6 +1201,13 @@ const FormHeader = () => {
                     </StyledMobileFormGroup>
                 </StyledMobileSectionInner>
             </StyledMobileSection>
+            
+            <CustomerModal
+                isOpen={isCustomerModalOpen}
+                onClose={handleCloseCustomerModal}
+                onSave={handleSaveCustomer}
+                initialData={customerData}
+            />
         </>
     );
 };
