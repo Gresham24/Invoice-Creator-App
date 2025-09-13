@@ -114,16 +114,29 @@ const FormHeader = () => {
         const selectedValue = e.target.value;
         setFieldValue("details.dueDate", selectedValue);
         
-        // Calculate due date if a number of days is selected
-        if (selectedValue && selectedValue !== "custom" && values.details.issueDate) {
+        // Clear any existing custom due date errors
+        setFieldError("details.customDueDate", "");
+    };
+
+    const handleIssueDateChange = (e) => {
+        const issueDate = e.target.value;
+        setFieldValue("details.issueDate", issueDate);
+    };
+
+    const handleCustomDueDateChange = (e) => {
+        const customDueDate = e.target.value;
+        setFieldValue("details.customDueDate", customDueDate);
+        
+        // Validate that custom due date is not before issue date
+        if (customDueDate && values.details.issueDate) {
             const issueDate = new Date(values.details.issueDate);
-            const daysToAdd = parseInt(selectedValue);
-            const dueDate = new Date(issueDate);
-            dueDate.setDate(dueDate.getDate() + daysToAdd);
+            const dueDate = new Date(customDueDate);
             
-            // Format as YYYY-MM-DD for the date input
-            const formattedDueDate = dueDate.toISOString().split('T')[0];
-            setFieldValue("details.calculatedDueDate", formattedDueDate);
+            if (dueDate < issueDate) {
+                setFieldError("details.customDueDate", "Due date cannot be before issue date");
+            } else {
+                setFieldError("details.customDueDate", "");
+            }
         }
     };
 
@@ -472,7 +485,7 @@ const FormHeader = () => {
                                 </StyledDesktopFormLabel>
                                 <StyledDesktopFormInput
                                     {...issueDateField}
-                                    onChange={handleChange}
+                                    onChange={handleIssueDateChange}
                                     type="date"
                                 />
                                 {errors.details?.issueDate &&
@@ -534,24 +547,28 @@ const FormHeader = () => {
                             </StyledDesktopFormGroup>
                         </StyledDesktopInputRow>
                         
-                        {values.details.calculatedDueDate && (
+
+                        {values.details.dueDate === "custom" && (
                             <StyledDesktopFormGroup>
-                                <StyledDesktopFormLabel>Calculated Due Date</StyledDesktopFormLabel>
-                                <div style={{
-                                    padding: '14px',
-                                    background: '#f8f9fa',
-                                    border: '1px solid #e9ecef',
-                                    borderRadius: '8px',
-                                    fontSize: '16px',
-                                    color: '#495057'
-                                }}>
-                                    {new Date(values.details.calculatedDueDate).toLocaleDateString('en-US', {
-                                        weekday: 'long',
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric'
-                                    })}
-                                </div>
+                                <StyledDesktopFormLabel>Custom Due Date</StyledDesktopFormLabel>
+                                <StyledDesktopFormInput
+                                    type="date"
+                                    value={values.details.customDueDate || ""}
+                                    onChange={handleCustomDueDateChange}
+                                    min={values.details.issueDate || ""}
+                                />
+                                {errors.details?.customDueDate && (
+                                    <span
+                                        style={{
+                                            color: "#ff4444",
+                                            fontSize: "12px",
+                                            marginTop: "4px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {errors.details.customDueDate}
+                                    </span>
+                                )}
                             </StyledDesktopFormGroup>
                         )}
 
@@ -771,7 +788,7 @@ const FormHeader = () => {
                         <label htmlFor="issueDate">Issue date</label>
                         <input
                             {...issueDateField}
-                            onChange={handleChange}
+                            onChange={handleIssueDateChange}
                             type="date"
                         />
                         {errors.details?.issueDate &&
@@ -1107,7 +1124,7 @@ const FormHeader = () => {
                             </StyledMobileFormLabel>
                             <StyledMobileFormInput
                                 {...issueDateField}
-                                onChange={handleChange}
+                                onChange={handleIssueDateChange}
                                 type="date"
                             />
                             {errors.details?.issueDate &&
@@ -1160,24 +1177,28 @@ const FormHeader = () => {
                         </StyledMobileFormGroup>
                     </StyledMobileInputRow>
 
-                    {values.details.calculatedDueDate && (
+
+                    {values.details.dueDate === "custom" && (
                         <StyledMobileFormGroup>
-                            <StyledMobileFormLabel>Calculated Due Date</StyledMobileFormLabel>
-                            <div style={{
-                                padding: '12px',
-                                background: '#f8f9fa',
-                                border: '1px solid #e9ecef',
-                                borderRadius: '8px',
-                                fontSize: '16px',
-                                color: '#495057'
-                            }}>
-                                {new Date(values.details.calculatedDueDate).toLocaleDateString('en-US', {
-                                    weekday: 'long',
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                })}
-                            </div>
+                            <StyledMobileFormLabel>Custom Due Date</StyledMobileFormLabel>
+                            <StyledMobileFormInput
+                                type="date"
+                                value={values.details.customDueDate || ""}
+                                onChange={handleCustomDueDateChange}
+                                min={values.details.issueDate || ""}
+                            />
+                            {errors.details?.customDueDate && (
+                                <span
+                                    style={{
+                                        color: "#ff4444",
+                                        fontSize: "12px",
+                                        marginTop: "4px",
+                                        display: "block",
+                                    }}
+                                >
+                                    {errors.details.customDueDate}
+                                </span>
+                            )}
                         </StyledMobileFormGroup>
                     )}
 

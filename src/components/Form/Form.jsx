@@ -18,7 +18,6 @@ import {
 
 import { calculateTotals } from "../../utils/calculateTotals";
 import { getCurrentDate } from "../../utils/getCurrentDate";
-import { calculateDueDate } from "../../utils/calculateDueDate";
 
 import LineItem from "./FormLineItem";
 import FormHeader from "./FormHeader";
@@ -37,6 +36,11 @@ const validationSchema = Yup.object().shape({
         purchaseOrder: Yup.string(),
         issueDate: Yup.date().required("Issue date is required"),
         dueDate: Yup.string().required("Due date is required"),
+        customDueDate: Yup.date().when("dueDate", {
+            is: "custom",
+            then: (schema) => schema.required("Custom due date is required"),
+            otherwise: (schema) => schema.nullable(),
+        }),
         customer: Yup.string().required("Customer is required"),
         customerData: Yup.object().when("customer", {
             is: "custom-customer",
@@ -79,6 +83,7 @@ export default function Form() {
                 purchaseOrder: "",
                 issueDate: getCurrentDate(),
                 dueDate: "",
+                customDueDate: "",
                 customer: "",
                 customerData: null,
                 notes: "",
@@ -109,12 +114,23 @@ export default function Form() {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            const dueDate = values.details.calculatedDueDate || calculateDueDate(
-                values.details.issueDate,
-                values.details.dueDate
-            );
+            // Handle due date based on selection
+            let finalDueDate;
+            if (values.details.dueDate === "custom") {
+                finalDueDate = values.details.customDueDate;
+            } else if (values.details.dueDate && values.details.issueDate) {
+                // Calculate due date for predefined options
+                const issueDate = new Date(values.details.issueDate);
+                const daysToAdd = parseInt(values.details.dueDate);
+                const dueDate = new Date(issueDate);
+                dueDate.setDate(dueDate.getDate() + daysToAdd);
+                finalDueDate = dueDate.toISOString().split('T')[0];
+            } else {
+                finalDueDate = values.details.dueDate;
+            }
+            
             setFormValues({
-                details: { ...values.details, dueDate, currency: values.details.currency },
+                details: { ...values.details, dueDate: finalDueDate, currency: values.details.currency },
                 items: values.items,
                 totals: calculateTotals(values.items),
             });
