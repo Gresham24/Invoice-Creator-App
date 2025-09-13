@@ -256,6 +256,7 @@ const PDFDocument = ({ formValues, totals }) => {
         customerData: formValues.details.customerData,
         issueDate: formValues.details.issueDate,
         dueDate: formValues.details.dueDate,
+        customDueDate: formValues.details.customDueDate,
         notes: formValues.details.notes,
         bankDetails: formValues.details.bankDetails,
     };
@@ -392,7 +393,15 @@ const PDFDocument = ({ formValues, totals }) => {
                                             Issued
                                         </Text>
                                         <Text style={styles.invoiceDetailsText}>
-                                            {formEntryDetails.issueDate}
+                                            {formEntryDetails.issueDate && 
+                                                (formEntryDetails.issueDate.includes('-') ? 
+                                                    new Date(formEntryDetails.issueDate).toLocaleDateString('en-UK', {
+                                                        year: 'numeric',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    }) : 
+                                                    formEntryDetails.issueDate)
+                                            }
                                         </Text>
                                     </View>
                                     <View style={styles.invoiceMetaInfoWrapper}>
@@ -404,7 +413,7 @@ const PDFDocument = ({ formValues, totals }) => {
                                         <Text style={styles.invoiceDetailsText}>
                                             {formEntryDetails.dueDate && 
                                                 (formEntryDetails.dueDate.includes('-') ? 
-                                                    new Date(formEntryDetails.dueDate).toLocaleDateString('en-US', {
+                                                    new Date(formEntryDetails.dueDate).toLocaleDateString('en-UK', {
                                                         year: 'numeric',
                                                         month: 'short',
                                                         day: 'numeric'

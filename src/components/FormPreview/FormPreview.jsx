@@ -22,7 +22,8 @@ function FormPreview() {
         customer: formValues.details.customer,
         customerData: formValues.details.customerData,
         issueDate: formValues.details.issueDate,
-        dueDate: formValues.details.calculatedDueDate || formValues.details.dueDate,
+        dueDate: formValues.details.dueDate,
+        customDueDate: formValues.details.customDueDate,
         notes: formValues.details.notes,
         bankDetails: formValues.details.bankDetails,
     };
