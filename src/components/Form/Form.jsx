@@ -29,15 +29,20 @@ export const FormDataContext = createContext();
 const validationSchema = Yup.object().shape({
     details: Yup.object().shape({
         name: Yup.string().required("Full name is required"),
-        companyName: Yup.string().required("Company name is required"),
+        companyName: Yup.string(),
         companyLogo: Yup.string().nullable(),
         companyAddress: Yup.string().required("Company address is required"),
         companyEmail: Yup.string().email("Invalid email").required("Company email is required"),
         invoiceNumber: Yup.string().required("Invoice number is required"),
-        purchaseOrder: Yup.string().required("Purchase order is required"),
+        purchaseOrder: Yup.string(),
         issueDate: Yup.date().required("Issue date is required"),
         dueDate: Yup.string().required("Due date is required"),
         customer: Yup.string().required("Customer is required"),
+        customerData: Yup.object().when("customer", {
+            is: "custom-customer",
+            then: (schema) => schema.required("Customer details are required"),
+            otherwise: (schema) => schema.nullable(),
+        }),
     }),
     items: Yup.array().of(
         Yup.object().shape({
@@ -75,6 +80,7 @@ export default function Form() {
                 issueDate: getCurrentDate(),
                 dueDate: "",
                 customer: "",
+                customerData: null,
                 notes: "",
                 bankDetails: "",
                 currency: formValues.details?.currency || "ZAR",
@@ -112,7 +118,7 @@ export default function Form() {
                 items: values.items,
                 totals: calculateTotals(values.items),
             });
-            navigate("/preview");
+            navigate("preview");
         },
     });
 
