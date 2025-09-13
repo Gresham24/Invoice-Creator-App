@@ -1,4 +1,6 @@
 import { useField, useFormikContext } from "formik";
+import { v4 as uuidv4 } from "uuid";
+import { getCurrentDate } from "../../utils/getCurrentDate";
 import {
     StyledFormFooter,
     StyledSummarySection,
@@ -15,7 +17,7 @@ import {
 import { formatAmount } from "../../utils/formatCurrency";
 
 const FormFooter = () => {
-    const { values, handleChange, handleReset } = useFormikContext();
+    const { values, handleChange, resetForm } = useFormikContext();
     const [notesField] = useField("details.notes");
     const [bankDetailsField] = useField("details.bankDetails");
 
@@ -39,6 +41,46 @@ const FormFooter = () => {
         CNY: "¥",
     };
     const symbol = currencySymbols[currency] || currency;
+
+    const handleResetForm = () => {
+        const cleanInitialValues = {
+            details: {
+                name: "",
+                companyName: "",
+                companyLogo: "",
+                companyAddress: "",
+                companyEmail: "",
+                invoiceNumber: "",
+                purchaseOrder: "",
+                issueDate: getCurrentDate(),
+                dueDate: "",
+                customDueDate: "",
+                customer: "",
+                customerData: null,
+                notes: "",
+                bankDetails: "",
+                currency: "ZAR",
+            },
+            items: [
+                {
+                    id: uuidv4(),
+                    productService: "",
+                    description: "",
+                    qty: 1,
+                    price: "",
+                    taxPercentage: "",
+                    discountPercentage: "",
+                },
+            ],
+            totals: {
+                subtotal: 0,
+                tax: 0,
+                discount: 0,
+                total: 0,
+            },
+        };
+        resetForm({ values: cleanInitialValues });
+    };
 
     return (
         <StyledFormFooter>
@@ -85,8 +127,8 @@ const FormFooter = () => {
 
             {/* Action Buttons */}
             <StyledFormActionButtons className="footer-actions-desktop">
-                <StyledCancelButton type="button" onClick={handleReset}>
-                    Cancel
+                <StyledCancelButton type="button" onClick={handleResetForm}>
+                    Reset Form
                 </StyledCancelButton>
                 <StyledSubmitButton type="submit">
                     Create Invoice
@@ -135,8 +177,8 @@ const FormFooter = () => {
 
             {/* Mobile Action Buttons */}
             <StyledFormActionButtons className="footer-actions-mobile">
-                <StyledCancelButton type="button" onClick={handleReset}>
-                    Cancel
+                <StyledCancelButton type="button" onClick={handleResetForm}>
+                    Reset Form
                 </StyledCancelButton>
                 <StyledSubmitButton type="submit">
                     Create Invoice

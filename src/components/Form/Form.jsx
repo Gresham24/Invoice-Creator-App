@@ -71,47 +71,71 @@ export default function Form() {
     const { formValues, setFormValues } = useContext(FormDataContext);
     const navigate = useNavigate();
 
+    // Clean initial values for reset functionality
+    const getInitialValues = () => ({
+        details: {
+            name: "",
+            companyName: "",
+            companyLogo: "",
+            companyAddress: "",
+            companyEmail: "",
+            invoiceNumber: "",
+            purchaseOrder: "",
+            issueDate: getCurrentDate(),
+            dueDate: "",
+            customDueDate: "",
+            customer: "",
+            customerData: null,
+            notes: "",
+            bankDetails: "",
+            currency: "ZAR",
+        },
+        items: [
+            {
+                id: uuidv4(),
+                productService: "",
+                description: "",
+                qty: 1,
+                price: "",
+                taxPercentage: "",
+                discountPercentage: "",
+            },
+        ],
+        totals: {
+            subtotal: 0,
+            tax: 0,
+            discount: 0,
+            total: 0,
+        },
+    });
+
     const formik = useFormik({
-        initialValues: {
+        initialValues: formValues.items.length > 0 ? {
             details: {
                 name: formValues.details?.name || "",
                 companyName: formValues.details?.companyName || "",
                 companyLogo: formValues.details?.companyLogo || "",
                 companyAddress: formValues.details?.companyAddress || "",
                 companyEmail: formValues.details?.companyEmail || "",
-                invoiceNumber: "",
-                purchaseOrder: "",
-                issueDate: getCurrentDate(),
-                dueDate: "",
-                customDueDate: "",
-                customer: "",
-                customerData: null,
-                notes: "",
-                bankDetails: "",
+                invoiceNumber: formValues.details?.invoiceNumber || "",
+                purchaseOrder: formValues.details?.purchaseOrder || "",
+                issueDate: formValues.details?.issueDate || getCurrentDate(),
+                dueDate: formValues.details?.dueDate || "",
+                customDueDate: formValues.details?.customDueDate || "",
+                customer: formValues.details?.customer || "",
+                customerData: formValues.details?.customerData || null,
+                notes: formValues.details?.notes || "",
+                bankDetails: formValues.details?.bankDetails || "",
                 currency: formValues.details?.currency || "ZAR",
-                ...formValues.details,
             },
-            items:
-                formValues.items.length > 0
-                    ? formValues.items
-                    : [
-                          {
-                              id: uuidv4(),
-                              productService: "",
-                              description: "",
-                              qty: 1,
-                              price: "",
-                              taxPercentage: "",
-                              discountPercentage: "",
-                          },
-                      ],
+            items: formValues.items,
             totals: formValues.totals || {
                 subtotal: 0,
                 tax: 0,
                 discount: 0,
                 total: 0,
             },
-        },
+        } : getInitialValues(),
         validationSchema: validationSchema,
         onSubmit: (values) => {
             // Handle due date based on selection
